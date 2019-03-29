@@ -7,6 +7,7 @@ public class Level
 {
     private final int width, height;
     private Block[][] blocks;
+    private Player player;
     private LevelChanger levelKey;
     private List<LevelListener> levelListeners;
 
@@ -17,6 +18,7 @@ public class Level
     public Level(final int width, final int height) {
 	this.width = width;
 	this.height = height;
+	player = new Player(new Point2D(0,0),1, this);
 	blocks = new Block[height][width];
 	levelKey = new LevelChanger();
 	levelListeners = new ArrayList<>();
@@ -46,5 +48,9 @@ public class Level
 
     public BlockType getBlockAt(int x, int y) {
         return blocks[y][x].getBlockType();
+    }
+
+    public Point2D getPlayerPosition() {
+        return player.position;
     }
 }

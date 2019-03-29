@@ -45,6 +45,7 @@ public class LevelViewer
     private EnumMap<BlockType, Color> getBlockColorTable() {
 	EnumMap<BlockType, Color> polyColorTable = new EnumMap<>(BlockType.class);
 	polyColorTable.put(BlockType.EMPTY, new Color(39, 32, 28, 255));
+	polyColorTable.put(BlockType.PLAYER, new Color(237, 228, 228, 255));
 	return polyColorTable;
     }
 
@@ -53,5 +54,9 @@ public class LevelViewer
 					  JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
 	    System.exit(0);
 	}
+    }
+
+    public static void main(String[] args) {
+	new LevelViewer(new Level(50,50));
     }
 }

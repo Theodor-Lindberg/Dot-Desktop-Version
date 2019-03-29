@@ -29,16 +29,24 @@ public class LevelComponent extends JComponent implements LevelListener
 
     @Override protected void paintComponent(final Graphics g) {
 	super.paintComponent(g);
-	final Graphics2D g2d = (Graphics2D)g;
+	final Graphics2D g2d = (Graphics2D) g;
 
 	for (int y = 0; y < level.getHeight(); y++)
 	    for (int x = 0; x < level.getWidth(); x++) {
-		g2d.setColor(backgroundColor);
-		g2d.fillRect(x * BLOCKSIZE, y * BLOCKSIZE, BLOCKSIZE + PADDING, BLOCKSIZE + PADDING);
-
-		g2d.setColor(blockColorTable.get(level.getBlockAt(x, y)));
-		g2d.fillRect(x * BLOCKSIZE + PADDING, y * BLOCKSIZE + PADDING, BLOCKSIZE, BLOCKSIZE);
+		drawBackWithPadding(g2d, blockColorTable.get(level.getBlockAt(x, y)), x, y);
 	    }
+	drawBlock(g2d, blockColorTable.get(BlockType.PLAYER), (int)level.getPlayerPosition().getX(), (int)level.getPlayerPosition().getY());
+    }
+
+    private void drawBackWithPadding(Graphics2D g2d, Color color, int x, int y) {
+	g2d.setColor(backgroundColor);
+	g2d.fillRect(x * BLOCKSIZE, y * BLOCKSIZE, BLOCKSIZE + PADDING, BLOCKSIZE + PADDING);
+	drawBlock(g2d, color, x, y);
+    }
+
+    private void drawBlock(Graphics2D g2d, Color color, int x, int y) {
+	g2d.setColor(color);
+	g2d.fillRect(x * BLOCKSIZE + PADDING, y * BLOCKSIZE + PADDING, BLOCKSIZE - PADDING, BLOCKSIZE - PADDING);
     }
 
     @Override public Dimension getPreferredSize() {
