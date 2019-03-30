@@ -16,7 +16,7 @@ public class Block
         return blockType.isSolid;
     }
 
-    public boolean isTriggerable() {
-        return blockType.isTriggerable;
+    public boolean isInteractable() {
+        return blockType.isInteractable;
     }
 }

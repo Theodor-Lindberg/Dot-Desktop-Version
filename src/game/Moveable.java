@@ -1,17 +1,19 @@
 package game;
 
-public abstract class Moveable implements CollisionHandler
+public abstract class Moveable extends Block implements Tickable, Interactable
 {
     protected Point2D position;
-    protected float speed;
+    private float speed;
     protected Direction direction;
     protected boolean isMoving;
-    protected Level level;
+    private Level level;
 
-    public Moveable(final Point2D position, final float speed, final Level level) {
+    public Moveable(final BlockType blockType, final Point2D position, final float speed, final Level level) {
+	super(blockType);
 	this.position = position;
 	this.speed = speed;
 	this.level = level;
+	isMoving = false;
     }
 
     public float getX() {
@@ -22,19 +24,26 @@ public abstract class Moveable implements CollisionHandler
         return position.getY();
     }
 
-    private boolean isCollision(final Point2D pos, final float dx, final float dy) {
-        final int newX = (int)(pos.getX() + dx);
-        final int newY = (int)(pos.getY() + dy);
-        return level.getBlockAt(newX, newY).isSolid;
+    private boolean isCollision() {
+        final int x = (int)position.getX() + direction.deltaX;
+        final int y = (int)position.getY() + direction.deltaY;
+        return level.getBlockTypeAt(x, y).isSolid;
     }
 
-    public void move() {
-        if (isMoving) {
-            if (isCollision(position, direction.deltaX * speed, direction.deltaY * speed))
-                handleCollision();
-            if (isMoving) {
+    protected abstract void handleCollision();
+
+    protected void move() {
+	if (isMoving) {
+	    if (isCollision())
+	        handleCollision();
+
+	    if (isMoving) {
 		position.setX(position.getX() + direction.deltaX * speed);
 		position.setY(position.getY() + direction.deltaY * speed);
+
+		Block block = level.getBlockAt((int)position.getX(), (int)position.getY());
+		if (block.isInteractable())
+		    ((Interactable)block).interact(this);
 	    }
 	}
     }
