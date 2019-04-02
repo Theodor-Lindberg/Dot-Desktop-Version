@@ -9,6 +9,11 @@ public class Point2D
 	this.y = y;
     }
 
+    public Point2D(final Point2D point) {
+        this.x = point.getX();
+        this.y = point.getX();
+    }
+
     public float getX() {
 	return x;
     }
@@ -23,5 +28,21 @@ public class Point2D
 
     public void setY(final float y) {
 	this.y = y;
+    }
+
+    public void addX(final float dx) {
+        this.x += dx;
+    }
+
+    public void addY(final float dy) {
+        this.y += dy;
+    }
+
+    public void substractX(final float dx) {
+        this.x -= dx;
+    }
+
+    public void substractY(final float dy) {
+        this.y -= dy;
     }
 }

@@ -3,10 +3,14 @@ package gui;
 import game.BlockType;
 import game.Direction;
 import game.Level;
+import game.Player;
 
 import javax.swing.*;
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.EnumMap;
@@ -17,7 +21,6 @@ public class LevelViewer
     private JFrame frame;
     private final static String FRAME_TITLE;
     private Timer gameTimer;
-    private Keyboard keyboard;
 
     static {
 	FRAME_TITLE = "Dot";
@@ -44,9 +47,7 @@ public class LevelViewer
 	});
 	frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 
-	//addKeyboardEvents();
-	keyboard = new Keyboard(level);
-	frame.addKeyListener(keyboard);
+	addKeyboardEvents();
 
 	frame.setVisible(true);
 
@@ -61,6 +62,52 @@ public class LevelViewer
 	return polyColorTable;
     }
 
+    private void addKeyboardEvents() {
+	JComponent pane = frame.getRootPane();
+
+	final InputMap in = pane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+	final ActionMap act = pane.getActionMap();
+
+	addEvent(in, act, KeyEvent.VK_LEFT, false, "MoveLeft", Direction.LEFT);
+	addEvent(in, act, KeyEvent.VK_LEFT, true, "ReleaseLeft", Direction.LEFT);
+
+	addEvent(in, act, KeyEvent.VK_RIGHT, false, "MoveRight", Direction.RIGHT);
+	addEvent(in, act, KeyEvent.VK_RIGHT, true, "ReleaseRight", Direction.RIGHT);
+
+	addEvent(in, act, KeyEvent.VK_UP, false, "MoveUp", Direction.UP);
+	addEvent(in, act, KeyEvent.VK_UP, true, "ReleaseUp", Direction.UP);
+
+	addEvent(in, act, KeyEvent.VK_DOWN, false, "MoveDown", Direction.DOWN);
+	addEvent(in, act, KeyEvent.VK_DOWN, true, "ReleaseDown", Direction.DOWN);
+    }
+
+    private void addEvent(final InputMap in, final ActionMap act, final int key, final boolean onKeyRelease, final String name, final Direction direction) {
+	in.put(KeyStroke.getKeyStroke(key, 0, onKeyRelease), name);
+	act.put(name, new MotionAction(name, direction, onKeyRelease));
+    }
+
+    private class MotionAction extends AbstractAction implements ActionListener
+    {
+        private final Direction direction;
+        private final boolean onKeyRelease;
+
+        public MotionAction(String name, final Direction direction, final boolean onKeyRelease)
+        {
+            super(name);
+
+            this.direction = direction;
+            this.onKeyRelease = onKeyRelease;
+        }
+
+        public void actionPerformed(ActionEvent e)
+        {
+            if (!onKeyRelease)
+            	level.movePlayer(direction);
+            else
+                level.removeDirection(direction);
+        }
+    }
+
     private void exit() {
 	if (JOptionPane.showConfirmDialog(frame, "Are you sure you want to close this window?", "Close Window?",
 					  JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
@@ -68,60 +115,11 @@ public class LevelViewer
 	}
     }
 
-    private void addKeyboardEvents() {
- 	JComponent pane = frame.getRootPane();
-
- 	final InputMap in = pane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
- 	in.put(KeyStroke.getKeyStroke("LEFT"), "MoveLeft");
- 	in.put(KeyStroke.getKeyStroke("RIGHT"), "MoveRight");
- 	in.put(KeyStroke.getKeyStroke("UP"), "MoveUp");
- 	in.put(KeyStroke.getKeyStroke("DOWN"), "MoveDown");
- 	in.put(KeyStroke.getKeyStroke("SPACE"), "TogglePause");
-
- 	final ActionMap act = pane.getActionMap();
- 	act.put("MoveLeft", new MoveLeft());
- 	act.put("MoveRight", new MoveRight());
- 	act.put("MoveUp", new MoveUp());
- 	act.put("MoveDown", new MoveDown());
- 	act.put("TogglePause", new ToggleGamePause());
-     }
-
-     private class MoveLeft extends AbstractAction {
- 	@Override public void actionPerformed(final ActionEvent e) {
- 	    level.movePlayer(Direction.LEFT);
- 	}
-     }
-
-     private class MoveRight extends AbstractAction {
-             @Override public void actionPerformed(final ActionEvent e) {
-		 level.movePlayer(Direction.RIGHT);
-             }
-         }
-
-     private class MoveUp extends AbstractAction {
- 	@Override public void actionPerformed(final ActionEvent e) {
-	    level.movePlayer(Direction.UP);
- 	}
-     }
-
-     private class MoveDown extends AbstractAction {
- 	@Override public void actionPerformed(final ActionEvent e) {
-	    level.movePlayer(Direction.DOWN);
- 	}
-     }
-
-     private class ToggleGamePause extends AbstractAction {
- 	@Override public void actionPerformed(final ActionEvent e) {
- 	    level.setPaused(!level.isPaused());
- 	}
-     }
-
     private void initializeGameLoop() {
 	final Action gameTick = new AbstractAction()
 	{
 	    public void actionPerformed(ActionEvent e) {
 		level.tick();
-		frame.setTitle(String.valueOf((int)level.getP().getY()) + " " + String.valueOf((int)level.getP().getX()));
 	    }
 	};
 

@@ -21,7 +21,7 @@ public class Level implements Tickable
     public Level(final int width, final int height) {
 	this.width = width;
 	this.height = height;
-	player = new Player(BlockType.PLAYER, new Point2D(0,0),0.2f, this);
+	player = new Player(BlockType.PLAYER, new Point2D(10, 10), 0.2f, this);
 	blocks = new Block[height][width];
 	levelKey = new LevelChanger();
 	levelListeners = new ArrayList<>();
@@ -29,9 +29,11 @@ public class Level implements Tickable
 	movingObjects.add(player);
 	for (int y = 0; y < getHeight(); y++)
 	    for (int x = 0; x < getWidth(); x++)
-	        blocks[y][x] = new Block(BlockType.EMPTY);
+		blocks[y][x] = new Block(BlockType.EMPTY);
 
-	    blocks[5][5] = new Block(BlockType.WALL);
+	blocks[15][15] = new Block(BlockType.WALL);
+	blocks[15][16] = new Block(BlockType.WALL);
+	blocks[15][17] = new Block(BlockType.WALL);
 
     }
 
@@ -82,7 +84,5 @@ public class Level implements Tickable
         player.move(direction);
     }
 
-    public Point2D getP() {
-        return player.position;
-    }
+    public void removeDirection(final Direction direction) { player.releaseDirection(direction); }
 }
