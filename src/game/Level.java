@@ -11,6 +11,7 @@ public class Level implements Tickable
     private Player player;
     private LevelChanger levelKey;
     private List<LevelListener> levelListeners;
+    private List<Tickable> tickables;
     private List<Moveable> movingObjects;
     private boolean isPaused;
 
@@ -25,6 +26,8 @@ public class Level implements Tickable
 	blocks = new Block[height][width];
 	levelKey = new LevelChanger();
 	levelListeners = new ArrayList<>();
+	tickables = new ArrayList<>();
+	tickables.add(player);
 	movingObjects = new ArrayList<>();
 	movingObjects.add(player);
 	for (int y = 0; y < getHeight(); y++)
@@ -34,6 +37,11 @@ public class Level implements Tickable
 	blocks[15][15] = new Block(BlockType.WALL);
 	blocks[15][16] = new Block(BlockType.WALL);
 	blocks[15][17] = new Block(BlockType.WALL);
+	blocks[15][18] = new Block(BlockType.WALL);
+	blocks[15][19] = new Block(BlockType.WALL);
+	blocks[15][20] = new Block(BlockType.WALL);
+	blocks[15][21] = new Block(BlockType.WALL);
+	blocks[15][22] = new Block(BlockType.WALL);
 
     }
 
@@ -42,7 +50,9 @@ public class Level implements Tickable
     }
 
     @Override public void tick() {
-	player.tick();
+	for (Tickable tickable : tickables) {
+	    tickable.tick();
+	}
 	notifyListeners();
     }
 

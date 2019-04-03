@@ -16,7 +16,7 @@ public class Block
         return blockType.isSolid;
     }
 
-    public boolean isInteractable() {
-        return blockType.isInteractable;
+    public boolean isInteractive() {
+        return blockType.isInteractive;
     }
 }

@@ -1,9 +1,12 @@
 package game;
 
+import java.util.Timer;
+
 public class Player extends Moveable
 {
     private boolean isAlive;
     private MovePriority movePriority;
+    Timer timer = new Timer();
 
     public Player(final BlockType blockType, final Point2D position, final float speed, final Level level) {
 	super(blockType, position, speed, level);
@@ -28,7 +31,9 @@ public class Player extends Moveable
         if (reachedBlock) {
 	    final Direction old = direction;
 	    direction = movePriority.getFirstPriority();
-	    if (isCollision()) direction = movePriority.getSecondPriority();
+	    if (isCollision()) {
+		direction = movePriority.getSecondPriority();
+	    }
 	    if (direction == null) direction = old;
 	    targetPosition.addX(direction.deltaX);
 	    targetPosition.addY(direction.deltaY);

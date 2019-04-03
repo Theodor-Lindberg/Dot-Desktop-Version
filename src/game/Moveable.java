@@ -41,8 +41,8 @@ public abstract class Moveable extends Block implements Tickable, Interactable
     protected abstract void handleCollision();
 
     private boolean hasReachedBlock() {
-        return (direction == Direction.RIGHT && (int)position.getX() > targetPosition.getX() ||
-        	    		direction == Direction.DOWN && (int)position.getY() > targetPosition.getY() ||
+        return (direction == Direction.RIGHT && position.getX() > targetPosition.getX() ||
+        	    		direction == Direction.DOWN && position.getY() > targetPosition.getY() ||
         	    		direction == Direction.LEFT && (int)position.getX() < targetPosition.getX() ||
         	    	    	direction == Direction.UP && (int)position.getY() < targetPosition.getY());
     }
@@ -59,8 +59,8 @@ public abstract class Moveable extends Block implements Tickable, Interactable
 		if (direction == Direction.RIGHT || direction == Direction.DOWN) {
 		    position.setX((int) position.getX());
 		    position.setY((int) position.getY());
-		    targetPosition.setX((int) position.getX());
-		    targetPosition.setY((int) position.getY());
+		    targetPosition.setX(position.getX());
+		    targetPosition.setY(position.getY());
 		}
 		else {
 		    position.setX((int)targetPosition.getX());
@@ -72,7 +72,7 @@ public abstract class Moveable extends Block implements Tickable, Interactable
 	    }
 
 	    Block block = level.getBlockAt((int) position.getX(), (int) position.getY());
-	    if (block.isInteractable()) ((Interactable) block).interact(this);
+	    if (block.isInteractive()) ((Interactable) block).interact(this);
 	}
     }
 }

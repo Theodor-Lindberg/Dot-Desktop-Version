@@ -31,6 +31,6 @@ public class MovePriority
     public Direction getSecondPriority() {
 	if (directions.isEmpty())
 	    return null;
-	return directions.lastElement();
+	return directions.firstElement();
     }
 }

@@ -6,10 +6,10 @@ public enum BlockType
     END(false, false), KEY(false, true), PLAYER(false, false), ENEMY(false, true);
 
     public final boolean isSolid;
-    public final boolean isInteractable;
+    public final boolean isInteractive;
 
-    BlockType(final boolean isSolid, final boolean isInteractable) {
+    BlockType(final boolean isSolid, final boolean isInteractive) {
 	this.isSolid = isSolid;
-	this.isInteractable = isInteractable;
+	this.isInteractive = isInteractive;
     }
 }

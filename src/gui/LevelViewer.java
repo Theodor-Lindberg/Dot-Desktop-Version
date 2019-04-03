@@ -86,7 +86,7 @@ public class LevelViewer
 	act.put(name, new MotionAction(name, direction, onKeyRelease));
     }
 
-    private class MotionAction extends AbstractAction implements ActionListener
+    private class MotionAction extends AbstractAction
     {
         private final Direction direction;
         private final boolean onKeyRelease;
