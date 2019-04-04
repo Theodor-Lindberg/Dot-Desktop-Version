@@ -61,18 +61,17 @@ public abstract class Moveable extends Block implements Tickable, Interactable
 		    position.setY((int) position.getY());
 		    targetPosition.setX(position.getX());
 		    targetPosition.setY(position.getY());
+		} else {
+		    position.setX((int) targetPosition.getX());
+		    position.setY((int) targetPosition.getY());
 		}
-		else {
-		    position.setX((int)targetPosition.getX());
-		    position.setY((int)targetPosition.getY());
+		Block block = level.getBlockAt((int) position.getX(), (int) position.getY());
+		if (block.isInteractive()) {
+		    ((Interactable) block).interact(this);
 		}
+	    } else {
+		reachedBlock = false;
 	    }
-	    else {
-	        reachedBlock = false;
-	    }
-
-	    Block block = level.getBlockAt((int) position.getX(), (int) position.getY());
-	    if (block.isInteractive()) ((Interactable) block).interact(this);
 	}
     }
 }

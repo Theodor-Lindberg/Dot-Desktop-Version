@@ -58,8 +58,7 @@ public class LevelComponent extends JComponent implements LevelListener
     }
 
     @Override public Dimension getPreferredSize() {
-
-        return new Dimension(BLOCKSIZE * level.getWidth(), BLOCKSIZE * level.getHeight());
+        return new Dimension(PADDING + BLOCKSIZE * level.getWidth(), PADDING + BLOCKSIZE * level.getHeight());
     }
 
     @Override public void levelChanged() {

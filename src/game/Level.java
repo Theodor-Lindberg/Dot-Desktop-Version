@@ -30,10 +30,16 @@ public class Level implements Tickable
 	tickables.add(player);
 	movingObjects = new ArrayList<>();
 	movingObjects.add(player);
-	for (int y = 0; y < getHeight(); y++)
-	    for (int x = 0; x < getWidth(); x++)
-		blocks[y][x] = new Block(BlockType.EMPTY);
-
+	for (int y = 0; y < height; y++) {
+	    for (int x = 0; x < width; x++) {
+	        if (x == 0 || y == 0 || x == width - 1 || y == height - 1) {
+	            blocks[y][x] = new Block(BlockType.WALL);
+		}
+	        else {
+		    blocks[y][x] = new Block(BlockType.EMPTY);
+		}
+	    }
+	}
 	blocks[15][15] = new Block(BlockType.WALL);
 	blocks[15][16] = new Block(BlockType.WALL);
 	blocks[15][17] = new Block(BlockType.WALL);
@@ -42,6 +48,18 @@ public class Level implements Tickable
 	blocks[15][20] = new Block(BlockType.WALL);
 	blocks[15][21] = new Block(BlockType.WALL);
 	blocks[15][22] = new Block(BlockType.WALL);
+
+	blocks[2][2] = new KeyBlock(BlockType.KEY, BlockType.WALL1, this, levelKey);
+	blocks[12][12] = new KeyBlock(BlockType.KEY, BlockType.WALL2, this, levelKey);
+	blocks[20][20] = new Block(BlockType.WALL1);
+	blocks[20][21] = new Block(BlockType.WALL1);
+	blocks[20][22] = new Block(BlockType.WALL1);
+	blocks[19][20] = new Block(BlockType.WALL1);
+	blocks[19][22] = new Block(BlockType.WALL1);
+	blocks[18][20] = new Block(BlockType.WALL1);
+	blocks[18][21] = new Block(BlockType.WALL1);
+	blocks[18][22] = new Block(BlockType.WALL1);
+	blocks[19][21] = new Block(BlockType.WALL2);
 
     }
 
@@ -86,9 +104,13 @@ public class Level implements Tickable
         return blocks[y][x].getBlockType();
     }
 
-    public Block getBlockAt(int x, int y)  {
-            return blocks[y][x];
-        }
+    public Block getBlockAt(int x, int y) {
+	return blocks[y][x];
+    }
+
+    public void removeBlockAt(LevelChanger levelChanger, int x, int y) {
+        blocks[y][x] = new Block(BlockType.EMPTY);
+    }
 
     public void movePlayer(final Direction direction) {
         player.move(direction);

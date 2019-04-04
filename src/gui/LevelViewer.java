@@ -58,6 +58,9 @@ public class LevelViewer
 	EnumMap<BlockType, Color> polyColorTable = new EnumMap<>(BlockType.class);
 	polyColorTable.put(BlockType.EMPTY, new Color(39, 32, 28, 255));
 	polyColorTable.put(BlockType.WALL, new Color(125, 228, 190, 255));
+	polyColorTable.put(BlockType.KEY, new Color(222, 0, 235, 255));
+	polyColorTable.put(BlockType.WALL1, new Color(131, 77, 235, 255));
+	polyColorTable.put(BlockType.WALL2, new Color(224, 197, 20, 255));
 	polyColorTable.put(BlockType.PLAYER, new Color(237, 228, 228, 255));
 	return polyColorTable;
     }
@@ -129,6 +132,6 @@ public class LevelViewer
     }
 
     public static void main(String[] args) {
-	new LevelViewer(new Level(50,50));
+	new LevelViewer(new Level(30,30));
     }
 }
