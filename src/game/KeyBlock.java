@@ -2,13 +2,8 @@ package game;
 
 import game.Level.LevelChanger;
 
-import java.awt.*;
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Deque;
-import java.util.HashSet;
+import java.awt.Point;
 import java.util.LinkedList;
-import java.util.List;
 
 public class KeyBlock extends Block implements Interactable
 {
@@ -33,42 +28,41 @@ public class KeyBlock extends Block implements Interactable
     private void floodFill(final Point2D start) {
         int x = (int)start.getX();
         int y = (int)start.getY();
-        boolean[][] hits = new boolean[level.getHeight()][level.getWidth()];
+        boolean[][] visited = new boolean[level.getHeight()][level.getWidth()];
 
-	LinkedList<Point> queue = new LinkedList<Point>();
-        queue.add(new Point(x, y));
+	LinkedList<Point> blocksToVisit = new LinkedList<Point>();
+	blocksToVisit.add(new Point(x, y));
 
-        while (!queue.isEmpty())
+        while (!blocksToVisit.isEmpty())
         {
-            Point p = queue.remove();
+            Point p = blocksToVisit.remove();
 
-            if(floodFillImageDo(hits,p.x,p.y))
+            if(fillBlock(visited, p.x,p.y))
             {
-                queue.add(new Point(p.x,p.y - 1));
-                queue.add(new Point(p.x,p.y + 1));
-                queue.add(new Point(p.x - 1,p.y));
-                queue.add(new Point(p.x + 1,p.y));
+		blocksToVisit.add(new Point(p.x,p.y - 1));
+		blocksToVisit.add(new Point(p.x,p.y + 1));
+		blocksToVisit.add(new Point(p.x - 1,p.y));
+		blocksToVisit.add(new Point(p.x + 1,p.y));
             }
         }
     }
 
-    private boolean floodFillImageDo(boolean[][] hits,int x, int y) {
+    private boolean fillBlock(boolean[][] visited,int x, int y) {
         if (y < 0) return false;
         if (x < 0) return false;
         if (y > level.getHeight()-1) return false;
         if (x > level.getWidth()-1) return false;
 
-        if (hits[y][x]) return false;
+        if (visited[y][x]) return false;
 
         if (level.getBlockTypeAt(x, y).isSolid && level.getBlockTypeAt(x, y) != targetBlock)
             return false;
 
-        // valid, paint it
-
 	if (level.getBlockTypeAt(x, y) == targetBlock) {
 	    level.removeBlockAt(levelChanger, x, y);
 	}
-        hits[y][x] = true;
+
+	visited[y][x] = true;
         return true;
     }
 }

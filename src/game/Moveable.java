@@ -59,8 +59,6 @@ public abstract class Moveable extends Block implements Tickable, Interactable
 		if (direction == Direction.RIGHT || direction == Direction.DOWN) {
 		    position.setX((int) position.getX());
 		    position.setY((int) position.getY());
-		    targetPosition.setX(position.getX());
-		    targetPosition.setY(position.getY());
 		} else {
 		    position.setX((int) targetPosition.getX());
 		    position.setY((int) targetPosition.getY());

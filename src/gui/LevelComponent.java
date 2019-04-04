@@ -15,11 +15,11 @@ public class LevelComponent extends JComponent implements LevelListener
     private final Level level;
     private final EnumMap<BlockType, Color> blockColorTable;
     private final Color backgroundColor;
-    private final static int BLOCKSIZE;
+    private final static int BLOCK_SIZE;
     private final static int PADDING;
 
     static {
-        BLOCKSIZE = 18;
+	BLOCK_SIZE = 18;
 	PADDING = 4;
     }
 
@@ -41,24 +41,23 @@ public class LevelComponent extends JComponent implements LevelListener
 	Iterator<Moveable> movingObjects = level.getMovingObstaclesIterator();
 	while (movingObjects.hasNext()) {
 	    Moveable block = movingObjects.next();
-	    drawBlock(g2d, blockColorTable.get(block.getBlockType()), block.getX(),
-	    		  block.getY());
+	    drawBlock(g2d, blockColorTable.get(block.getBlockType()), block.getX(), block.getY());
 	}
     }
 
     private void drawBackWithPadding(Graphics2D g2d, Color color, int x, int y) {
 	g2d.setColor(backgroundColor);
-	g2d.fillRect(x * BLOCKSIZE, y * BLOCKSIZE, BLOCKSIZE + PADDING, BLOCKSIZE + PADDING);
+	g2d.fillRect(x * BLOCK_SIZE, y * BLOCK_SIZE, BLOCK_SIZE + PADDING, BLOCK_SIZE + PADDING);
 	drawBlock(g2d, color, x, y);
     }
 
     private void drawBlock(Graphics2D g2d, Color color, float x, float y) {
 	g2d.setColor(color);
-	g2d.fillRect((int)(x * BLOCKSIZE) + PADDING, (int)(y * BLOCKSIZE + PADDING), BLOCKSIZE - PADDING, BLOCKSIZE - PADDING);
+	g2d.fillRect((int)(x * BLOCK_SIZE) + PADDING, (int)(y * BLOCK_SIZE + PADDING), BLOCK_SIZE - PADDING, BLOCK_SIZE - PADDING);
     }
 
     @Override public Dimension getPreferredSize() {
-        return new Dimension(PADDING + BLOCKSIZE * level.getWidth(), PADDING + BLOCKSIZE * level.getHeight());
+        return new Dimension(PADDING + BLOCK_SIZE * level.getWidth(), PADDING + BLOCK_SIZE * level.getHeight());
     }
 
     @Override public void levelChanged() {

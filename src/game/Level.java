@@ -35,6 +35,12 @@ public class Level implements Tickable
 	        if (x == 0 || y == 0 || x == width - 1 || y == height - 1) {
 	            blocks[y][x] = new Block(BlockType.WALL);
 		}
+	        else if (y == 20) {
+		    blocks[y][x] = new Block(BlockType.WALL1);
+		}
+	        else if (y == 21) {
+		    blocks[y][x] = new Block(BlockType.WALL2);
+		}
 	        else {
 		    blocks[y][x] = new Block(BlockType.EMPTY);
 		}
@@ -49,17 +55,8 @@ public class Level implements Tickable
 	blocks[15][21] = new Block(BlockType.WALL);
 	blocks[15][22] = new Block(BlockType.WALL);
 
-	blocks[2][2] = new KeyBlock(BlockType.KEY, BlockType.WALL1, this, levelKey);
+	blocks[5][5] = new KeyBlock(BlockType.KEY, BlockType.WALL1, this, levelKey);
 	blocks[12][12] = new KeyBlock(BlockType.KEY, BlockType.WALL2, this, levelKey);
-	blocks[20][20] = new Block(BlockType.WALL1);
-	blocks[20][21] = new Block(BlockType.WALL1);
-	blocks[20][22] = new Block(BlockType.WALL1);
-	blocks[19][20] = new Block(BlockType.WALL1);
-	blocks[19][22] = new Block(BlockType.WALL1);
-	blocks[18][20] = new Block(BlockType.WALL1);
-	blocks[18][21] = new Block(BlockType.WALL1);
-	blocks[18][22] = new Block(BlockType.WALL1);
-	blocks[19][21] = new Block(BlockType.WALL2);
 
     }
 
