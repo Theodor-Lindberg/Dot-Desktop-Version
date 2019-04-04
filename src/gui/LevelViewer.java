@@ -71,20 +71,25 @@ public class LevelViewer
 	final InputMap in = pane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
 	final ActionMap act = pane.getActionMap();
 
-	addEvent(in, act, KeyEvent.VK_LEFT, false, "MoveLeft", Direction.LEFT);
-	addEvent(in, act, KeyEvent.VK_LEFT, true, "ReleaseLeft", Direction.LEFT);
+	addMotionEvent(in, act, KeyEvent.VK_LEFT, false, "MoveLeft", Direction.LEFT);
+	addMotionEvent(in, act, KeyEvent.VK_LEFT, true, "ReleaseLeft", Direction.LEFT);
 
-	addEvent(in, act, KeyEvent.VK_RIGHT, false, "MoveRight", Direction.RIGHT);
-	addEvent(in, act, KeyEvent.VK_RIGHT, true, "ReleaseRight", Direction.RIGHT);
+	addMotionEvent(in, act, KeyEvent.VK_RIGHT, false, "MoveRight", Direction.RIGHT);
+	addMotionEvent(in, act, KeyEvent.VK_RIGHT, true, "ReleaseRight", Direction.RIGHT);
 
-	addEvent(in, act, KeyEvent.VK_UP, false, "MoveUp", Direction.UP);
-	addEvent(in, act, KeyEvent.VK_UP, true, "ReleaseUp", Direction.UP);
+	addMotionEvent(in, act, KeyEvent.VK_UP, false, "MoveUp", Direction.UP);
+	addMotionEvent(in, act, KeyEvent.VK_UP, true, "ReleaseUp", Direction.UP);
 
-	addEvent(in, act, KeyEvent.VK_DOWN, false, "MoveDown", Direction.DOWN);
-	addEvent(in, act, KeyEvent.VK_DOWN, true, "ReleaseDown", Direction.DOWN);
+	addMotionEvent(in, act, KeyEvent.VK_DOWN, false, "MoveDown", Direction.DOWN);
+	addMotionEvent(in, act, KeyEvent.VK_DOWN, true, "ReleaseDown", Direction.DOWN);
+
+	in.put(KeyStroke.getKeyStroke("SPACE"), "TogglePause");
+	act.put("TogglePause", new ToggleGamePause());
+	in.put(KeyStroke.getKeyStroke("R"), "RestartLevel");
+	act.put("RestartLevel", new RestartLevel());
     }
 
-    private void addEvent(final InputMap in, final ActionMap act, final int key, final boolean onKeyRelease, final String name, final Direction direction) {
+    private void addMotionEvent(final InputMap in, final ActionMap act, final int key, final boolean onKeyRelease, final String name, final Direction direction) {
 	in.put(KeyStroke.getKeyStroke(key, 0, onKeyRelease), name);
 	act.put(name, new MotionAction(name, direction, onKeyRelease));
     }
@@ -110,6 +115,19 @@ public class LevelViewer
                 level.removeDirection(direction);
         }
     }
+
+    private class ToggleGamePause extends AbstractAction {
+	@Override public void actionPerformed(final ActionEvent e) {
+	    level.setPaused(!level.isPaused());
+	}
+    }
+
+    private class RestartLevel extends AbstractAction {
+	@Override public void actionPerformed(final ActionEvent e) {
+	    level.restartLevel();
+	}
+    }
+
 
     private void exit() {
 	if (JOptionPane.showConfirmDialog(frame, "Are you sure you want to close this window?", "Close Window?",

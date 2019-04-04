@@ -5,10 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="84f476f4-3eed-4d4a-9f32-0a44d2e667ba" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/game/KeyBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/KeyBlock.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/game/Level.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/Level.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/Moveable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/Moveable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gui/LevelComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/LevelComponent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gui/LevelViewer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/LevelViewer.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -25,8 +23,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/gui/LevelViewer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="232">
-              <caret line="30" lean-forward="true" selection-start-line="30" selection-end-line="30" />
+            <state relative-caret-position="117">
+              <caret line="78" lean-forward="true" selection-start-line="83" selection-start-column="32" selection-end-line="83" selection-end-column="48" />
               <folding>
                 <element signature="imports" />
                 <element signature="class#MotionAction#0;class#LevelViewer#0" />
@@ -39,25 +37,15 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/game/Level.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="288">
-              <caret line="18" selection-start-line="18" selection-end-line="18" />
+            <state relative-caret-position="378">
+              <caret line="79" column="9" selection-start-line="79" selection-start-column="9" selection-end-line="79" selection-end-column="9" />
               <folding>
-                <element signature="imports" />
                 <element signature="class#LevelChanger#0;class#Level#0" />
-                <element signature="e#1994#1995#0" expanded="true" />
+                <element signature="e#2198#2199#0" expanded="true" />
                 <element signature="method#notifyListeners#0;class#Level#0" />
-                <element signature="e#2296#2297#0" expanded="true" />
-                <element signature="e#2348#2349#0" expanded="true" />
-                <element signature="e#2405#2406#0" expanded="true" />
-                <element signature="e#2482#2483#0" expanded="true" />
-                <element signature="e#2591#2592#0" expanded="true" />
-                <element signature="e#2694#2695#0" expanded="true" />
-                <element signature="e#2767#2768#0" expanded="true" />
-                <element signature="e#2898#2899#0" expanded="true" />
-                <element signature="e#2993#2994#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -79,10 +67,10 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/game/Moveable.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
+            <state relative-caret-position="901">
               <caret line="60" column="57" selection-start-line="60" selection-start-column="57" selection-end-line="60" selection-end-column="57" />
             </state>
           </provider>
@@ -128,11 +116,11 @@
         <option value="$PROJECT_DIR$/src/game/Player.java" />
         <option value="$PROJECT_DIR$/src/game/Block.java" />
         <option value="$PROJECT_DIR$/src/game/BlockType.java" />
-        <option value="$PROJECT_DIR$/src/gui/LevelViewer.java" />
-        <option value="$PROJECT_DIR$/src/game/Level.java" />
         <option value="$PROJECT_DIR$/src/game/KeyBlock.java" />
         <option value="$PROJECT_DIR$/src/gui/LevelComponent.java" />
         <option value="$PROJECT_DIR$/src/game/Moveable.java" />
+        <option value="$PROJECT_DIR$/src/gui/LevelViewer.java" />
+        <option value="$PROJECT_DIR$/src/game/Level.java" />
       </list>
     </option>
   </component>
@@ -182,7 +170,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1554405583171" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1554407234720" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../tdde30-labbar-d1b-g03-13" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -287,12 +275,12 @@
       <option name="presentableId" value="Default" />
       <updated>1553762971265</updated>
       <workItem from="1553762972623" duration="40662000" />
-      <workItem from="1554117060606" duration="42857000" />
+      <workItem from="1554117060606" duration="44630000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="83519000" />
+    <option name="totallyTimeSpent" value="85292000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -553,28 +541,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/game/Level.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="18" selection-start-line="18" selection-end-line="18" />
-          <folding>
-            <element signature="imports" />
-            <element signature="class#LevelChanger#0;class#Level#0" />
-            <element signature="e#1994#1995#0" expanded="true" />
-            <element signature="method#notifyListeners#0;class#Level#0" />
-            <element signature="e#2296#2297#0" expanded="true" />
-            <element signature="e#2348#2349#0" expanded="true" />
-            <element signature="e#2405#2406#0" expanded="true" />
-            <element signature="e#2482#2483#0" expanded="true" />
-            <element signature="e#2591#2592#0" expanded="true" />
-            <element signature="e#2694#2695#0" expanded="true" />
-            <element signature="e#2767#2768#0" expanded="true" />
-            <element signature="e#2898#2899#0" expanded="true" />
-            <element signature="e#2993#2994#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/game/BlockType.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
@@ -582,10 +548,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/game/Moveable.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="901">
+          <caret line="60" column="57" selection-start-line="60" selection-start-column="57" selection-end-line="60" selection-end-column="57" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/gui/LevelViewer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="232">
-          <caret line="30" lean-forward="true" selection-start-line="30" selection-end-line="30" />
+        <state relative-caret-position="117">
+          <caret line="78" lean-forward="true" selection-start-line="83" selection-start-column="32" selection-end-line="83" selection-end-column="48" />
           <folding>
             <element signature="imports" />
             <element signature="class#MotionAction#0;class#LevelViewer#0" />
@@ -611,10 +584,15 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/game/Moveable.java">
+    <entry file="file://$PROJECT_DIR$/src/game/Level.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="60" column="57" selection-start-line="60" selection-start-column="57" selection-end-line="60" selection-end-column="57" />
+        <state relative-caret-position="378">
+          <caret line="79" column="9" selection-start-line="79" selection-start-column="9" selection-end-line="79" selection-end-column="9" />
+          <folding>
+            <element signature="class#LevelChanger#0;class#Level#0" />
+            <element signature="e#2198#2199#0" expanded="true" />
+            <element signature="method#notifyListeners#0;class#Level#0" />
+          </folding>
         </state>
       </provider>
     </entry>
