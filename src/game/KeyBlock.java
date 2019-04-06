@@ -20,7 +20,7 @@ public class KeyBlock extends Block implements Interactable
 
     @Override public void interact(Moveable movingObject) {
         if (movingObject.getBlockType() == BlockType.PLAYER) {
-            level.removeBlockAt(levelChanger, (int)movingObject.getX(), (int)movingObject.getY());
+            level.removeBlockAt(levelChanger, (int)movingObject.targetPosition.getX(), (int)movingObject.targetPosition.getY());
 	    floodFill(movingObject.position);
 	}
     }
@@ -39,10 +39,10 @@ public class KeyBlock extends Block implements Interactable
 
             if(fillBlock(visited, p.x,p.y))
             {
-		blocksToVisit.add(new Point(p.x,p.y - 1));
-		blocksToVisit.add(new Point(p.x,p.y + 1));
-		blocksToVisit.add(new Point(p.x - 1,p.y));
-		blocksToVisit.add(new Point(p.x + 1,p.y));
+		blocksToVisit.add(new Point(p.x,p.y + Direction.UP.deltaY));
+		blocksToVisit.add(new Point(p.x,p.y + Direction.DOWN.deltaY));
+		blocksToVisit.add(new Point(p.x + Direction.LEFT.deltaX,p.y));
+		blocksToVisit.add(new Point(p.x + Direction.RIGHT.deltaX,p.y));
             }
         }
     }

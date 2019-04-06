@@ -32,9 +32,13 @@ public class Level implements Tickable
 	tickables = new ArrayList<>();
 	movingObjects = new ArrayList<>();
 
-	player = new Player(BlockType.PLAYER, new Point2D(10, 10), 0.2f, this);
+	player = new Player(new Point2D(10, 10), Moveable.Speed.FAST, this);
 	movingObjects.add(player);
 	tickables.add(player);
+
+	Enemy enemy = new Enemy(new Point2D(17,17), Direction.RIGHT, Moveable.Speed.NORMAL, this, new BasicAI(BasicAI.TurnDirection.BACK));
+	movingObjects.add(enemy);
+	tickables.add(enemy);
 
 	createGrid();
     }
@@ -110,12 +114,22 @@ public class Level implements Tickable
         return movingObjects.iterator();
     }
 
-    public BlockType getBlockTypeAt(int x, int y) {
+    public BlockType getBlockTypeAt(final int x, final int y) {
         return blocks[y][x].getBlockType();
     }
 
-    public Block getBlockAt(int x, int y) {
+    public Block getBlockAt(final int x, final int y) {
 	return blocks[y][x];
+    }
+
+    public Block getCollidingEntity(final Block block, final float x, final float y) {
+	for (Moveable movingObject : movingObjects) {
+	    if (block != movingObject && Math.abs(movingObject.getX() - x) < 1 && Math.abs(movingObject.getY() - y) < 1) {
+	        return movingObject;
+	    }
+	}
+
+        return getBlockAt((int)x, (int)y);
     }
 
     public void removeBlockAt(LevelChanger levelChanger, int x, int y) {

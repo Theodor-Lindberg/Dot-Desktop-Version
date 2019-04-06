@@ -8,8 +8,8 @@ public class Player extends Moveable
     private MovePriority movePriority;
     Timer timer = new Timer();
 
-    public Player(final BlockType blockType, final Point2D position, final float speed, final Level level) {
-	super(blockType, position, speed, level);
+    public Player(final Point2D position, final Speed speed, final Level level) {
+	super(BlockType.PLAYER, position, speed, level);
 	isAlive = true;
 	movePriority = new MovePriority();
     }
@@ -43,10 +43,7 @@ public class Player extends Moveable
     @Override protected void handleCollision() {
         isMoving = false;
 	reachedBlock = true;
-	position.setX((int)position.getX());
-	position.setY((int)position.getY());
-        targetPosition.setX(position.getX());
-        targetPosition.setY(position.getY());
+	resetPositionAndTarget();
     }
 
 
@@ -62,6 +59,7 @@ public class Player extends Moveable
     @Override public void interact(Moveable movingObject) {
         if (movingObject.getBlockType() == BlockType.ENEMY) {
             isAlive = false;
+	    level.restartLevel();
 	}
     }
 }

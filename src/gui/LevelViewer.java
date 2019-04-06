@@ -62,6 +62,7 @@ public class LevelViewer
 	polyColorTable.put(BlockType.WALL1, new Color(131, 77, 235, 255));
 	polyColorTable.put(BlockType.WALL2, new Color(224, 197, 20, 255));
 	polyColorTable.put(BlockType.PLAYER, new Color(237, 228, 228, 255));
+	polyColorTable.put(BlockType.ENEMY, new Color(242, 0, 70, 255));
 	return polyColorTable;
     }
 
