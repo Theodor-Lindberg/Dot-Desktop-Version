@@ -16,14 +16,37 @@ public enum Direction
         return toDirection(direction.deltaX * -1, direction.deltaY * -1);
     }
 
+    public static Direction turn(final Direction facingDirection, final boolean turnLeft) {
+        Direction newDirection = null;
+
+        switch (facingDirection) {
+            case UP:
+                newDirection = RIGHT;
+                break;
+            case RIGHT:
+                newDirection = DOWN;
+                break;
+            case DOWN:
+                newDirection = LEFT;
+                break;
+            case LEFT:
+                newDirection = UP;
+                break;
+        }
+        if (turnLeft) {
+            return getOppositeDirection(newDirection);
+        }
+        return newDirection;
+    }
+
     public static Direction toDirection(final int deltaX, final int deltaY) {
-        if (deltaX == 0 && deltaY == 1) {
+        if (deltaX == Direction.DOWN.deltaX && deltaY == Direction.DOWN.deltaY) {
             return Direction.DOWN;
-        } else if (deltaX == 0 && deltaY == -1) {
+        } else if (deltaX == Direction.UP.deltaX && deltaY == Direction.UP.deltaY) {
             return Direction.UP;
-        } else if (deltaX == 1 && deltaY == 0) {
+        } else if (deltaX == Direction.RIGHT.deltaX && deltaY == Direction.RIGHT.deltaY) {
             return Direction.RIGHT;
-        } else if (deltaX == -1 && deltaY == 0) {
+        } else if (deltaX == Direction.LEFT.deltaX && deltaY == Direction.LEFT.deltaY) {
             return Direction.LEFT;
         } else {
             return null;

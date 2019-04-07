@@ -31,7 +31,7 @@ public class Player extends Moveable
         if (reachedBlock) {
 	    final Direction old = direction;
 	    direction = movePriority.getFirstPriority();
-	    if (isCollision()) {
+	    if (willCollide()) {
 		direction = movePriority.getSecondPriority();
 	    }
 	    if (direction == null) direction = old;

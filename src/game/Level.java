@@ -36,7 +36,7 @@ public class Level implements Tickable
 	movingObjects.add(player);
 	tickables.add(player);
 
-	Enemy enemy = new Enemy(new Point2D(17,17), Direction.RIGHT, Moveable.Speed.NORMAL, this, new BasicAI(BasicAI.TurnDirection.BACK));
+	Enemy enemy = new Enemy(new Point2D(17,17), Direction.RIGHT, Moveable.Speed.NORMAL, this, new BasicAI(BasicAI.TurnDirection.LEFT));
 	movingObjects.add(enemy);
 	tickables.add(enemy);
 

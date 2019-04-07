@@ -8,7 +8,6 @@ public class Enemy extends Moveable
 	super(BlockType.ENEMY, position, speed, level);
 
 	direction = startDirection;
-	isMoving = true;
 	this.ai = ai;
     }
 
@@ -17,6 +16,9 @@ public class Enemy extends Moveable
     }
 
     @Override public void interact(final Moveable movingObject) {
+        if (movingObject.getBlockType() == BlockType.PLAYER) {
+            movingObject.interact(this);
+	}
     }
 
     @Override public void tick() {

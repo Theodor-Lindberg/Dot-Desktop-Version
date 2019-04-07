@@ -13,6 +13,7 @@ public class BasicAI implements AIMovement
     }
 
     @Override public void move(final Moveable movingObject) {
+        movingObject.isMoving = true;
         movingObject.move();
     }
 
@@ -22,8 +23,15 @@ public class BasicAI implements AIMovement
 	if (turnDirection == TurnDirection.BACK) {
 	    movingObject.direction = Direction.getOppositeDirection(movingObject.direction);
 	}
+	else {
+	    movingObject.direction = Direction.turn(movingObject.direction, turnDirection == TurnDirection.LEFT);
+	}
 
 	movingObject.targetPosition.addX(movingObject.direction.deltaX);
 	movingObject.targetPosition.addY(movingObject.direction.deltaY);
+
+	if (movingObject.willCollide()) {
+	    movingObject.isMoving = false;
+	}
     }
 }
