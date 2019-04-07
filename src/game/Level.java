@@ -14,6 +14,7 @@ public class Level implements Tickable
     private List<Tickable> tickables;
     private List<Moveable> movingObjects;
     private boolean isPaused;
+    private boolean levelCompleted;
 
     // Works a proxy to grant access to certain methods.
     class LevelChanger {
@@ -66,6 +67,8 @@ public class Level implements Tickable
 	createBlockAt(21,15, new Block(BlockType.WALL));
 	createBlockAt(22,15, new Block(BlockType.WALL));
 	createBlockAt(23,15, new Block(BlockType.WALL));
+
+	createBlockAt(25,1, new EndBlock(this, levelKey));
 
 	createBlockAt(7, 5, new KeyBlock(BlockType.KEY, BlockType.WALL1, this, levelKey));
 	createBlockAt(12, 12, new KeyBlock(BlockType.KEY, BlockType.WALL2, this, levelKey));
@@ -134,6 +137,14 @@ public class Level implements Tickable
 
     public void removeBlockAt(LevelChanger levelChanger, int x, int y) {
         blocks[y][x] = new Block(BlockType.EMPTY);
+    }
+
+    public void completeLevel(LevelChanger levelChanger) {
+	levelCompleted = true;
+    }
+
+    public boolean isLevelCompleted() {
+        return levelCompleted;
     }
 
     private void createBlockAt(int x, int y, Block block) {
