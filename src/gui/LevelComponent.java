@@ -6,6 +6,7 @@ import game.KeyBlock;
 import game.Level;
 import game.LevelListener;
 import game.Moveable;
+import game.Point2D;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,9 +21,16 @@ public class LevelComponent extends JComponent implements LevelListener
     private final static int BLOCK_SIZE;
     private final static int PADDING;
 
+    private final static String VICTORY_TEXT;
+    private final static Font VICTORY_TEXT_FONT;
+    private final static Point2D VICTORY_TEXT_POSITION;
+
     static {
 	BLOCK_SIZE = 18;
 	PADDING = 4;
+	VICTORY_TEXT = "You Won!";
+	VICTORY_TEXT_POSITION = new Point2D(5, 5);
+	VICTORY_TEXT_FONT = new Font(Font.SANS_SERIF, Font.BOLD, 70);
     }
 
     public LevelComponent(final Level level, final EnumMap<BlockType, Color> blockColorTable, final Color backgroundColor) {
@@ -48,9 +56,16 @@ public class LevelComponent extends JComponent implements LevelListener
 	    Moveable movingObject = movingObjects.next();
 	    drawBlock(g2d, blockColorTable.get(movingObject.getBlockType()), movingObject.getX(), movingObject.getY());
 	}
+
+	if (level.isLevelCompleted()) {
+	    showVictoryText(g2d);
+	}
     }
 
     private void drawBackWithPadding(Graphics2D g2d, Color color, int x, int y) {
+        if (level.isLevelCompleted()) {
+	    color = new Color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha() / 2);
+	}
 	g2d.setColor(backgroundColor);
 	g2d.fillRect(x * BLOCK_SIZE, y * BLOCK_SIZE, BLOCK_SIZE + PADDING, BLOCK_SIZE + PADDING);
 	drawBlock(g2d, color, x, y);
@@ -59,6 +74,12 @@ public class LevelComponent extends JComponent implements LevelListener
     private void drawBlock(Graphics2D g2d, Color color, float x, float y) {
 	g2d.setColor(color);
 	g2d.fillRect((int)(x * BLOCK_SIZE) + PADDING, (int)(y * BLOCK_SIZE + PADDING), BLOCK_SIZE - PADDING, BLOCK_SIZE - PADDING);
+    }
+
+    private void showVictoryText(Graphics2D g2d) {
+	g2d.setColor(Color.white);
+	g2d.setFont(VICTORY_TEXT_FONT);
+	g2d.drawString(VICTORY_TEXT, (level.getWidth() * BLOCK_SIZE) / VICTORY_TEXT_POSITION.getX(), (level.getHeight() * BLOCK_SIZE) / VICTORY_TEXT_POSITION.getY());
     }
 
     @Override public Dimension getPreferredSize() {

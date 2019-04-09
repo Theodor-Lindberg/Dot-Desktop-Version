@@ -30,10 +30,13 @@ public class Level implements Tickable
     }
 
     private void initializeLevel() {
+
+        levelCompleted = false;
+
 	tickables = new ArrayList<>();
 	movingObjects = new ArrayList<>();
 
-	player = new Player(new Point2D(10, 10), Moveable.Speed.FAST, this);
+	player = new Player(new Point2D(10, 10), Moveable.Speed.NORMAL, this);
 	movingObjects.add(player);
 	tickables.add(player);
 
@@ -41,8 +44,13 @@ public class Level implements Tickable
 	movingObjects.add(enemy);
 	tickables.add(enemy);
 
+	Enemy enemy2 = new Enemy(new Point2D(25,17), Direction.UP, Moveable.Speed.NORMAL, this, new BasicAI(BasicAI.TurnDirection.BACK));
+		movingObjects.add(enemy2);
+		tickables.add(enemy2);
+
 	createGrid();
     }
+
     private void createGrid() {
 	blocks = new Block[height][width];
 	for (int y = 0; y < height; y++) {
@@ -68,7 +76,7 @@ public class Level implements Tickable
 	createBlockAt(22,15, new Block(BlockType.WALL));
 	createBlockAt(23,15, new Block(BlockType.WALL));
 
-	createBlockAt(25,1, new EndBlock(this, levelKey));
+	createBlockAt(25,25, new EndBlock(this, levelKey));
 
 	createBlockAt(7, 5, new KeyBlock(BlockType.WALL1, this, levelKey));
 	createBlockAt(12, 12, new KeyBlock(BlockType.WALL2, this, levelKey));

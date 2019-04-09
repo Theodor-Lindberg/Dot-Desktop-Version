@@ -4,18 +4,12 @@ import java.util.Timer;
 
 public class Player extends Moveable
 {
-    private boolean isAlive;
     private MovePriority movePriority;
     Timer timer = new Timer();
 
     public Player(final Point2D position, final Speed speed, final Level level) {
 	super(BlockType.PLAYER, position, speed, level);
-	isAlive = true;
 	movePriority = new MovePriority();
-    }
-
-    public boolean isAlive() {
-	return isAlive;
     }
 
     public void move(Direction direction) {
@@ -57,8 +51,7 @@ public class Player extends Moveable
     }
 
     @Override public void interact(Moveable movingObject) {
-        if (movingObject.getBlockType() == BlockType.ENEMY) {
-            isAlive = false;
+        if (movingObject.getBlockType() == BlockType.ENEMY && !level.isLevelCompleted()) {
 	    level.restartLevel();
 	}
     }
