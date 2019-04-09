@@ -70,8 +70,8 @@ public class Level implements Tickable
 
 	createBlockAt(25,1, new EndBlock(this, levelKey));
 
-	createBlockAt(7, 5, new KeyBlock(BlockType.KEY, BlockType.WALL1, this, levelKey));
-	createBlockAt(12, 12, new KeyBlock(BlockType.KEY, BlockType.WALL2, this, levelKey));
+	createBlockAt(7, 5, new KeyBlock(BlockType.WALL1, this, levelKey));
+	createBlockAt(12, 12, new KeyBlock(BlockType.WALL2, this, levelKey));
     }
 
     public void subscribeListener(LevelListener levelListener) {
@@ -115,10 +115,6 @@ public class Level implements Tickable
 
     public Iterator<Moveable> getMovingObstaclesIterator() {
         return movingObjects.iterator();
-    }
-
-    public BlockType getBlockTypeAt(final int x, final int y) {
-        return blocks[y][x].getBlockType();
     }
 
     public Block getBlockAt(final int x, final int y) {

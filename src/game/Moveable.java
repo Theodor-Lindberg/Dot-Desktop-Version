@@ -45,7 +45,7 @@ public abstract class Moveable extends Block implements Tickable, Interactable
 
         final int x = (direction == Direction.RIGHT || direction == Direction.DOWN) ? (int)(position.getX() + direction.deltaX) : (int)(position.getX() + direction.deltaX * speed.value);
         final int y = (direction == Direction.RIGHT || direction == Direction.DOWN) ? (int)(position.getY() + direction.deltaY) : (int)(position.getY() + direction.deltaY * speed.value);
-        return level.getBlockTypeAt(x, y).isSolid;
+        return level.getBlockAt(x, y).getBlockType().isSolid;
     }
 
     protected abstract void handleCollision();

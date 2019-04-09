@@ -11,11 +11,15 @@ public class KeyBlock extends Block implements Interactable
     private Level level;
     private final LevelChanger levelChanger;
 
-    public KeyBlock(final BlockType blockType, final BlockType targetBlock, final Level level, final LevelChanger levelChanger) {
-	super(blockType);
+    public KeyBlock(final BlockType targetBlock, final Level level, final LevelChanger levelChanger) {
+	super(BlockType.KEY);
 	this.targetBlock = targetBlock;
 	this.level = level;
 	this.levelChanger = levelChanger;
+    }
+
+    public BlockType getTargetBlock() {
+	return targetBlock;
     }
 
     @Override public void interact(Moveable movingObject) {
@@ -55,10 +59,10 @@ public class KeyBlock extends Block implements Interactable
 
         if (visited[y][x]) return false;
 
-        if (level.getBlockTypeAt(x, y).isSolid && level.getBlockTypeAt(x, y) != targetBlock)
+        if (level.getBlockAt(x, y).getBlockType().isSolid && level.getBlockAt(x, y).getBlockType() != targetBlock)
             return false;
 
-	if (level.getBlockTypeAt(x, y) == targetBlock) {
+	if (level.getBlockAt(x, y).getBlockType() == targetBlock) {
 	    level.removeBlockAt(levelChanger, x, y);
 	}
 

@@ -1,6 +1,8 @@
 package gui;
 
+import game.Block;
 import game.BlockType;
+import game.KeyBlock;
 import game.Level;
 import game.LevelListener;
 import game.Moveable;
@@ -31,17 +33,20 @@ public class LevelComponent extends JComponent implements LevelListener
 
     @Override protected void paintComponent(final Graphics g) {
 	super.paintComponent(g);
-	final Graphics2D g2d = (Graphics2D)g;
+	final Graphics2D g2d = (Graphics2D) g;
 
 	for (int y = 0; y < level.getHeight(); y++)
 	    for (int x = 0; x < level.getWidth(); x++) {
-		drawBackWithPadding(g2d, blockColorTable.get(level.getBlockTypeAt(x, y)), x, y);
+		Block block = level.getBlockAt(x, y);
+		BlockType blockType = (block.getBlockType() == BlockType.KEY) ? ((KeyBlock) block).getTargetBlock() : block.getBlockType();
+		drawBackWithPadding(g2d, blockColorTable.get(blockType), x, y);
+
 	    }
 
 	Iterator<Moveable> movingObjects = level.getMovingObstaclesIterator();
 	while (movingObjects.hasNext()) {
-	    Moveable block = movingObjects.next();
-	    drawBlock(g2d, blockColorTable.get(block.getBlockType()), block.getX(), block.getY());
+	    Moveable movingObject = movingObjects.next();
+	    drawBlock(g2d, blockColorTable.get(movingObject.getBlockType()), movingObject.getX(), movingObject.getY());
 	}
     }
 
