@@ -5,6 +5,9 @@ import game.Level.LevelChanger;
 import java.awt.Point;
 import java.util.LinkedList;
 
+/**
+ * KeyBlock removes its target blocks when a player interacts with it.
+ */
 public class KeyBlock extends Block implements Interactable
 {
     private final BlockType targetBlock;
@@ -22,7 +25,7 @@ public class KeyBlock extends Block implements Interactable
 	return targetBlock;
     }
 
-    @Override public void interact(Moveable movingObject) {
+    @Override public void interact(Movable movingObject) {
         if (movingObject.getBlockType() == BlockType.PLAYER) {
             level.removeBlockAt(levelChanger, (int)movingObject.targetPosition.getX(), (int)movingObject.targetPosition.getY());
 	    floodFill(movingObject.position);
@@ -34,7 +37,7 @@ public class KeyBlock extends Block implements Interactable
         int y = (int)start.getY();
         boolean[][] visited = new boolean[level.getHeight()][level.getWidth()];
 
-	LinkedList<Point> blocksToVisit = new LinkedList<Point>();
+	LinkedList<Point> blocksToVisit = new LinkedList<>();
 	blocksToVisit.add(new Point(x, y));
 
         while (!blocksToVisit.isEmpty())

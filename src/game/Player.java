@@ -1,14 +1,14 @@
 package game;
 
-import java.util.Timer;
-
-public class Player extends Moveable
+/**
+ * The player class.
+ */
+public class Player extends Movable
 {
     private MovePriority movePriority;
-    Timer timer = new Timer();
 
     public Player(final Point2D position, final Speed speed, final Level level) {
-	super(BlockType.PLAYER, position, speed, level);
+	super(BlockType.PLAYER, position, speed, null, level);
 	movePriority = new MovePriority();
     }
 
@@ -34,7 +34,7 @@ public class Player extends Moveable
 	}
     }
 
-    @Override protected void handleCollision() {
+    @Override public void handleCollision(final Movable movingObject) {
         isMoving = false;
 	reachedBlock = true;
 	resetPositionAndTarget();
@@ -44,13 +44,13 @@ public class Player extends Moveable
     @Override public void tick() {
         if (isMoving) {
             setDirection();
-            move();
+            move(this);
             if (reachedBlock && movePriority.getFirstPriority() == null)
                 isMoving = false;
 	}
     }
 
-    @Override public void interact(Moveable movingObject) {
+    @Override public void interact(Movable movingObject) {
         if (movingObject.getBlockType() == BlockType.ENEMY && !level.isLevelCompleted()) {
 	    level.restartLevel();
 	}

@@ -1,5 +1,8 @@
 package game;
 
+/**
+ * This class stores two floats representing a position.
+ */
 public class Point2D
 {
     private float x, y;
@@ -10,8 +13,8 @@ public class Point2D
     }
 
     public Point2D(final Point2D point) {
-        this.x = point.getX();
-        this.y = point.getX();
+        this.x = point.x;
+        this.y = point.y;
     }
 
     public float getX() {
@@ -36,13 +39,5 @@ public class Point2D
 
     public void addY(final float dy) {
         this.y += dy;
-    }
-
-    public void substractX(final float dx) {
-        this.x -= dx;
-    }
-
-    public void substractY(final float dy) {
-        this.y -= dy;
     }
 }

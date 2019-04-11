@@ -1,9 +1,12 @@
 package game;
 
-public class BasicAI implements AIMovement
+/**
+ * Contains logic for basic ai movement, i.e turn right, left or back on collision.
+ */
+public class BasicAI implements Movement
 {
     public enum TurnDirection {
-        LEFT, RIGHT, BACK;
+        LEFT, RIGHT, BACK
     }
 
     private TurnDirection turnDirection;
@@ -12,12 +15,12 @@ public class BasicAI implements AIMovement
 	this.turnDirection = turnDirection;
     }
 
-    @Override public void move(final Moveable movingObject) {
+    @Override public void move(final Movable movingObject) {
         movingObject.isMoving = true;
-        movingObject.move();
+        movingObject.move(movingObject);
     }
 
-    @Override public void handleCollision(final Moveable movingObject) {
+    @Override public void handleCollision(final Movable movingObject) {
 	movingObject.resetPositionAndTarget();
 
 	if (turnDirection == TurnDirection.BACK) {

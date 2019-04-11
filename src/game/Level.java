@@ -1,9 +1,15 @@
 package game;
 
+import game.BasicAI.TurnDirection;
+import game.Movable.Speed;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+/**
+ *
+ */
 public class Level implements Tickable
 {
     private final int width, height;
@@ -12,11 +18,12 @@ public class Level implements Tickable
     private LevelChanger levelKey;
     private List<LevelListener> levelListeners;
     private List<Tickable> tickables;
-    private List<Moveable> movingObjects;
-    private boolean isPaused;
+    private List<Movable> movingObjects;
+    private boolean paused;
+
     private boolean levelCompleted;
 
-    // Works a proxy to grant access to certain methods.
+    // Works a proxy to grant access to certain methods, the warning is ignored.
     class LevelChanger {
     }
 
@@ -36,15 +43,15 @@ public class Level implements Tickable
 	tickables = new ArrayList<>();
 	movingObjects = new ArrayList<>();
 
-	player = new Player(new Point2D(10, 10), Moveable.Speed.NORMAL, this);
+	player = new Player(new Point2D(10, 10), Speed.NORMAL, this);
 	movingObjects.add(player);
 	tickables.add(player);
 
-	Enemy enemy = new Enemy(new Point2D(17,17), Direction.RIGHT, Moveable.Speed.NORMAL, this, new BasicAI(BasicAI.TurnDirection.LEFT));
+	Enemy enemy = new Enemy(new Point2D(17,17), Direction.RIGHT, Speed.NORMAL, this, new BasicAI(TurnDirection.LEFT));
 	movingObjects.add(enemy);
 	tickables.add(enemy);
 
-	Enemy enemy2 = new Enemy(new Point2D(25,17), Direction.UP, Moveable.Speed.NORMAL, this, new BasicAI(BasicAI.TurnDirection.BACK));
+	Enemy enemy2 = new Enemy(new Point2D(25,17), Direction.UP, Speed.NORMAL, this, new BasicAI(TurnDirection.BACK));
 		movingObjects.add(enemy2);
 		tickables.add(enemy2);
 
@@ -87,7 +94,7 @@ public class Level implements Tickable
     }
 
     @Override public void tick() {
-        if (!isPaused) {
+        if (!paused) {
 	    for (Tickable tickable : tickables) {
 		tickable.tick();
 	    }
@@ -110,18 +117,18 @@ public class Level implements Tickable
     }
 
     public boolean isPaused() {
-	return isPaused;
+	return paused;
     }
 
     public void setPaused(final boolean paused) {
-	isPaused = paused;
+	this.paused = paused;
     }
 
     public void restartLevel() {
 	initializeLevel();
     }
 
-    public Iterator<Moveable> getMovingObstaclesIterator() {
+    public Iterator<Movable> getMovingObstaclesIterator() {
         return movingObjects.iterator();
     }
 
@@ -130,8 +137,8 @@ public class Level implements Tickable
     }
 
     public Block getCollidingEntity(final Block block, final float x, final float y) {
-	for (Moveable movingObject : movingObjects) {
-	    if (block != movingObject && Math.abs(movingObject.getX() - x) < 1 && Math.abs(movingObject.getY() - y) < 1) {
+	for (Movable movingObject : movingObjects) {
+	    if (block != movingObject && Math.abs(movingObject.getX() - x) < 1 && Math.abs(movingObject.getY() - y) < 1) { // Ignore the warning since reference comparison is intended.
 	        return movingObject;
 	    }
 	}
@@ -140,11 +147,15 @@ public class Level implements Tickable
     }
 
     public void removeBlockAt(LevelChanger levelChanger, int x, int y) {
-        blocks[y][x] = new Block(BlockType.EMPTY);
+        if (levelChanger != null) {
+	    blocks[y][x] = new Block(BlockType.EMPTY);
+	}
     }
 
     public void completeLevel(LevelChanger levelChanger) {
-	levelCompleted = true;
+        if (levelChanger != null) {
+	    levelCompleted = true;
+	}
     }
 
     public boolean isLevelCompleted() {

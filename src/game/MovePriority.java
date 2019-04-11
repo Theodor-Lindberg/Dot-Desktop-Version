@@ -1,10 +1,10 @@
 package game;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Stack;
 
+/**
+ * Handles the move priority for the player when multiple keys are pressed.
+ */
 public class MovePriority
 {
     private Stack<Direction> directions;

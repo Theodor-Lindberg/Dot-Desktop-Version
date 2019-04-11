@@ -3,24 +3,23 @@ package gui;
 import game.BlockType;
 import game.Direction;
 import game.Level;
-import game.Player;
 
 import javax.swing.*;
-import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.EnumMap;
 
+/**
+ * This class handles the user interface and the gameloop.
+ */
 public class LevelViewer
 {
     private Level level;
     private JFrame frame;
     private final static String FRAME_TITLE;
-    private Timer gameTimer;
 
     static {
 	FRAME_TITLE = "Dot";
@@ -56,14 +55,30 @@ public class LevelViewer
 
     private EnumMap<BlockType, Color> getBlockColorTable() {
 	EnumMap<BlockType, Color> polyColorTable = new EnumMap<>(BlockType.class);
-	polyColorTable.put(BlockType.EMPTY, new Color(39, 32, 28, 255));
-	polyColorTable.put(BlockType.WALL, new Color(125, 190, 255, 255));
-	polyColorTable.put(BlockType.KEY, new Color(222, 0, 235, 255));
-	polyColorTable.put(BlockType.WALL1, new Color(131, 77, 235, 255));
-	polyColorTable.put(BlockType.WALL2, new Color(224, 197, 20, 255));
-	polyColorTable.put(BlockType.END, new Color(40, 242, 134, 255));
-	polyColorTable.put(BlockType.PLAYER, new Color(237, 228, 228, 255));
-	polyColorTable.put(BlockType.ENEMY, new Color(242, 0, 70, 255));
+
+	final Color emptyColor = new Color(39, 32, 28, 255);
+	polyColorTable.put(BlockType.EMPTY, emptyColor);
+
+	final Color wallColor = new Color(125, 190, 255, 255);
+	polyColorTable.put(BlockType.WALL, wallColor);
+
+	final Color keyColor = new Color(222, 0, 235, 255);
+	polyColorTable.put(BlockType.KEY, keyColor);
+
+	final Color wall1Color = new Color(131, 77, 235, 255);
+	polyColorTable.put(BlockType.WALL1, wall1Color);
+
+	final Color wall2Color = new Color(224, 197, 20, 255);
+	polyColorTable.put(BlockType.WALL2, wall2Color);
+
+	final Color endColor = new Color(40, 242, 134, 255);
+	polyColorTable.put(BlockType.END, endColor);
+
+	final Color playerColor = new Color(237, 228, 228, 255);
+	polyColorTable.put(BlockType.PLAYER, playerColor);
+
+	final Color enemyColor = new Color(242, 0, 70, 255);
+	polyColorTable.put(BlockType.ENEMY, enemyColor);
 	return polyColorTable;
     }
 
@@ -96,12 +111,12 @@ public class LevelViewer
 	act.put(name, new MotionAction(name, direction, onKeyRelease));
     }
 
-    private class MotionAction extends AbstractAction
+    private final class MotionAction extends AbstractAction
     {
         private final Direction direction;
         private final boolean onKeyRelease;
 
-        public MotionAction(String name, final Direction direction, final boolean onKeyRelease)
+        private MotionAction(String name, final Direction direction, final boolean onKeyRelease)
         {
             super(name);
 
@@ -146,7 +161,7 @@ public class LevelViewer
 	    }
 	};
 
-	gameTimer = new Timer(16, gameTick);
+	final Timer gameTimer = new Timer(16, gameTick);
 	gameTimer.setCoalesce(true);
 	gameTimer.start();
     }

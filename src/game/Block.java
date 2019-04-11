@@ -1,5 +1,8 @@
 package game;
 
+/**
+ * Base class for all blocks.
+ */
 public class Block
 {
     private final BlockType blockType;

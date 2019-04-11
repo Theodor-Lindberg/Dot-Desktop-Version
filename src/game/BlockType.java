@@ -1,5 +1,8 @@
 package game;
 
+/**
+ * Enum listing all available block types and their characteristics.
+ */
 public enum BlockType
 {
     EMPTY(false, false), WALL(true, false), WALL1(true, false), WALL2(true, false), START(false, false),

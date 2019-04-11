@@ -5,7 +5,7 @@ import game.BlockType;
 import game.KeyBlock;
 import game.Level;
 import game.LevelListener;
-import game.Moveable;
+import game.Movable;
 import game.Point2D;
 
 import javax.swing.*;
@@ -13,6 +13,9 @@ import java.awt.*;
 import java.util.EnumMap;
 import java.util.Iterator;
 
+/**
+ * Handles the rendering of the level.
+ */
 public class LevelComponent extends JComponent implements LevelListener
 {
     private final Level level;
@@ -42,6 +45,7 @@ public class LevelComponent extends JComponent implements LevelListener
     @Override protected void paintComponent(final Graphics g) {
 	super.paintComponent(g);
 	final Graphics2D g2d = (Graphics2D) g;
+	g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
 	for (int y = 0; y < level.getHeight(); y++)
 	    for (int x = 0; x < level.getWidth(); x++) {
@@ -51,9 +55,9 @@ public class LevelComponent extends JComponent implements LevelListener
 
 	    }
 
-	Iterator<Moveable> movingObjects = level.getMovingObstaclesIterator();
+	Iterator<Movable> movingObjects = level.getMovingObstaclesIterator();
 	while (movingObjects.hasNext()) {
-	    Moveable movingObject = movingObjects.next();
+	    Movable movingObject = movingObjects.next();
 	    drawBlock(g2d, blockColorTable.get(movingObject.getBlockType()), movingObject.getX(), movingObject.getY());
 	}
 

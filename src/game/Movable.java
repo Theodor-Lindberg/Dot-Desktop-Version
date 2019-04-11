@@ -1,6 +1,9 @@
 package game;
 
-public abstract class Moveable extends Block implements Tickable, Interactable
+/**
+ * Base class for all moving objects.
+ */
+public abstract class Movable extends Block implements Tickable, Interactable, Movement
 {
     public enum Speed {
         SLOW(0.1f), NORMAL(0.15f), FAST(0.2f);
@@ -20,7 +23,7 @@ public abstract class Moveable extends Block implements Tickable, Interactable
     protected Point2D targetPosition;
     protected Level level;
 
-    public Moveable(final BlockType blockType, final Point2D position, final Speed speed, final Level level) {
+    protected Movable(final BlockType blockType, final Point2D position, final Speed speed, final Direction startDirection, final Level level) {
 	super(blockType);
 	this.position = position;
 	this.speed = speed;
@@ -28,6 +31,7 @@ public abstract class Moveable extends Block implements Tickable, Interactable
 	isMoving = false;
 	reachedBlock = true;
 	targetPosition = new Point2D(position);
+	direction = startDirection;
     }
 
     public float getX() {
@@ -45,10 +49,8 @@ public abstract class Moveable extends Block implements Tickable, Interactable
 
         final int x = (direction == Direction.RIGHT || direction == Direction.DOWN) ? (int)(position.getX() + direction.deltaX) : (int)(position.getX() + direction.deltaX * speed.value);
         final int y = (direction == Direction.RIGHT || direction == Direction.DOWN) ? (int)(position.getY() + direction.deltaY) : (int)(position.getY() + direction.deltaY * speed.value);
-        return level.getBlockAt(x, y).getBlockType().isSolid;
+        return level.getBlockAt(x, y).isSolid();
     }
-
-    protected abstract void handleCollision();
 
     protected void resetPositionAndTarget() {
 	position.setX((int)position.getX());
@@ -58,14 +60,17 @@ public abstract class Moveable extends Block implements Tickable, Interactable
     }
 
     protected boolean hasReachedBlock() {
-        return (direction == Direction.RIGHT && position.getX() > targetPosition.getX() ||
-        	    		direction == Direction.DOWN && position.getY() > targetPosition.getY() ||
-        	    		direction == Direction.LEFT && (int)position.getX() < targetPosition.getX() ||
-        	    	    	direction == Direction.UP && (int)position.getY() < targetPosition.getY());
+	if (direction == Direction.RIGHT) if (position.getX() > targetPosition.getX()) return true;
+	if (direction == Direction.DOWN) if (position.getY() > targetPosition.getY()) return true;
+	if (direction == Direction.LEFT) if ((int) position.getX() < targetPosition.getX()) return true;
+	if (direction == Direction.UP) return (int) position.getY() < targetPosition.getY();
+	return false;
     }
 
-    protected void move() {
-	if (willCollide()) handleCollision();
+    @Override public void move(final Movable movingObject) {
+	if (willCollide()) handleCollision(this);
+
+	level.completeLevel(null);
 
 	if (isMoving) {
 	    position.setX(position.getX() + direction.deltaX * speed.value);
@@ -89,7 +94,7 @@ public abstract class Moveable extends Block implements Tickable, Interactable
 
 	    Block block = level.getCollidingEntity(this, targetPosition.getX(), targetPosition.getY());
 	    if (block.isInteractive()) {
-		((Interactable) block).interact(this);
+		((Interactable)block).interact(this);
 	    }
 	}
     }
