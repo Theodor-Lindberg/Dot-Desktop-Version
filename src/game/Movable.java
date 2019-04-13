@@ -93,7 +93,7 @@ public abstract class Movable extends Block implements Tickable, Interactable, M
 	    }
 
 	    Block block = level.getCollidingEntity(this, targetPosition.getX(), targetPosition.getY());
-	    if (block.isInteractive()) {
+	    if (block instanceof Interactable) {
 		((Interactable)block).interact(this);
 	    }
 	}

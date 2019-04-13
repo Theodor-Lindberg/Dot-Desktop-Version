@@ -18,8 +18,4 @@ public class Block
     public boolean isSolid() {
         return blockType.isSolid;
     }
-
-    public boolean isInteractive() {
-        return blockType.isInteractive;
-    }
 }
