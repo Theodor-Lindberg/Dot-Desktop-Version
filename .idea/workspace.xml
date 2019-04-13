@@ -23,52 +23,19 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/game/Level.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1091">
-              <caret line="109" column="57" selection-start-line="109" selection-start-column="57" selection-end-line="109" selection-end-column="57" />
-              <folding>
-                <element signature="method#Level#0;class#Level#0" />
-                <element signature="method#tick#0;class#Level#0" />
-                <element signature="method#notifyListeners#0;class#Level#0" />
-                <element signature="method#getCollidingEntity#0;class#Level#0" />
-                <element signature="method#removeBlockAt#0;class#Level#0" />
-                <element signature="method#completeLevel#0;class#Level#0" />
-                <element signature="method#removeDirection#0;class#Level#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/game/LevelReader.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-254">
+            <state relative-caret-position="187">
               <caret line="11" column="3" selection-start-line="11" selection-start-column="3" selection-end-line="11" selection-end-column="3" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/game/Player.java">
+        <entry file="file://$PROJECT_DIR$/src/game/LevelListener.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="43" column="34" selection-start-line="43" selection-start-column="34" selection-end-line="43" selection-end-column="34" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/gui/LevelViewer.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="419">
-              <caret line="30" column="58" lean-forward="true" selection-start-line="30" selection-start-column="58" selection-end-line="30" selection-end-column="58" />
-              <folding>
-                <element signature="method#addKeyboardEvents#0;class#LevelViewer#0" />
-                <element signature="method#exit#0;class#LevelViewer#0" />
-                <element signature="e#5059#5060#0" expanded="true" />
-                <element signature="e#5096#5097#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="51">
+              <caret line="3" column="79" selection-start-line="3" selection-start-column="79" selection-end-line="3" selection-end-column="79" />
             </state>
           </provider>
         </entry>
@@ -186,7 +153,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1555165693819" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1555165788710" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../tdde30-labbar-d1b-g03-13" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -293,12 +260,12 @@
       <workItem from="1553762972623" duration="40662000" />
       <workItem from="1554117060606" duration="59864000" />
       <workItem from="1554816194154" duration="7868000" />
-      <workItem from="1554884367621" duration="22036000" />
+      <workItem from="1554884367621" duration="22364000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="130430000" />
+    <option name="totallyTimeSpent" value="130758000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -313,7 +280,7 @@
     <frame x="-6" y="-6" width="1933" height="1093" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.7870879" visible="true" weight="0.1712" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.7870879" visible="true" weight="0.1712" />
       <window_info id="Structure" order="1" sideWeight="0.21291208" side_tool="true" weight="0.256" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -322,8 +289,8 @@
       <window_info id="Favorites" order="6" sideWeight="0.50140846" side_tool="true" weight="0.16693333" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32917964" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49973333" weight="0.24299066" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.39875388" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49973333" visible="true" weight="0.24299066" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.39875388" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.3283582" />
@@ -517,13 +484,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/game/LevelListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="79" selection-start-line="3" selection-start-column="79" selection-end-line="3" selection-end-column="79" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/game/Movement.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
@@ -601,19 +561,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/gui/LevelViewer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="419">
-          <caret line="30" column="58" lean-forward="true" selection-start-line="30" selection-start-column="58" selection-end-line="30" selection-end-column="58" />
-          <folding>
-            <element signature="method#addKeyboardEvents#0;class#LevelViewer#0" />
-            <element signature="method#exit#0;class#LevelViewer#0" />
-            <element signature="e#5059#5060#0" expanded="true" />
-            <element signature="e#5096#5097#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/game/Point2D.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
@@ -621,10 +568,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/game/LevelReader.java">
+    <entry file="file://$PROJECT_DIR$/src/game/Player.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-254">
-          <caret line="11" column="3" selection-start-line="11" selection-start-column="3" selection-end-line="11" selection-end-column="3" />
+        <state relative-caret-position="561">
+          <caret line="43" column="34" selection-start-line="43" selection-start-column="34" selection-end-line="43" selection-end-column="34" />
         </state>
       </provider>
     </entry>
@@ -644,10 +591,31 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/game/Player.java">
+    <entry file="file://$PROJECT_DIR$/src/gui/LevelViewer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="43" column="34" selection-start-line="43" selection-start-column="34" selection-end-line="43" selection-end-column="34" />
+        <state relative-caret-position="82">
+          <caret line="22" lean-forward="true" selection-start-line="22" selection-end-line="22" />
+          <folding>
+            <element signature="method#LevelViewer#0;class#LevelViewer#0" />
+            <element signature="method#addKeyboardEvents#0;class#LevelViewer#0" />
+            <element signature="method#exit#0;class#LevelViewer#0" />
+            <element signature="e#5059#5060#0" expanded="true" />
+            <element signature="e#5096#5097#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/game/LevelReader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" column="3" selection-start-line="11" selection-start-column="3" selection-end-line="11" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/game/LevelListener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="79" selection-start-line="3" selection-start-column="79" selection-end-line="3" selection-end-column="79" />
         </state>
       </provider>
     </entry>
