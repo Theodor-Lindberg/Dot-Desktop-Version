@@ -167,6 +167,6 @@ public class LevelViewer
     }
 
     public static void main(String[] args) {
-	new LevelViewer(new Level(30,30));
+	new LevelViewer(new Level());
     }
 }
