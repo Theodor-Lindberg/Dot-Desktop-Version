@@ -3,7 +3,7 @@ package game;
 /**
  * Contains logic for basic ai movement, i.e turn right, left or back on collision.
  */
-public class BasicAI implements Movement
+public class BasicAI implements AIMovement
 {
     public enum TurnDirection {
         LEFT, RIGHT, BACK
@@ -16,25 +16,25 @@ public class BasicAI implements Movement
     }
 
     @Override public void move(final Movable movingObject) {
-        movingObject.isMoving = true;
-        movingObject.move(movingObject);
+        movingObject.setMoving(true);
+        movingObject.move();
     }
 
     @Override public void handleCollision(final Movable movingObject) {
 	movingObject.resetPositionAndTarget();
 
 	if (turnDirection == TurnDirection.BACK) {
-	    movingObject.direction = Direction.getOppositeDirection(movingObject.direction);
+	    movingObject.setDirection(Direction.getOppositeDirection(movingObject.getDirection()));
 	}
 	else {
-	    movingObject.direction = Direction.turn(movingObject.direction, turnDirection == TurnDirection.LEFT);
+	    movingObject.setDirection(Direction.turn(movingObject.getDirection(), turnDirection == TurnDirection.LEFT));
 	}
 
-	movingObject.targetPosition.addX(movingObject.direction.deltaX);
-	movingObject.targetPosition.addY(movingObject.direction.deltaY);
+	movingObject.addXTargetPosition(movingObject.getDirection().deltaX);
+	movingObject.addYTargetPosition(movingObject.getDirection().deltaY);
 
 	if (movingObject.willCollide()) {
-	    movingObject.isMoving = false;
+	    movingObject.setMoving(false);
 	}
     }
 }

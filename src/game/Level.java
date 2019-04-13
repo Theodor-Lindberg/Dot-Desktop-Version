@@ -35,7 +35,7 @@ public class Level implements Tickable
 
 	movingObjects = new ArrayList<>();
 
-        LevelReader levelReader = new LevelReader(null);
+        final LevelReader levelReader = new LevelReader(null);
         blocks = levelReader.readLevel(this, levelKey);
         movingObjects = levelReader.getMovingObjects();
         player = levelReader.getPlayer();
@@ -53,6 +53,11 @@ public class Level implements Tickable
 	    for (Tickable tickable : tickables) {
 		tickable.tick();
 	    }
+
+	    if (!player.isAlive() && !levelCompleted) {
+		playerDied();
+	    }
+	    
 	    notifyListeners();
 	}
     }
@@ -102,13 +107,13 @@ public class Level implements Tickable
     }
 
     public void removeBlockAt(final LevelChanger levelChanger, final int x, final int y) {
-        if (levelChanger == levelKey) {
+        if (levelChanger == levelKey) { // Only accept the instance that the level itself created, warning is ignored.
 	    createBlockAt(x, y, new Block(BlockType.EMPTY));
 	}
     }
 
     public void completeLevel(LevelChanger levelChanger) {
-        if (levelChanger == levelKey) {
+        if (levelChanger == levelKey) { // Only accept the instance that the level itself created, warning is ignored.
 	    levelCompleted = true;
 	}
     }
@@ -119,6 +124,10 @@ public class Level implements Tickable
 
     private void createBlockAt(final int x, final int y, Block block) {
         blocks[y][x] = block;
+    }
+
+    private void playerDied() {
+        restartLevel();
     }
 
     public void movePlayer(final Direction direction) {

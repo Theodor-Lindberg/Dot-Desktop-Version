@@ -3,7 +3,7 @@ package game;
 /**
  * All objects that handles movement implements this interface.
  */
-public interface Movement
+public interface AIMovement
 {
     void move(final Movable movingObject);
 

@@ -5,16 +5,16 @@ package game;
  */
 public class Enemy extends Movable
 {
-    private Movement ai;
+    private AIMovement ai;
 
-    public Enemy(final Point2D position, final Direction startDirection, final Speed speed, final Level level, final Movement ai) {
+    public Enemy(final Point2D position, final Direction startDirection, final Speed speed, final Level level, final AIMovement ai) {
 	super(BlockType.ENEMY, position, speed, startDirection, level);
 
 	this.ai = ai;
     }
 
-    @Override public void handleCollision(final Movable movingObject) {
-        ai.handleCollision(movingObject);
+    @Override protected void handleCollision() {
+        ai.handleCollision(this);
     }
 
     @Override public void interact(final Movable movingObject) {
@@ -24,9 +24,9 @@ public class Enemy extends Movable
     }
 
     @Override public void tick() {
-	if (reachedBlock) {
-	    targetPosition.addX(direction.deltaX);
-	    targetPosition.addY(direction.deltaY);
+	if (isReachedBlock()) {
+	    addXTargetPosition(getDirection().deltaX);
+	    addYTargetPosition(getDirection().deltaY);
 	}
 	ai.move(this);
     }

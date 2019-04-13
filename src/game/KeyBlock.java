@@ -27,14 +27,12 @@ public class KeyBlock extends Block implements Interactable
 
     @Override public void interact(Movable movingObject) {
         if (movingObject.getBlockType() == BlockType.PLAYER) {
-            level.removeBlockAt(levelChanger, (int)movingObject.targetPosition.getX(), (int)movingObject.targetPosition.getY());
-	    floodFill(movingObject.position);
+            level.removeBlockAt(levelChanger, (int)movingObject.getTargetX(), (int)movingObject.getTargetY());
+	    floodFill((int)movingObject.getX(), (int)movingObject.getY());
 	}
     }
 
-    private void floodFill(final Point2D start) {
-        int x = (int)start.getX();
-        int y = (int)start.getY();
+    private void floodFill(final int x, final int y) {
         boolean[][] visited = new boolean[level.getHeight()][level.getWidth()];
 
 	LinkedList<Point> blocksToVisit = new LinkedList<>();
