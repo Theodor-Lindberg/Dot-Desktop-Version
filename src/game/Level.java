@@ -1,5 +1,7 @@
 package game;
 
+import gui.LevelEditor;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -49,7 +51,7 @@ public class Level implements Tickable
     }
 
     @Override public void tick() {
-        if (!paused) {
+	if (!paused) {
 	    for (Tickable tickable : tickables) {
 		tickable.tick();
 	    }
@@ -57,9 +59,9 @@ public class Level implements Tickable
 	    if (!player.isAlive() && !levelCompleted) {
 		playerDied();
 	    }
-	    
-	    notifyListeners();
 	}
+
+	notifyListeners();
     }
 
     private void notifyListeners() {
@@ -122,7 +124,7 @@ public class Level implements Tickable
         return levelCompleted;
     }
 
-    private void createBlockAt(final int x, final int y, Block block) {
+    public void createBlockAt(final int x, final int y, Block block) {
         blocks[y][x] = block;
     }
 
@@ -135,4 +137,11 @@ public class Level implements Tickable
     }
 
     public void removeDirection(final Direction direction) { player.releaseDirection(direction); }
+
+    public LevelChanger requestLevelChanger(Object o) {
+        if (o instanceof LevelEditor) {
+            return levelKey;
+	}
+        return null;
+    }
 }

@@ -21,7 +21,7 @@ public class LevelComponent extends JComponent implements LevelListener
     private final Level level;
     private final EnumMap<BlockType, Color> blockColorTable;
     private final Color backgroundColor;
-    private final static int BLOCK_SIZE;
+    public final static int BLOCK_SIZE;
     private final static int PADDING;
 
     private final static String VICTORY_TEXT;

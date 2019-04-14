@@ -13,12 +13,14 @@ import java.awt.event.WindowEvent;
 import java.util.EnumMap;
 
 /**
- * This class handles the user interface and the gameloop.
+ * This class handles the user interface and the game loop.
  */
 public class LevelViewer
 {
     private Level level;
     private JFrame frame;
+    private LevelComponent levelComponent;
+    private LevelEditor levelEditor;
     private final static String FRAME_TITLE;
 
     static {
@@ -30,12 +32,14 @@ public class LevelViewer
 
 	final Color backgroundColor = new Color(23,16,22);
 
-	final LevelComponent levelComponent = new LevelComponent(level, getBlockColorTable(), backgroundColor);
+	levelComponent = new LevelComponent(level, getBlockColorTable(), backgroundColor);
 	level.subscribeListener(levelComponent);
 
 	frame = new JFrame(FRAME_TITLE);
+	initializeMenuBar();
 	frame.setLayout(new BorderLayout());
-	frame.add(levelComponent, BorderLayout.CENTER);
+
+	frame.add(levelComponent, BorderLayout.EAST);
 	frame.pack();
 
 	frame.addWindowListener(new WindowAdapter()
@@ -82,6 +86,34 @@ public class LevelViewer
 	return polyColorTable;
     }
 
+    private void initializeMenuBar() {
+	final JMenuBar menuBar = new JMenuBar();
+
+	final String menuText = "Options";
+	final JMenu menu = new JMenu(menuText);
+	final String helpMenuText = "Help";
+	final String gameMenuText = "Load Game";
+	final String editorMenuText = "Editor";
+	final String exitMenuText = "Exit";
+
+
+	final JMenuItem helpItem = new JMenuItem(helpMenuText);
+	final JMenuItem gameItem = new JMenuItem(gameMenuText);
+	final JMenuItem editorItem = new JMenuItem(editorMenuText);
+	final JMenuItem exitItem = new JMenuItem(exitMenuText);
+
+	gameItem.addActionListener(ev -> showGame());
+	editorItem.addActionListener(ev -> showLevelEditor());
+	exitItem.addActionListener(ev -> exit());
+
+	menu.add(helpItem);
+	menu.add(gameItem);
+	menu.add(editorItem);
+	menu.add(exitItem);
+	menuBar.add(menu);
+	frame.setJMenuBar(menuBar);
+    }
+
     private void addKeyboardEvents() {
 	JComponent pane = frame.getRootPane();
 
@@ -100,7 +132,7 @@ public class LevelViewer
 	addMotionEvent(in, act, KeyEvent.VK_DOWN, false, "MoveDown", Direction.DOWN);
 	addMotionEvent(in, act, KeyEvent.VK_DOWN, true, "ReleaseDown", Direction.DOWN);
 
-	in.put(KeyStroke.getKeyStroke("SPACE"), "TogglePause");
+	in.put(KeyStroke.getKeyStroke("P"), "TogglePause");
 	act.put("TogglePause", new ToggleGamePause());
 	in.put(KeyStroke.getKeyStroke("R"), "RestartLevel");
 	act.put("RestartLevel", new RestartLevel());
@@ -145,6 +177,19 @@ public class LevelViewer
 	}
     }
 
+    private void showLevelEditor() {
+	levelEditor = new LevelEditor(level);
+	frame.add(levelEditor, BorderLayout.WEST);
+	final LevelEditor.BlockPlacer blockPlacer = levelEditor.new BlockPlacer();
+	levelComponent.addMouseMotionListener(blockPlacer);
+	levelComponent.addMouseListener(blockPlacer);
+	frame.pack();
+    }
+
+    private void showGame() {
+        frame.remove(levelEditor);
+        frame.pack();
+    }
 
     private void exit() {
 	if (JOptionPane.showConfirmDialog(frame, "Are you sure you want to close this window?", "Close Window?",
