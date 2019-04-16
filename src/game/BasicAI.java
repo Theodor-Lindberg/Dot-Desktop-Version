@@ -37,4 +37,8 @@ public class BasicAI implements AIMovement
 	    movingObject.setMoving(false);
 	}
     }
+
+    @Override public AIMovement copy() {
+	return new BasicAI(turnDirection);
+    }
 }

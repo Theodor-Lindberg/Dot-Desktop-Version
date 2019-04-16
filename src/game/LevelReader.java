@@ -1,11 +1,12 @@
 package game;
 
-import game.BasicAI.TurnDirection;
-import game.Level.LevelChanger;
+import game.Game.LevelChanger;
 import game.Movable.Speed;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static game.EnemyFactory.*;
 
 /**
  * Read
@@ -22,14 +23,16 @@ public class LevelReader
 	player = null;
     }
 
-    public Block[][] readLevel(Level level, final LevelChanger levelChanger) {
-	player = new Player(new Point2D(10, 10), Speed.NORMAL, level);
+    public Block[][] readLevel(Game game, final LevelChanger levelChanger) {
+	player = new Player(new Point2D(10, 10), Speed.NORMAL, game);
 	movingObjects.add(player);
 
-	Enemy enemy = new Enemy(new Point2D(17, 17), Direction.RIGHT, Speed.NORMAL, level, new BasicAI(TurnDirection.LEFT));
+	EnemyFactory ef = new EnemyFactory(game);
+
+	Enemy enemy = ef.createEnemy(new Point2D(17, 17), Direction.RIGHT, Speed.NORMAL, EnemyAI.BASIC_TURN_LEFT);
 	movingObjects.add(enemy);
 
-	Enemy enemy2 = new Enemy(new Point2D(25, 17), Direction.UP, Speed.NORMAL, level, new BasicAI(TurnDirection.BACK));
+	Enemy enemy2 = ef.createEnemy(new Point2D(25, 17), Direction.UP, Speed.NORMAL, EnemyAI.BASIC_TURN_BACK);
 	movingObjects.add(enemy2);
 
 	Block[][] blocks = new Block[30][30];
@@ -56,10 +59,10 @@ public class LevelReader
 	insertBlockAt(22,15, new Block(BlockType.WALL), blocks);
 	insertBlockAt(23,15, new Block(BlockType.WALL), blocks);
 
-	insertBlockAt(25,25, new EndBlock(level, levelChanger), blocks);
+	insertBlockAt(25, 25, new EndBlock(game, levelChanger), blocks);
 
-	insertBlockAt(7, 5, new KeyBlock(BlockType.WALL1, level, levelChanger), blocks);
-	insertBlockAt(12, 12, new KeyBlock(BlockType.WALL2, level, levelChanger), blocks);
+	insertBlockAt(7, 5, new KeyBlock(BlockType.WALL1, game, levelChanger), blocks);
+	insertBlockAt(12, 12, new KeyBlock(BlockType.WALL2, game, levelChanger), blocks);
 
 	return blocks;
     }

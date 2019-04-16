@@ -8,8 +8,8 @@ public class Player extends Movable
     private MovePriority movePriority;
     private boolean alive;
 
-    public Player(final Point2D position, final Speed speed, final Level level) {
-	super(BlockType.PLAYER, position, speed, null, level);
+    public Player(final Point2D position, final Speed speed, final Game game) {
+	super(BlockType.PLAYER, position, speed, null, game);
 	movePriority = new MovePriority();
 	alive = true;
     }
@@ -17,6 +17,9 @@ public class Player extends Movable
     public void move(Direction direction) {
         movePriority.addDirection(direction);
         setMoving(true);
+        if (getDirection() == null) {
+            setDirection(direction);
+	}
     }
 
     public void releaseDirection(Direction direction) {
@@ -42,7 +45,7 @@ public class Player extends Movable
 	}
     }
 
-    @Override protected void handleCollision() {
+    @Override protected void handleCollision() { // Player collision (gets temporary stuck) happens here
         setMoving(false);
 	setReachedBlock(true);
 	resetPositionAndTarget();

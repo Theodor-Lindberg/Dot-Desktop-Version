@@ -1,73 +1,72 @@
 package game;
 
-import gui.LevelEditor;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
-/**
- *
- */
-public class Level implements Tickable
+import static game.InterfaceTypeAdapterFactory.getInterfaceTypeAdapterFactory;
+
+public class Level
 {
     private Block[][] blocks;
-    private Player player;
-    private final LevelChanger levelKey;
-    private List<LevelListener> levelListeners;
-    private List<Tickable> tickables;
-    private List<Movable> movingObjects;
-    private boolean paused;
-    private boolean levelCompleted;
 
-    // Works a proxy to grant access to certain methods, the warning is ignored.
-    public class LevelChanger {
+    public Level (final String fileName) {
+	try {
+	    String content = Files.readString(Paths.get(fileName));
+	    final RuntimeTypeAdapterFactory<Block> typeFactory =
+		    RuntimeTypeAdapterFactory.of(Block.class, "type").registerSubtype(KeyBlock.class, KeyBlock.class.getName())
+			    .registerSubtype(Player.class, Player.class.getName()).registerSubtype(Block.class, Block.class.getName())
+			    .registerSubtype(EndBlock.class, EndBlock.class.getName()).registerSubtype(Enemy.class, Enemy.class.getName());
+
+	    final Gson gson = new GsonBuilder().registerTypeAdapterFactory(typeFactory).registerTypeAdapterFactory(getInterfaceTypeAdapterFactory()).setPrettyPrinting().create();
+	    blocks = gson.fromJson(content, Block[][].class);
+	    final Block keyBlock = blocks[5][7];
+	    KeyBlock k = (KeyBlock) keyBlock;
+	} catch (IOException e) {
+	}
     }
 
-    public Level() {
-	levelKey = new LevelChanger();
-	levelListeners = new ArrayList<>();
+    public Level(final int width, final int height) {
+	blocks = new Block[height][width];
 
-	initializeLevel();
-    }
-
-    private void initializeLevel() {
-
-        levelCompleted = false;
-
-	movingObjects = new ArrayList<>();
-
-        final LevelReader levelReader = new LevelReader(null);
-        blocks = levelReader.readLevel(this, levelKey);
-        movingObjects = levelReader.getMovingObjects();
-        player = levelReader.getPlayer();
-
-	tickables = new ArrayList<>(); // tickables and movingObjects currently contains the same elements but tickables is used for better scalability
-	tickables.addAll(movingObjects);
-    }
-
-    public void subscribeListener(LevelListener levelListener) {
-        levelListeners.add(levelListener);
-    }
-
-    @Override public void tick() {
-	if (!paused) {
-	    for (Tickable tickable : tickables) {
-		tickable.tick();
-	    }
-
-	    if (!player.isAlive() && !levelCompleted) {
-		playerDied();
+	for (int y = 0; y < blocks.length; y++) {
+	    for (int x = 0; x < blocks[0].length; x++) {
+		if (x == 0 || y == 0 || x == blocks[0].length - 1 || y == blocks.length - 1) {
+		    insertBlockAt(x, y, new Block(BlockType.WALL));
+		} else if (y == 20) {
+		    insertBlockAt(x, y, new Block(BlockType.WALL1));
+		} else if (y == 21) {
+		    insertBlockAt(x, y, new Block(BlockType.WALL2));
+		} else {
+		    insertBlockAt(x, y, new Block(BlockType.EMPTY));
+		}
 	    }
 	}
 
-	notifyListeners();
-    }
+	insertBlockAt(15, 15, new Block(BlockType.WALL));
+	insertBlockAt(16, 15, new Block(BlockType.WALL));
+	insertBlockAt(17, 15, new Block(BlockType.WALL));
+	insertBlockAt(18, 15, new Block(BlockType.WALL));
+	insertBlockAt(19, 15, new Block(BlockType.WALL));
+	insertBlockAt(20, 15, new Block(BlockType.WALL));
+	insertBlockAt(21, 15, new Block(BlockType.WALL));
+	insertBlockAt(22, 15, new Block(BlockType.WALL));
+	insertBlockAt(23, 15, new Block(BlockType.WALL));
 
-    private void notifyListeners() {
-	for (LevelListener listener : levelListeners) {
-	    listener.levelChanged();
-	}
+	insertBlockAt(25, 25, new EndBlock(null, null));
+
+	insertBlockAt(7, 5, new KeyBlock(BlockType.WALL1, null, null));
+	insertBlockAt(12, 12, new KeyBlock(BlockType.WALL2, null, null));
+
+	insertBlockAt(10, 10, new Player(new Point2D(10, 10), Movable.Speed.NORMAL, null));
+	EnemyFactory ef = new EnemyFactory(null);
+
+	insertBlockAt(17, 17, ef.createEnemy(new Point2D(17, 17), Direction.RIGHT, Movable.Speed.NORMAL, EnemyFactory.EnemyAI.BASIC_TURN_LEFT));
+	insertBlockAt(25, 17, ef.createEnemy(new Point2D(25, 17), Direction.UP, Movable.Speed.NORMAL, EnemyFactory.EnemyAI.BASIC_TURN_BACK));
     }
 
     public int getWidth() {
@@ -78,70 +77,31 @@ public class Level implements Tickable
 	return blocks.length;
     }
 
-    public boolean isPaused() {
-	return paused;
-    }
-
-    public void setPaused(final boolean paused) {
-	this.paused = paused;
-    }
-
-    public void restartLevel() {
-	initializeLevel();
-    }
-
-    public Iterator<Movable> getMovingObstaclesIterator() {
-        return movingObjects.iterator();
-    }
-
-    public Block getBlockAt(final int x, final int y) {
-	return blocks[y][x];
-    }
-
-    public Block getCollidingEntity(final Block block, final float x, final float y) {
-	for (Movable movingObject : movingObjects) {
-	    if (block != movingObject && Math.abs(movingObject.getX() - x) < 1 && Math.abs(movingObject.getY() - y) < 1) { // Ignore the warning since reference comparison is intended.
-	        return movingObject;
-	    }
-	}
-
-        return getBlockAt((int)x, (int)y);
-    }
-
-    public void removeBlockAt(final LevelChanger levelChanger, final int x, final int y) {
-        if (levelChanger == levelKey) { // Only accept the instance that the level itself created, warning is ignored.
-	    createBlockAt(x, y, new Block(BlockType.EMPTY));
-	}
-    }
-
-    public void completeLevel(LevelChanger levelChanger) {
-        if (levelChanger == levelKey) { // Only accept the instance that the level itself created, warning is ignored.
-	    levelCompleted = true;
-	}
-    }
-
-    public boolean isLevelCompleted() {
-        return levelCompleted;
-    }
-
-    public void createBlockAt(final int x, final int y, Block block) {
+    public void insertBlockAt(final int x, final int y, final Block block) {
         blocks[y][x] = block;
     }
 
-    private void playerDied() {
-        restartLevel();
+    public Block getBlockAt(final int x, final int y) {
+        return blocks[y][x];
     }
 
-    public void movePlayer(final Direction direction) {
-        player.move(direction);
-    }
+    public void saveToJson(final String fileName) {
+	try {
+	    final RuntimeTypeAdapterFactory<Block> typeFactory = RuntimeTypeAdapterFactory
+	            .of(Block.class, "type")
+	            .registerSubtype(KeyBlock.class, KeyBlock.class.getName())
+		    .registerSubtype(Player.class, Player.class.getName())
+		    .registerSubtype(Block.class, Block.class.getName())
+		    .registerSubtype(EndBlock.class, EndBlock.class.getName())
+		    .registerSubtype(Enemy.class, Enemy.class.getName());
 
-    public void removeDirection(final Direction direction) { player.releaseDirection(direction); }
-
-    public LevelChanger requestLevelChanger(Object o) {
-        if (o instanceof LevelEditor) {
-            return levelKey;
+	    final Gson gson = new GsonBuilder().registerTypeAdapterFactory(typeFactory).registerTypeAdapterFactory(getInterfaceTypeAdapterFactory()).setPrettyPrinting().create();
+	    String levelAsJson = gson.toJson(blocks, Block[][].class);
+	    try (PrintWriter out = new PrintWriter("level.json")) {
+		out.println(levelAsJson);
+	    }
+	} catch (IOException e) {
+	    e.printStackTrace();
 	}
-        return null;
     }
 }

@@ -2,6 +2,7 @@ package gui;
 
 import game.BlockType;
 import game.Direction;
+import game.Game;
 import game.Level;
 
 import javax.swing.*;
@@ -17,7 +18,7 @@ import java.util.EnumMap;
  */
 public class LevelViewer
 {
-    private Level level;
+    private Game game;
     private JFrame frame;
     private LevelComponent levelComponent;
     private LevelEditor levelEditor;
@@ -27,13 +28,13 @@ public class LevelViewer
 	FRAME_TITLE = "Dot";
     }
 
-    public LevelViewer(final Level level) {
-	this.level = level;
+    public LevelViewer(final Game game) {
+	this.game = game;
 
 	final Color backgroundColor = new Color(23,16,22);
 
-	levelComponent = new LevelComponent(level, getBlockColorTable(), backgroundColor);
-	level.subscribeListener(levelComponent);
+	levelComponent = new LevelComponent(game, getBlockColorTable(), backgroundColor);
+	game.subscribeListener(levelComponent);
 
 	frame = new JFrame(FRAME_TITLE);
 	initializeMenuBar();
@@ -159,26 +160,26 @@ public class LevelViewer
         public void actionPerformed(ActionEvent e)
         {
             if (!onKeyRelease)
-            	level.movePlayer(direction);
+            	game.movePlayer(direction);
             else
-                level.removeDirection(direction);
+                game.removeDirection(direction);
         }
     }
 
     private class ToggleGamePause extends AbstractAction {
 	@Override public void actionPerformed(final ActionEvent e) {
-	    level.setPaused(!level.isPaused());
+	    game.setPaused(!game.isPaused());
 	}
     }
 
     private class RestartLevel extends AbstractAction {
 	@Override public void actionPerformed(final ActionEvent e) {
-	    level.restartLevel();
+	    game.restartLevel();
 	}
     }
 
     private void showLevelEditor() {
-	levelEditor = new LevelEditor(level);
+	levelEditor = new LevelEditor(game);
 	frame.add(levelEditor, BorderLayout.WEST);
 	final LevelEditor.BlockPlacer blockPlacer = levelEditor.new BlockPlacer();
 	levelComponent.addMouseMotionListener(blockPlacer);
@@ -202,7 +203,7 @@ public class LevelViewer
 	final Action gameTick = new AbstractAction()
 	{
 	    public void actionPerformed(ActionEvent e) {
-		level.tick();
+		game.tick();
 	    }
 	};
 
@@ -212,6 +213,6 @@ public class LevelViewer
     }
 
     public static void main(String[] args) {
-	new LevelViewer(new Level());
+	new LevelViewer(new Game(new Level("level.json")));
     }
 }

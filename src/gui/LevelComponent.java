@@ -2,8 +2,8 @@ package gui;
 
 import game.Block;
 import game.BlockType;
+import game.Game;
 import game.KeyBlock;
-import game.Level;
 import game.LevelListener;
 import game.Movable;
 import game.Point2D;
@@ -14,11 +14,11 @@ import java.util.EnumMap;
 import java.util.Iterator;
 
 /**
- * Handles the rendering of the level.
+ * Handles the rendering of the game.
  */
 public class LevelComponent extends JComponent implements LevelListener
 {
-    private final Level level;
+    private final Game game;
     private final EnumMap<BlockType, Color> blockColorTable;
     private final Color backgroundColor;
     public final static int BLOCK_SIZE;
@@ -36,8 +36,8 @@ public class LevelComponent extends JComponent implements LevelListener
 	VICTORY_TEXT_FONT = new Font(Font.SANS_SERIF, Font.BOLD, 70);
     }
 
-    public LevelComponent(final Level level, final EnumMap<BlockType, Color> blockColorTable, final Color backgroundColor) {
-	this.level = level;
+    public LevelComponent(final Game game, final EnumMap<BlockType, Color> blockColorTable, final Color backgroundColor) {
+	this.game = game;
 	this.blockColorTable = blockColorTable;
 	this.backgroundColor = backgroundColor;
     }
@@ -47,27 +47,27 @@ public class LevelComponent extends JComponent implements LevelListener
 	final Graphics2D g2d = (Graphics2D) g;
 	g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-	for (int y = 0; y < level.getHeight(); y++)
-	    for (int x = 0; x < level.getWidth(); x++) {
-		Block block = level.getBlockAt(x, y);
-		BlockType blockType = (block.getBlockType() == BlockType.KEY) ? ((KeyBlock) block).getTargetBlock() : block.getBlockType();
+	for (int y = 0; y < game.getHeight(); y++)
+	    for (int x = 0; x < game.getWidth(); x++) {
+		final Block block = game.getBlockAt(x, y);
+		final BlockType blockType = (block.getBlockType() == BlockType.KEY) ? ((KeyBlock) block).getTargetBlock() : block.getBlockType();
 		drawBackWithPadding(g2d, blockColorTable.get(blockType), x, y);
 
 	    }
 
-	Iterator<Movable> movingObjects = level.getMovingObstaclesIterator();
+	Iterator<Movable> movingObjects = game.getMovingObstaclesIterator();
 	while (movingObjects.hasNext()) {
-	    Movable movingObject = movingObjects.next();
+	    final Movable movingObject = movingObjects.next();
 	    drawBlock(g2d, blockColorTable.get(movingObject.getBlockType()), movingObject.getX(), movingObject.getY());
 	}
 
-	if (level.isLevelCompleted()) {
+	if (game.isLevelCompleted()) {
 	    showVictoryText(g2d);
 	}
     }
 
-    private void drawBackWithPadding(Graphics2D g2d, Color color, int x, int y) {
-        if (level.isLevelCompleted()) {
+    private void drawBackWithPadding(final Graphics2D g2d, Color color, final int x, final int y) {
+        if (game.isLevelCompleted()) {
 	    color = new Color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha() / 2);
 	}
 	g2d.setColor(backgroundColor);
@@ -75,19 +75,19 @@ public class LevelComponent extends JComponent implements LevelListener
 	drawBlock(g2d, color, x, y);
     }
 
-    private void drawBlock(Graphics2D g2d, Color color, float x, float y) {
+    private void drawBlock(final Graphics2D g2d, final Color color, final float x, final float y) {
 	g2d.setColor(color);
 	g2d.fillRect((int)(x * BLOCK_SIZE) + PADDING, (int)(y * BLOCK_SIZE + PADDING), BLOCK_SIZE - PADDING, BLOCK_SIZE - PADDING);
     }
 
-    private void showVictoryText(Graphics2D g2d) {
+    private void showVictoryText(final Graphics2D g2d) {
 	g2d.setColor(Color.white);
 	g2d.setFont(VICTORY_TEXT_FONT);
-	g2d.drawString(VICTORY_TEXT, (level.getWidth() * BLOCK_SIZE) / VICTORY_TEXT_POSITION.getX(), (level.getHeight() * BLOCK_SIZE) / VICTORY_TEXT_POSITION.getY());
+	g2d.drawString(VICTORY_TEXT, (game.getWidth() * BLOCK_SIZE) / VICTORY_TEXT_POSITION.getX(), (game.getHeight() * BLOCK_SIZE) / VICTORY_TEXT_POSITION.getY());
     }
 
     @Override public Dimension getPreferredSize() {
-        return new Dimension(PADDING + BLOCK_SIZE * level.getWidth(), PADDING + BLOCK_SIZE * level.getHeight());
+        return new Dimension(PADDING + BLOCK_SIZE * game.getWidth(), PADDING + BLOCK_SIZE * game.getHeight());
     }
 
     @Override public void levelChanged() {

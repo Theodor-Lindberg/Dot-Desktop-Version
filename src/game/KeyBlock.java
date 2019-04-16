@@ -1,6 +1,6 @@
 package game;
 
-import game.Level.LevelChanger;
+import game.Game.LevelChanger;
 
 import java.awt.Point;
 import java.util.LinkedList;
@@ -11,13 +11,13 @@ import java.util.LinkedList;
 public class KeyBlock extends Block implements Interactable
 {
     private final BlockType targetBlock;
-    private Level level;
+    private Game game;
     private final LevelChanger levelChanger;
 
-    public KeyBlock(final BlockType targetBlock, final Level level, final LevelChanger levelChanger) {
+    public KeyBlock(final BlockType targetBlock, final Game game, final LevelChanger levelChanger) {
 	super(BlockType.KEY);
 	this.targetBlock = targetBlock;
-	this.level = level;
+	this.game = game;
 	this.levelChanger = levelChanger;
     }
 
@@ -27,13 +27,14 @@ public class KeyBlock extends Block implements Interactable
 
     @Override public void interact(Movable movingObject) {
         if (movingObject.getBlockType() == BlockType.PLAYER) {
-            level.removeBlockAt(levelChanger, (int)movingObject.getTargetX(), (int)movingObject.getTargetY());
+            game.removeBlockAt(levelChanger, (int)movingObject.getTargetX(), (int)movingObject.getTargetY());
 	    floodFill((int)movingObject.getX(), (int)movingObject.getY());
 	}
     }
 
+    // The algorithm was remade from Stackoverflow answer nr 2 https://stackoverflow.com/questions/2783204/flood-fill-using-a-stack/2783341#2783341
     private void floodFill(final int x, final int y) {
-        boolean[][] visited = new boolean[level.getHeight()][level.getWidth()];
+        boolean[][] visited = new boolean[game.getHeight()][game.getWidth()];
 
 	LinkedList<Point> blocksToVisit = new LinkedList<>();
 	blocksToVisit.add(new Point(x, y));
@@ -55,16 +56,16 @@ public class KeyBlock extends Block implements Interactable
     private boolean fillBlock(boolean[][] visited,int x, int y) {
         if (y < 0) return false;
         if (x < 0) return false;
-        if (y > level.getHeight()-1) return false;
-        if (x > level.getWidth()-1) return false;
+        if (y > game.getHeight() - 1) return false;
+        if (x > game.getWidth() - 1) return false;
 
         if (visited[y][x]) return false;
 
-        if (level.getBlockAt(x, y).getBlockType().isSolid && level.getBlockAt(x, y).getBlockType() != targetBlock)
+        if (game.getBlockAt(x, y).getBlockType().isSolid && game.getBlockAt(x, y).getBlockType() != targetBlock)
             return false;
 
-	if (level.getBlockAt(x, y).getBlockType() == targetBlock) {
-	    level.removeBlockAt(levelChanger, x, y);
+	if (game.getBlockAt(x, y).getBlockType() == targetBlock) {
+	    game.removeBlockAt(levelChanger, x, y);
 	}
 
 	visited[y][x] = true;

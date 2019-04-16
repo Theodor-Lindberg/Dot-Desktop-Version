@@ -8,4 +8,6 @@ public interface AIMovement
     void move(final Movable movingObject);
 
     void handleCollision(final Movable movingObject);
+
+    AIMovement copy();
 }
