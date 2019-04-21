@@ -3,7 +3,7 @@ package game;
 /**
  * To be notified when the level has changed one must implement this interface.
  */
-public interface LevelListener
+public interface Listener
 {
-    void levelChanged();
+    void publisherUpdated();
 }

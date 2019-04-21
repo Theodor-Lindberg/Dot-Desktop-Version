@@ -22,9 +22,21 @@ public class LevelChooser
     }
 
     public static String chooseLevel() {
-	int returnValue = levelChooser.showOpenDialog(null);
+	final int returnValue = levelChooser.showOpenDialog(null);
 	if (returnValue == JFileChooser.APPROVE_OPTION) {
 	    return levelChooser.getSelectedFile().getAbsolutePath();
+	}
+	return null;
+    }
+
+    public static String saveLevelTo() {
+        final int returnValue = levelChooser.showSaveDialog(null);
+	if (returnValue == JFileChooser.APPROVE_OPTION) {
+	    String fileName = levelChooser.getSelectedFile().getAbsolutePath();
+	    if (!fileName.contains("." + filterExtension)){
+	        fileName += "." + filterExtension;
+	    }
+	    return fileName;
 	}
 	return null;
     }

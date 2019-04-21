@@ -10,7 +10,7 @@ import java.nio.file.Paths;
 
 import static game.InterfaceTypeAdapterFactory.getInterfaceTypeAdapterFactory;
 
-public class Level
+public class Level extends Publisher implements LevelGrid
 {
     private Block[][] blocks;
 
@@ -69,23 +69,24 @@ public class Level
 	insertBlockAt(25, 17, ef.createEnemy(new Point2D(25, 17), Direction.UP, Movable.Speed.NORMAL, EnemyFactory.EnemyAI.BASIC_TURN_BACK));
     }
 
-    public int getWidth() {
+    @Override public int getWidth() {
 	return blocks[0].length;
     }
 
-    public int getHeight() {
+    @Override public int getHeight() {
 	return blocks.length;
     }
 
     public void insertBlockAt(final int x, final int y, final Block block) {
         blocks[y][x] = block;
+        notifyListeners();
     }
 
-    public Block getBlockAt(final int x, final int y) {
+    @Override public Block getBlockAt(final int x, final int y) {
         return blocks[y][x];
     }
 
-    public void saveToJson(final String fileName) {
+    public void saveToJson(String fileName) {
 	try {
 	    final RuntimeTypeAdapterFactory<Block> typeFactory = RuntimeTypeAdapterFactory
 	            .of(Block.class, "type")
@@ -96,8 +97,8 @@ public class Level
 		    .registerSubtype(Enemy.class, Enemy.class.getName());
 
 	    final Gson gson = new GsonBuilder().registerTypeAdapterFactory(typeFactory).registerTypeAdapterFactory(getInterfaceTypeAdapterFactory()).setPrettyPrinting().create();
-	    String levelAsJson = gson.toJson(blocks, Block[][].class);
-	    try (PrintWriter out = new PrintWriter("level.json")) {
+	    final String levelAsJson = gson.toJson(blocks, Block[][].class);
+	    try (PrintWriter out = new PrintWriter(fileName)) {
 		out.println(levelAsJson);
 	    }
 	} catch (IOException e) {

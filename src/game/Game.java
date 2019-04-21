@@ -1,7 +1,5 @@
 package game;
 
-import gui.LevelEditor;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -9,13 +7,12 @@ import java.util.List;
 /**
  *
  */
-public class Game implements Tickable
+public class Game extends Publisher implements Tickable, LevelGrid
 {
     private Block[][] blocks;
     private Level level;
     private Player player;
     private final LevelChanger levelKey;
-    private List<LevelListener> levelListeners;
     private List<Tickable> tickables;
     private List<Movable> movingObjects;
     private boolean paused;
@@ -26,9 +23,9 @@ public class Game implements Tickable
     }
 
     public Game(final Level level) {
+        super();
         this.level = level;
 	levelKey = new LevelChanger();
-	levelListeners = new ArrayList<>();
 	initializeLevel();
     }
 
@@ -65,10 +62,6 @@ public class Game implements Tickable
 	tickables.addAll(movingObjects); // tickables and movingObjects currently contains the same elements but tickables is used for better scalability
     }
 
-    public void subscribeListener(final LevelListener levelListener) {
-        levelListeners.add(levelListener);
-    }
-
     @Override public void tick() {
 	if (!paused) {
 	    for (Tickable tickable : tickables) {
@@ -83,17 +76,11 @@ public class Game implements Tickable
 	notifyListeners();
     }
 
-    private void notifyListeners() {
-	for (LevelListener listener : levelListeners) {
-	    listener.levelChanged();
-	}
-    }
-
-    public int getWidth() {
+    @Override public int getWidth() {
 	return level.getWidth();
     }
 
-    public int getHeight() {
+    @Override public int getHeight() {
 	return level.getHeight();
     }
 
@@ -113,7 +100,7 @@ public class Game implements Tickable
         return movingObjects.iterator();
     }
 
-    public Block getBlockAt(final int x, final int y) {
+    @Override public Block getBlockAt(final int x, final int y) {
 	return blocks[y][x];
     }
 
@@ -143,7 +130,7 @@ public class Game implements Tickable
         return levelCompleted;
     }
 
-    public void createBlockAt(final int x, final int y, Block block) {
+    private void createBlockAt(final int x, final int y, Block block) {
         if (block.getBlockType() == BlockType.ENEMY) {
             movingObjects.add((Enemy)block);
             tickables.add((Enemy)block);
@@ -162,11 +149,4 @@ public class Game implements Tickable
     }
 
     public void removeDirection(final Direction direction) { player.releaseDirection(direction); }
-
-    public LevelChanger requestLevelChanger(final Object o) {
-        if (o instanceof LevelEditor) {
-            return levelKey;
-	}
-        return null;
-    }
 }

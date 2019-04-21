@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.Arrays;
 import java.util.EnumMap;
 
 /**
@@ -18,23 +19,27 @@ import java.util.EnumMap;
  */
 public class LevelViewer
 {
+    private Level level;
     private Game game;
     private JFrame frame;
     private LevelComponent levelComponent;
     private LevelEditor levelEditor;
     private final static String FRAME_TITLE;
+    private final static String DEMO_LEVEL;
 
     static {
 	FRAME_TITLE = "Dot";
+	DEMO_LEVEL = "level.json";
     }
 
-    public LevelViewer(final Game game) {
-	this.game = game;
+    public LevelViewer(final Level level) {
+	this.level = level;
+	game = new Game(level);
 
 	final Color backgroundColor = new Color(23,16,22);
 
-	levelComponent = new LevelComponent(game, getBlockColorTable(), backgroundColor);
-	game.subscribeListener(levelComponent);
+	levelComponent = new GameComponent(game, getBlockColorTable(), backgroundColor);
+	game.addListener(levelComponent);
 
 	frame = new JFrame(FRAME_TITLE);
 	initializeMenuBar();
@@ -179,17 +184,36 @@ public class LevelViewer
     }
 
     private void showLevelEditor() {
-	levelEditor = new LevelEditor(game);
+	levelEditor = new LevelEditor(level);
 	frame.add(levelEditor, BorderLayout.WEST);
 	final LevelEditor.BlockPlacer blockPlacer = levelEditor.new BlockPlacer();
+	final Color backgroundColor = new Color(23,16,22);
+	frame.remove(levelComponent);
+	levelComponent = new LevelComponent(level, getBlockColorTable(), backgroundColor);
 	levelComponent.addMouseMotionListener(blockPlacer);
 	levelComponent.addMouseListener(blockPlacer);
+	frame.add(levelComponent);
+	level.addListener(levelComponent);
 	frame.pack();
     }
 
     private void showGame() {
-        frame.remove(levelEditor);
-        frame.pack();
+        if (Arrays.asList(frame.getComponents()).contains(levelEditor)) {
+	    frame.remove(levelEditor);
+	    frame.pack();
+	}
+        frame.remove(levelComponent);
+	final Color backgroundColor = new Color(23,16,22);
+	levelComponent = new GameComponent(game, getBlockColorTable(), backgroundColor);
+	game.addListener(levelComponent);
+	frame.add(levelComponent);
+	frame.pack();
+        final String fileName = LevelChooser.chooseLevel();
+        if (fileName != null) {
+	    level = new Level(fileName);
+	    game = new Game(level);
+	    game.addListener(levelComponent);
+	}
     }
 
     private void exit() {
@@ -213,6 +237,6 @@ public class LevelViewer
     }
 
     public static void main(String[] args) {
-	new LevelViewer(new Game(new Level("level.json")));
+	new LevelViewer(new Level(DEMO_LEVEL));
     }
 }
