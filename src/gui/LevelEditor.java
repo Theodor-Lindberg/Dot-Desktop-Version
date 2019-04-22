@@ -75,7 +75,7 @@ public class LevelEditor extends JPanel
 
     private void saveLevel() {
 	final String fileName = LevelChooser.saveLevelTo();
-	level.saveToJson(fileName);
+	level.saveToFile(fileName);
     }
 
     private Point convertToBlockPosition(final int mouseX, final int mouseY) {

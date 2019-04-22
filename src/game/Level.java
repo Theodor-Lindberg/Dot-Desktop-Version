@@ -1,30 +1,15 @@
 package game;
 
-import borrowedcode.RuntimeTypeAdapterFactory;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
+import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-
-import static borrowedcode.InterfaceTypeAdapterFactory.getInterfaceTypeAdapterFactory;
 
 public class Level extends Publisher implements LevelGrid
 {
     private Block[][] blocks;
 
-    public Level (final String fileName) {
+    public Level(final String fileName) {
 	try {
-	    String content = Files.readString(Paths.get(fileName));
-	    final RuntimeTypeAdapterFactory<Block> typeFactory =
-		    RuntimeTypeAdapterFactory.of(Block.class, "type").registerSubtype(KeyBlock.class, KeyBlock.class.getName())
-			    .registerSubtype(Player.class, Player.class.getName()).registerSubtype(Block.class, Block.class.getName())
-			    .registerSubtype(EndBlock.class, EndBlock.class.getName()).registerSubtype(Enemy.class, Enemy.class.getName());
-
-	    final Gson gson = new GsonBuilder().registerTypeAdapterFactory(typeFactory).registerTypeAdapterFactory(getInterfaceTypeAdapterFactory()).setPrettyPrinting().create();
-	    blocks = gson.fromJson(content, Block[][].class);
+	    blocks = FileHandler.readLevel(fileName);
 	} catch (IOException e) {
 	}
     }
@@ -77,30 +62,18 @@ public class Level extends Publisher implements LevelGrid
     }
 
     public void insertBlockAt(final int x, final int y, final Block block) {
-        blocks[y][x] = block;
-        notifyListeners();
+	blocks[y][x] = block;
+	notifyListeners();
     }
 
     @Override public Block getBlockAt(final int x, final int y) {
-        return blocks[y][x];
+	return blocks[y][x];
     }
 
-    public void saveToJson(String fileName) {
+    public void saveToFile(String fileName) {
 	try {
-	    final RuntimeTypeAdapterFactory<Block> typeFactory = RuntimeTypeAdapterFactory
-	            .of(Block.class, "type")
-	            .registerSubtype(KeyBlock.class, KeyBlock.class.getName())
-		    .registerSubtype(Player.class, Player.class.getName())
-		    .registerSubtype(Block.class, Block.class.getName())
-		    .registerSubtype(EndBlock.class, EndBlock.class.getName())
-		    .registerSubtype(Enemy.class, Enemy.class.getName());
-
-	    final Gson gson = new GsonBuilder().registerTypeAdapterFactory(typeFactory).registerTypeAdapterFactory(getInterfaceTypeAdapterFactory()).setPrettyPrinting().create();
-	    final String levelAsJson = gson.toJson(blocks, Block[][].class);
-	    try (PrintWriter out = new PrintWriter(fileName)) {
-		out.println(levelAsJson);
-	    }
-	} catch (IOException e) {
+	    FileHandler.saveLevel(fileName, blocks);
+	} catch (FileNotFoundException e) {
 	    e.printStackTrace();
 	}
     }
