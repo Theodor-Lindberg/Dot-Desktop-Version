@@ -15,7 +15,7 @@ import java.util.EnumMap;
  */
 public class LevelComponent extends JComponent implements Listener
 {
-    private final LevelGrid levelGrid;
+    private LevelGrid levelGrid;
     protected final EnumMap<BlockType, Color> blockColorTable;
     protected final Color backgroundColor;
     public final static int BLOCK_SIZE;
@@ -62,5 +62,9 @@ public class LevelComponent extends JComponent implements Listener
 
     @Override public void publisherUpdated() {
         this.repaint();
+    }
+
+    public void setLevelGrid(final LevelGrid levelGrid) {
+        this.levelGrid = levelGrid;
     }
 }

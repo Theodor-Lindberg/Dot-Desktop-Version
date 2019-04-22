@@ -37,28 +37,32 @@ public class LevelEditor extends JPanel
 	aiBox = new FittedComboBox<>(EnemyAI.values());
 	directionBox = new FittedComboBox<>(Direction.values());
 
-	setLayout( new BoxLayout(this, BoxLayout.Y_AXIS));
+	setLayout( new BoxLayout(this, BoxLayout.PAGE_AXIS));
 	setupButtons();
 	setMaximumSize( this.getPreferredSize() );
     }
 
     private void setupButtons() {
-	final String clearButtonText = "Clear";
+	final String clearButtonText = "Clear level";
 	final var clearButton = new JButton(clearButtonText);
 	clearButton.addActionListener(e -> clearLevel());
-	this.add(clearButton);
+	addComponent(clearButton);
 
-	final String saveButtonText = "Save";
+	final String saveButtonText = "Save level to file";
 	final var saveButton = new JButton(saveButtonText);
 	saveButton.addActionListener(e -> saveLevel());
-	this.add(saveButton);
+	addComponent(saveButton);
 
-	this.add(blockTypeBox);
-	this.add(keyTargetTypeBox);
-	this.add(speedBox);
-	this.add(directionBox);
-	this.add(aiBox);
+	addComponent(blockTypeBox);
+	addComponent(keyTargetTypeBox);
+	addComponent(speedBox);
+	addComponent(directionBox);
+	addComponent(aiBox);
+    }
 
+    private void addComponent(final JComponent component) {
+        component.setAlignmentX(Component.LEFT_ALIGNMENT);
+        this.add(component);
     }
 
     private void clearLevel() {
@@ -86,9 +90,8 @@ public class LevelEditor extends JPanel
 	    }
 	    else {
 	        final BlockType blockType = (BlockType) blockTypeBox.getSelectedItem();
-	        final Block block;
 	        if (blockType == KEY) {
-	            block = new KeyBlock((BlockType) keyTargetTypeBox.getSelectedItem(), null, null);
+	            final KeyBlock block = new KeyBlock((BlockType) keyTargetTypeBox.getSelectedItem(), null, null);
 		    level.insertBlockAt(blockPosition.x, blockPosition.y, block);
 		}
 		else if (blockType == ENEMY) {

@@ -24,8 +24,6 @@ public class Level extends Publisher implements LevelGrid
 
 	    final Gson gson = new GsonBuilder().registerTypeAdapterFactory(typeFactory).registerTypeAdapterFactory(getInterfaceTypeAdapterFactory()).setPrettyPrinting().create();
 	    blocks = gson.fromJson(content, Block[][].class);
-	    final Block keyBlock = blocks[5][7];
-	    KeyBlock k = (KeyBlock) keyBlock;
 	} catch (IOException e) {
 	}
     }

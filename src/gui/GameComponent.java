@@ -11,7 +11,7 @@ import java.util.Iterator;
 
 public class GameComponent extends LevelComponent
 {
-    private final Game game;
+    private Game game;
 
     private final static String VICTORY_TEXT;
     private final static Font VICTORY_TEXT_FONT;
@@ -58,5 +58,10 @@ public class GameComponent extends LevelComponent
 	g2d.setColor(Color.white);
 	g2d.setFont(VICTORY_TEXT_FONT);
 	g2d.drawString(VICTORY_TEXT, (game.getWidth() * BLOCK_SIZE) / VICTORY_TEXT_POSITION.getX(), (game.getHeight() * BLOCK_SIZE) / VICTORY_TEXT_POSITION.getY());
+    }
+
+    public void setLevel(final Game game) {
+        this.game = game;
+        super.setLevelGrid(game);
     }
 }

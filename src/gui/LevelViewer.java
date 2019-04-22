@@ -97,13 +97,11 @@ public class LevelViewer
 
 	final String menuText = "Options";
 	final JMenu menu = new JMenu(menuText);
-	final String helpMenuText = "Help";
 	final String gameMenuText = "Load Game";
 	final String editorMenuText = "Editor";
 	final String exitMenuText = "Exit";
 
 
-	final JMenuItem helpItem = new JMenuItem(helpMenuText);
 	final JMenuItem gameItem = new JMenuItem(gameMenuText);
 	final JMenuItem editorItem = new JMenuItem(editorMenuText);
 	final JMenuItem exitItem = new JMenuItem(exitMenuText);
@@ -112,7 +110,6 @@ public class LevelViewer
 	editorItem.addActionListener(ev -> showLevelEditor());
 	exitItem.addActionListener(ev -> exit());
 
-	menu.add(helpItem);
 	menu.add(gameItem);
 	menu.add(editorItem);
 	menu.add(exitItem);
@@ -198,21 +195,21 @@ public class LevelViewer
     }
 
     private void showGame() {
-        if (Arrays.asList(frame.getComponents()).contains(levelEditor)) {
+	if (Arrays.asList(frame.getComponents()).contains(levelEditor)) {
 	    frame.remove(levelEditor);
 	    frame.pack();
 	}
-        frame.remove(levelComponent);
-	final Color backgroundColor = new Color(23,16,22);
-	levelComponent = new GameComponent(game, getBlockColorTable(), backgroundColor);
-	game.addListener(levelComponent);
-	frame.add(levelComponent);
-	frame.pack();
-        final String fileName = LevelChooser.chooseLevel();
-        if (fileName != null) {
+	final String fileName = LevelChooser.chooseLevel();
+	if (fileName != null) {
 	    level = new Level(fileName);
 	    game = new Game(level);
+	    frame.remove(levelComponent);
+	    final Color backgroundColor = new Color(23, 16, 22);
+	    levelComponent = new GameComponent(game, getBlockColorTable(), backgroundColor);
 	    game.addListener(levelComponent);
+	    frame.add(levelComponent);
+	    frame.pack();
+
 	}
     }
 

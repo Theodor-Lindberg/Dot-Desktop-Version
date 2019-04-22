@@ -11,11 +11,7 @@ import java.util.Vector;
  */
 public class FittedComboBox<E> extends JComboBox
 {
-    public FittedComboBox(final Object[] items) {
-	super(items);
-    }
-
-    public FittedComboBox(final Vector items) {
+    public FittedComboBox(final E[] items) {
 	super(items);
     }
 
