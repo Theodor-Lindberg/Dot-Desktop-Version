@@ -1,5 +1,6 @@
 package game;
 
+import borrowedcode.RuntimeTypeAdapterFactory;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -8,7 +9,7 @@ import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-import static game.InterfaceTypeAdapterFactory.getInterfaceTypeAdapterFactory;
+import static borrowedcode.InterfaceTypeAdapterFactory.getInterfaceTypeAdapterFactory;
 
 public class Level extends Publisher implements LevelGrid
 {

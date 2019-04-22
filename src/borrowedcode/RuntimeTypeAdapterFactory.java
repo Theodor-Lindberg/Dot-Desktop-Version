@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package game;
+package borrowedcode;
 
 import java.io.IOException;
 import java.util.LinkedHashMap;

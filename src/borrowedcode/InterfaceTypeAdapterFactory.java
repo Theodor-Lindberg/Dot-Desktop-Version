@@ -1,4 +1,4 @@
-package game;
+package borrowedcode;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
@@ -11,7 +11,7 @@ import com.google.gson.stream.MalformedJsonException;
 
 import java.io.IOException;
 
-final class InterfaceTypeAdapterFactory
+final public class InterfaceTypeAdapterFactory
         implements TypeAdapterFactory
 {
 
@@ -22,7 +22,7 @@ final class InterfaceTypeAdapterFactory
     }
 
     // However, let's encapsulate the instantiation
-    static TypeAdapterFactory getInterfaceTypeAdapterFactory() {
+    public static TypeAdapterFactory getInterfaceTypeAdapterFactory() {
 	return interfaceTypeAdapterFactory;
     }
 

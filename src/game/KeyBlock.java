@@ -28,12 +28,12 @@ public class KeyBlock extends Block implements Interactable
     @Override public void interact(Movable movingObject) {
         if (movingObject.getBlockType() == BlockType.PLAYER) {
             game.removeBlockAt(levelChanger, (int)movingObject.getTargetX(), (int)movingObject.getTargetY());
-	    floodFill((int)movingObject.getX(), (int)movingObject.getY());
+	    borrowedcode_floodFill((int)movingObject.getX(), (int)movingObject.getY());
 	}
     }
 
     // The algorithm was remade from Stackoverflow answer nr 2 https://stackoverflow.com/questions/2783204/flood-fill-using-a-stack/2783341#2783341
-    private void floodFill(final int x, final int y) {
+    private void borrowedcode_floodFill(final int x, final int y) {
         boolean[][] visited = new boolean[game.getHeight()][game.getWidth()];
 
 	LinkedList<Point> blocksToVisit = new LinkedList<>();
@@ -43,7 +43,7 @@ public class KeyBlock extends Block implements Interactable
         {
             Point p = blocksToVisit.remove();
 
-            if(fillBlock(visited, p.x,p.y))
+            if(borrowedcode_fillBlock(visited, p.x, p.y))
             {
 		blocksToVisit.add(new Point(p.x,p.y + Direction.UP.deltaY));
 		blocksToVisit.add(new Point(p.x,p.y + Direction.DOWN.deltaY));
@@ -53,7 +53,7 @@ public class KeyBlock extends Block implements Interactable
         }
     }
 
-    private boolean fillBlock(boolean[][] visited,int x, int y) {
+    private boolean borrowedcode_fillBlock(boolean[][] visited, int x, int y) {
         if (y < 0) return false;
         if (x < 0) return false;
         if (y > game.getHeight() - 1) return false;
