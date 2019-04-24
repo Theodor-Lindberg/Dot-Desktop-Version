@@ -3,6 +3,9 @@ package game;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Other classes can subscribe to classes that extends this class.
+ */
 public abstract class Publisher
 {
     private List<Listener> listeners;
@@ -13,10 +16,6 @@ public abstract class Publisher
 
     public void addListener(final Listener listener) {
         listeners.add(listener);
-    }
-
-    public void removeListener(final Listener listener) {
-        listeners.remove(listener);
     }
 
     protected void notifyListeners() {

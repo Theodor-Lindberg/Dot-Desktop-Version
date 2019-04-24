@@ -1,7 +1,7 @@
 package game;
 
 /**
- * To be notified when the level has changed one must implement this interface.
+ * To be notified when a property has changed one must implement this interface and subscribe to the publisher.
  */
 public interface Listener
 {

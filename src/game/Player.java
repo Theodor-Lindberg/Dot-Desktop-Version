@@ -1,17 +1,19 @@
 package game;
 
+import game.Game.GameKey;
+
 /**
  * The player class.
  */
 public class Player extends Movable
 {
-    private MovePriority movePriority;
-    private boolean alive;
+    private final MovePriority movePriority;
+    private final GameKey gameKey;
 
-    public Player(final Point2D position, final Speed speed, final Game game) {
+    public Player(final Point2D position, final Speed speed, final Game game, final GameKey gameKey) {
 	super(BlockType.PLAYER, position, speed, null, game);
+	this.gameKey = gameKey;
 	movePriority = new MovePriority();
-	alive = true;
     }
 
     public void move(Direction direction) {
@@ -24,10 +26,6 @@ public class Player extends Movable
 
     public void releaseDirection(Direction direction) {
         movePriority.releaseDirection(direction);
-    }
-
-    public boolean isAlive() {
-        return alive;
     }
 
     private void setDirection() {
@@ -61,9 +59,11 @@ public class Player extends Movable
 	}
     }
 
-    @Override public void interact(Movable movingObject) {
-        if (movingObject.getBlockType() == BlockType.ENEMY) {
-	    alive = false;
+    @Override public void interact(final Movable movingObject) {
+        if (!getGame().isLevelCompleted()) {
+	    if (movingObject.getBlockType() == BlockType.ENEMY) {
+		getGame().playerDied(gameKey);
+	    }
 	}
     }
 }

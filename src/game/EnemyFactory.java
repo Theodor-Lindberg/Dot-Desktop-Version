@@ -4,8 +4,14 @@ import game.Movable.Speed;
 
 import static game.BasicAI.*;
 
+/**
+ * Factory for creating enemies.
+ */
 public class EnemyFactory
 {
+    /**
+     * All available types of ai.
+     */
     public enum EnemyAI
     {
 	BASIC_TURN_LEFT, BASIC_TURN_RIGHT, BASIC_TURN_BACK
@@ -13,11 +19,11 @@ public class EnemyFactory
 
     private final Game game;
 
-    public EnemyFactory(Game game) {
+    public EnemyFactory(final Game game) {
         this.game = game;
     }
 
-    public Enemy createEnemy(Point2D position, Direction startDirection, Speed speed, EnemyAI ai) {
+    public Enemy createEnemy(final Point2D position, final Direction startDirection, final Speed speed, final EnemyAI ai) {
 	switch (ai) {
 	    case BASIC_TURN_LEFT:
 		return new Enemy(position, startDirection, speed, game, new BasicAI(TurnDirection.LEFT));

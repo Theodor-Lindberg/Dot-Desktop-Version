@@ -1,7 +1,7 @@
 package game;
 
 /**
- * All objects that handles movement implements this interface.
+ * All classes that classes handles the movement of another object implements this interface.
  */
 public interface AIMovement
 {

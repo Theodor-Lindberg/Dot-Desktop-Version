@@ -5,27 +5,28 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- *
+ * Game class
  */
 public class Game extends Publisher implements Tickable, LevelGrid
 {
     private Block[][] blocks;
-    private Level level;
-    private Player player;
-    private final LevelChanger levelKey;
+    private final Level level;
+    private Player player = null;
+    private final GameKey gameKey;
     private List<Tickable> tickables;
     private List<Movable> movingObjects;
     private boolean paused;
     private boolean levelCompleted;
 
     // Works a proxy to grant access to certain methods, the warning is ignored.
-    public class LevelChanger {
+    public class GameKey
+    {
     }
 
     public Game(final Level level) {
         super();
         this.level = level;
-	levelKey = new LevelChanger();
+	gameKey = new GameKey();
 	initializeLevel();
     }
 
@@ -38,22 +39,22 @@ public class Game extends Publisher implements Tickable, LevelGrid
 	    for (int x = 0; x < level.getWidth(); x++) {
 	        final Block block = level.getBlockAt(x, y);
 	        if (block.getBlockType() == BlockType.PLAYER) {
-	            player = new Player(new Point2D(x, y), ((Player)block).getSpeed(), this);
+	            player = new Player(new Point2D(x, y), ((Player)block).getSpeed(), this, gameKey);
 	            movingObjects.add(player);
-		    createBlockAt(x, y, new Block(BlockType.EMPTY));
+		    insertBlockAt(x, y, new Block(BlockType.EMPTY));
 		}
 	        else if (block.getBlockType() == BlockType.ENEMY) {
 		    movingObjects.add(new Enemy((Enemy)block, this));
-		    createBlockAt(x, y, new Block(BlockType.EMPTY));
+		    insertBlockAt(x, y, new Block(BlockType.EMPTY));
 		}
 	        else if (block.getBlockType() == BlockType.KEY) {
-	            createBlockAt(x, y, new KeyBlock(((KeyBlock)block).getTargetBlock(), this, levelKey));
+	            insertBlockAt(x, y, new KeyBlock(((KeyBlock)block).getTargetBlock(), this, gameKey));
 		}
 	        else if (block.getBlockType() == BlockType.END) {
-		    createBlockAt(x, y, new EndBlock(this, levelKey));
+		    insertBlockAt(x, y, new EndBlock(this, gameKey));
 		}
 	        else {
-		    createBlockAt(x, y, new Block(block.getBlockType()));
+		    insertBlockAt(x, y, new Block(block.getBlockType()));
 		}
 	    }
 	}
@@ -66,10 +67,6 @@ public class Game extends Publisher implements Tickable, LevelGrid
 	if (!paused) {
 	    for (Tickable tickable : tickables) {
 		tickable.tick();
-	    }
-
-	    if (!player.isAlive() && !levelCompleted) {
-		playerDied();
 	    }
 	}
 
@@ -96,7 +93,7 @@ public class Game extends Publisher implements Tickable, LevelGrid
 	initializeLevel();
     }
 
-    public Iterator<Movable> getMovingObstaclesIterator() {
+    public Iterator<Movable> getMovingObjectsIterator() {
         return movingObjects.iterator();
     }
 
@@ -114,14 +111,14 @@ public class Game extends Publisher implements Tickable, LevelGrid
         return getBlockAt((int)x, (int)y);
     }
 
-    public void removeBlockAt(final LevelChanger levelChanger, final int x, final int y) {
-        if (levelChanger == levelKey) { // Only accept the instance that the level itself created, warning is ignored.
-	    createBlockAt(x, y, new Block(BlockType.EMPTY));
+    public void removeBlockAt(final GameKey gameKey, final int x, final int y) {
+        if (gameKey == this.gameKey) { // Only accept the instance that the level itself created, warning is ignored.
+	    insertBlockAt(x, y, new Block(BlockType.EMPTY));
 	}
     }
 
-    public void completeLevel(final LevelChanger levelChanger) {
-        if (levelChanger == levelKey) { // Only accept the instance that the level itself created, warning is ignored.
+    public void completeLevel(final GameKey gameKey) {
+        if (gameKey == this.gameKey) { // Only accept the instance that the level itself created, warning is ignored.
 	    levelCompleted = true;
 	}
     }
@@ -130,18 +127,14 @@ public class Game extends Publisher implements Tickable, LevelGrid
         return levelCompleted;
     }
 
-    private void createBlockAt(final int x, final int y, Block block) {
-        if (block.getBlockType() == BlockType.ENEMY) {
-            movingObjects.add((Enemy)block);
-            tickables.add((Enemy)block);
-	}
-        else {
-	    blocks[y][x] = block;
-	}
+    private void insertBlockAt(final int x, final int y, Block block) {
+	blocks[y][x] = block;
     }
 
-    private void playerDied() {
-        restartLevel();
+    public void playerDied(final GameKey gameKey) {
+        if (gameKey == this.gameKey) { // Only accept the instance that the level itself created, warning is ignored.
+	    restartLevel();
+	}
     }
 
     public void movePlayer(final Direction direction) {

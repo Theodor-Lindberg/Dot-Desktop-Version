@@ -11,7 +11,7 @@ import java.awt.*;
 import java.util.EnumMap;
 
 /**
- * Handles the rendering of the game.
+ * Handles the rendering of the level.
  */
 public class LevelComponent extends JComponent implements Listener
 {
@@ -62,9 +62,5 @@ public class LevelComponent extends JComponent implements Listener
 
     @Override public void publisherUpdated() {
         this.repaint();
-    }
-
-    public void setLevelGrid(final LevelGrid levelGrid) {
-        this.levelGrid = levelGrid;
     }
 }

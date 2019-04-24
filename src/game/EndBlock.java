@@ -1,25 +1,25 @@
 package game;
 
-import game.Game.LevelChanger;
+import game.Game.GameKey;
 
 /**
- * End block, determines when the player has won.
+ * Determines when the player has won.
  */
 public class EndBlock extends Block implements Interactable
 {
-    private Game game;
-    private final LevelChanger levelChanger;
+    private final Game game;
+    private final GameKey gameKey;
 
-    public EndBlock(Game game, final LevelChanger levelChanger) {
+    public EndBlock(final Game game, final GameKey gameKey) {
 	super(BlockType.END);
 
 	this.game = game;
-	this.levelChanger = levelChanger;
+	this.gameKey = gameKey;
     }
 
     @Override public void interact(final Movable movingObject) {
 	if (movingObject.getBlockType() == BlockType.PLAYER) {
-	    game.completeLevel(levelChanger);
+	    game.completeLevel(gameKey);
 	}
     }
 }

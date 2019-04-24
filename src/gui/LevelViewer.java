@@ -4,6 +4,7 @@ import game.BlockType;
 import game.Direction;
 import game.Game;
 import game.Level;
+import gui.LevelEditor.BlockPlacer;
 
 import javax.swing.*;
 import java.awt.*;
@@ -21,24 +22,52 @@ public class LevelViewer
 {
     private Level level;
     private Game game;
-    private JFrame frame;
+    private final JFrame frame;
     private LevelComponent levelComponent;
-    private LevelEditor levelEditor;
+    private LevelEditor levelEditor = null;
+
     private final static String FRAME_TITLE;
     private final static String DEMO_LEVEL;
+    private final static Color BACKGROUND_COLOR;
+    private final static EnumMap<BlockType, Color> BLOCK_COLOR_TABLE;
 
     static {
 	FRAME_TITLE = "Dot";
 	DEMO_LEVEL = "level.json";
+
+	BACKGROUND_COLOR = new Color(23, 16, 22);
+	BLOCK_COLOR_TABLE = new EnumMap<>(BlockType.class);
+
+	final Color emptyColor = new Color(39, 32, 28, 255);
+	BLOCK_COLOR_TABLE.put(BlockType.EMPTY, emptyColor);
+
+	final Color wallColor = new Color(125, 190, 255, 255);
+	BLOCK_COLOR_TABLE.put(BlockType.WALL, wallColor);
+
+	final Color keyColor = new Color(222, 0, 235, 255);
+	BLOCK_COLOR_TABLE.put(BlockType.KEY, keyColor);
+
+	final Color wall1Color = new Color(131, 77, 235, 255);
+	BLOCK_COLOR_TABLE.put(BlockType.WALL1, wall1Color);
+
+	final Color wall2Color = new Color(224, 197, 20, 255);
+	BLOCK_COLOR_TABLE.put(BlockType.WALL2, wall2Color);
+
+	final Color endColor = new Color(40, 242, 134, 255);
+	BLOCK_COLOR_TABLE.put(BlockType.END, endColor);
+
+	final Color playerColor = new Color(237, 228, 228, 255);
+	BLOCK_COLOR_TABLE.put(BlockType.PLAYER, playerColor);
+
+	final Color enemyColor = new Color(242, 0, 70, 255);
+	BLOCK_COLOR_TABLE.put(BlockType.ENEMY, enemyColor);
     }
 
     public LevelViewer(final Level level) {
 	this.level = level;
 	game = new Game(level);
 
-	final Color backgroundColor = new Color(23,16,22);
-
-	levelComponent = new GameComponent(game, getBlockColorTable(), backgroundColor);
+	levelComponent = new GameComponent(game, BLOCK_COLOR_TABLE, BACKGROUND_COLOR);
 	game.addListener(levelComponent);
 
 	frame = new JFrame(FRAME_TITLE);
@@ -61,35 +90,6 @@ public class LevelViewer
 	frame.setVisible(true);
 
 	initializeGameLoop();
-    }
-
-    private EnumMap<BlockType, Color> getBlockColorTable() {
-	EnumMap<BlockType, Color> polyColorTable = new EnumMap<>(BlockType.class);
-
-	final Color emptyColor = new Color(39, 32, 28, 255);
-	polyColorTable.put(BlockType.EMPTY, emptyColor);
-
-	final Color wallColor = new Color(125, 190, 255, 255);
-	polyColorTable.put(BlockType.WALL, wallColor);
-
-	final Color keyColor = new Color(222, 0, 235, 255);
-	polyColorTable.put(BlockType.KEY, keyColor);
-
-	final Color wall1Color = new Color(131, 77, 235, 255);
-	polyColorTable.put(BlockType.WALL1, wall1Color);
-
-	final Color wall2Color = new Color(224, 197, 20, 255);
-	polyColorTable.put(BlockType.WALL2, wall2Color);
-
-	final Color endColor = new Color(40, 242, 134, 255);
-	polyColorTable.put(BlockType.END, endColor);
-
-	final Color playerColor = new Color(237, 228, 228, 255);
-	polyColorTable.put(BlockType.PLAYER, playerColor);
-
-	final Color enemyColor = new Color(242, 0, 70, 255);
-	polyColorTable.put(BlockType.ENEMY, enemyColor);
-	return polyColorTable;
     }
 
     private void initializeMenuBar() {
@@ -148,24 +148,25 @@ public class LevelViewer
 
     private final class MotionAction extends AbstractAction
     {
-        private final Direction direction;
-        private final boolean onKeyRelease;
+	private final Direction direction;
+	private final boolean onKeyRelease;
 
-        private MotionAction(String name, final Direction direction, final boolean onKeyRelease)
-        {
-            super(name);
+	private MotionAction(final String name, final Direction direction, final boolean onKeyRelease)
+	{
+	    super(name);
 
-            this.direction = direction;
-            this.onKeyRelease = onKeyRelease;
-        }
+	    this.direction = direction;
+	    this.onKeyRelease = onKeyRelease;
+	}
 
-        public void actionPerformed(ActionEvent e)
-        {
-            if (!onKeyRelease)
-            	game.movePlayer(direction);
-            else
-                game.removeDirection(direction);
-        }
+	public void actionPerformed(ActionEvent e)
+	{
+	    if (!onKeyRelease) {
+		game.movePlayer(direction);
+	    } else {
+		game.removeDirection(direction);
+	    }
+	}
     }
 
     private class ToggleGamePause extends AbstractAction {
@@ -183,10 +184,9 @@ public class LevelViewer
     private void showLevelEditor() {
 	levelEditor = new LevelEditor(level);
 	frame.add(levelEditor, BorderLayout.WEST);
-	final LevelEditor.BlockPlacer blockPlacer = levelEditor.new BlockPlacer();
-	final Color backgroundColor = new Color(23,16,22);
+	final BlockPlacer blockPlacer = levelEditor.new BlockPlacer();
 	frame.remove(levelComponent);
-	levelComponent = new LevelComponent(level, getBlockColorTable(), backgroundColor);
+	levelComponent = new LevelComponent(level, BLOCK_COLOR_TABLE, BACKGROUND_COLOR);
 	levelComponent.addMouseMotionListener(blockPlacer);
 	levelComponent.addMouseListener(blockPlacer);
 	frame.add(levelComponent);
@@ -204,8 +204,7 @@ public class LevelViewer
 	    level = new Level(fileName);
 	    game = new Game(level);
 	    frame.remove(levelComponent);
-	    final Color backgroundColor = new Color(23, 16, 22);
-	    levelComponent = new GameComponent(game, getBlockColorTable(), backgroundColor);
+	    levelComponent = new GameComponent(game, BLOCK_COLOR_TABLE, BACKGROUND_COLOR);
 	    game.addListener(levelComponent);
 	    frame.add(levelComponent);
 	    frame.pack();

@@ -44,7 +44,7 @@ public class LevelEditor extends JPanel
 
     private void setupButtons() {
 	final String clearButtonText = "Clear level";
-	final var clearButton = new JButton(clearButtonText);
+	final JButton clearButton = new JButton(clearButtonText);
 	clearButton.addActionListener(e -> clearLevel());
 	addComponent(clearButton);
 
@@ -75,7 +75,9 @@ public class LevelEditor extends JPanel
 
     private void saveLevel() {
 	final String fileName = LevelChooser.saveLevelTo();
-	level.saveToFile(fileName);
+	if (fileName != null) {
+	    level.saveToFile(fileName);
+	}
     }
 
     private Point convertToBlockPosition(final int mouseX, final int mouseY) {
@@ -86,7 +88,7 @@ public class LevelEditor extends JPanel
 	final Point blockPosition = convertToBlockPosition(x, y);
 	if (blockPosition.x >= 0 && blockPosition.x < level.getWidth() && blockPosition.y >= 0 && blockPosition.y < level.getHeight()) {
 	    if (remove) {
-		level.insertBlockAt(blockPosition.x, blockPosition.y, new Block(BlockType.EMPTY));
+		level.insertBlockAt(blockPosition.x, blockPosition.y, new Block(EMPTY));
 	    }
 	    else {
 	        final BlockType blockType = (BlockType) blockTypeBox.getSelectedItem();
@@ -100,7 +102,7 @@ public class LevelEditor extends JPanel
 		    level.insertBlockAt(blockPosition.x, blockPosition.y, e);
 		}
 		else if (blockType == PLAYER) {
-		    final Player player = new Player(new Point2D(blockPosition.x,blockPosition.y), (Speed)speedBox.getSelectedItem(), null);
+		    final Player player = new Player(new Point2D(blockPosition.x,blockPosition.y), (Speed)speedBox.getSelectedItem(), null, null);
 		    level.insertBlockAt(blockPosition.x, blockPosition.y, player);
 		}
 		else {
@@ -112,11 +114,11 @@ public class LevelEditor extends JPanel
 
     public class BlockPlacer extends MouseAdapter {
 	@Override public void mouseClicked(final MouseEvent e) {
-	    placeBlock(e.getX(), e.getY(), SwingUtilities.isRightMouseButton(e));
+	    placeBlock(e.getX(), e.getY(), Boolean.valueOf(SwingUtilities.isRightMouseButton(e)));
 	}
 
 	@Override public void mouseDragged(final MouseEvent e) {
-	    placeBlock(e.getX(), e.getY(), SwingUtilities.isRightMouseButton(e));
+	    placeBlock(e.getX(), e.getY(), Boolean.valueOf(SwingUtilities.isRightMouseButton(e)));
 	}
     }
 }

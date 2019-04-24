@@ -1,7 +1,7 @@
 package game;
 
 /**
- * Enemy class.
+ * Generic Enemy class, can have different types of ai.
  */
 public class Enemy extends Movable
 {

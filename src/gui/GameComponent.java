@@ -9,6 +9,9 @@ import java.awt.*;
 import java.util.EnumMap;
 import java.util.Iterator;
 
+/**
+ * This class handles the rendering of the game.
+ */
 public class GameComponent extends LevelComponent
 {
     private Game game;
@@ -33,7 +36,7 @@ public class GameComponent extends LevelComponent
 	super.paintComponent(g);
 	final Graphics2D g2d = (Graphics2D) g;
 
-	Iterator<Movable> movingObjects = game.getMovingObstaclesIterator();
+	Iterator<Movable> movingObjects = game.getMovingObjectsIterator();
 	while (movingObjects.hasNext()) {
 	    final Movable movingObject = movingObjects.next();
 	    drawBlock(g2d, blockColorTable.get(movingObject.getBlockType()), movingObject.getX(), movingObject.getY());
@@ -58,10 +61,5 @@ public class GameComponent extends LevelComponent
 	g2d.setColor(Color.white);
 	g2d.setFont(VICTORY_TEXT_FONT);
 	g2d.drawString(VICTORY_TEXT, (game.getWidth() * BLOCK_SIZE) / VICTORY_TEXT_POSITION.getX(), (game.getHeight() * BLOCK_SIZE) / VICTORY_TEXT_POSITION.getY());
-    }
-
-    public void setLevel(final Game game) {
-        this.game = game;
-        super.setLevelGrid(game);
     }
 }

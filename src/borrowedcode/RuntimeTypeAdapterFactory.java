@@ -19,6 +19,7 @@ package borrowedcode;
 import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
@@ -201,7 +202,7 @@ public final class RuntimeTypeAdapterFactory<T> implements TypeAdapterFactory {
         = new LinkedHashMap<String, TypeAdapter<?>>();
     final Map<Class<?>, TypeAdapter<?>> subtypeToDelegate
         = new LinkedHashMap<Class<?>, TypeAdapter<?>>();
-    for (Map.Entry<String, Class<?>> entry : labelToSubtype.entrySet()) {
+    for (Entry<String, Class<?>> entry : labelToSubtype.entrySet()) {
       TypeAdapter<?> delegate = gson.getDelegateAdapter(this, TypeToken.get(entry.getValue()));
       labelToDelegate.put(entry.getKey(), delegate);
       subtypeToDelegate.put(entry.getValue(), delegate);
@@ -255,7 +256,7 @@ public final class RuntimeTypeAdapterFactory<T> implements TypeAdapterFactory {
         }
         clone.add(typeFieldName, new JsonPrimitive(label));
 
-        for (Map.Entry<String, JsonElement> e : jsonObject.entrySet()) {
+        for (Entry<String, JsonElement> e : jsonObject.entrySet()) {
           clone.add(e.getKey(), e.getValue());
         }
         Streams.write(clone, out);

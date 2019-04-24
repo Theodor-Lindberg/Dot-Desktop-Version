@@ -1,6 +1,6 @@
 package game;
 
-import game.Game.LevelChanger;
+import game.Game.GameKey;
 
 import java.awt.Point;
 import java.util.LinkedList;
@@ -12,13 +12,13 @@ public class KeyBlock extends Block implements Interactable
 {
     private final BlockType targetBlock;
     private Game game;
-    private final LevelChanger levelChanger;
+    private final GameKey gameKey;
 
-    public KeyBlock(final BlockType targetBlock, final Game game, final LevelChanger levelChanger) {
+    public KeyBlock(final BlockType targetBlock, final Game game, final GameKey gameKey) {
 	super(BlockType.KEY);
 	this.targetBlock = targetBlock;
 	this.game = game;
-	this.levelChanger = levelChanger;
+	this.gameKey = gameKey;
     }
 
     public BlockType getTargetBlock() {
@@ -27,7 +27,7 @@ public class KeyBlock extends Block implements Interactable
 
     @Override public void interact(Movable movingObject) {
         if (movingObject.getBlockType() == BlockType.PLAYER) {
-            game.removeBlockAt(levelChanger, (int)movingObject.getTargetX(), (int)movingObject.getTargetY());
+            game.removeBlockAt(gameKey, (int)movingObject.getTargetX(), (int)movingObject.getTargetY());
 	    borrowedcode_floodFill((int)movingObject.getX(), (int)movingObject.getY());
 	}
     }
@@ -65,7 +65,7 @@ public class KeyBlock extends Block implements Interactable
             return false;
 
 	if (game.getBlockAt(x, y).getBlockType() == targetBlock) {
-	    game.removeBlockAt(levelChanger, x, y);
+	    game.removeBlockAt(gameKey, x, y);
 	}
 
 	visited[y][x] = true;

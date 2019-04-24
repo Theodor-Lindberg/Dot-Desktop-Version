@@ -10,7 +10,6 @@ public class Point2D
     public Point2D(final float x, final float y) {
 	this.x = x;
 	this.y = y;
-	int a ;
     }
 
     public Point2D(final Point2D point) {

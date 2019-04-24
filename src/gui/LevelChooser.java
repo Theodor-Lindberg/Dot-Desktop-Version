@@ -3,18 +3,18 @@ package gui;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-public class LevelChooser
+public final class LevelChooser
 {
-    private final static JFileChooser levelChooser;
-    private final static String filterDescription;
-    private final static String filterExtension;
+    private final static JFileChooser FILE_CHOOSER;
+    private final static String FILTER_DESCRIPTION;
+    private final static String FILTER_EXTENSION;
 
     static {
-	levelChooser = new JFileChooser();
-	filterDescription = "Level";
-	filterExtension = "json";
-	final FileNameExtensionFilter filter = new FileNameExtensionFilter(filterDescription, filterExtension);
-	levelChooser.setFileFilter(filter);
+	FILE_CHOOSER = new JFileChooser();
+	FILTER_DESCRIPTION = "Level";
+	FILTER_EXTENSION = "json";
+	final FileNameExtensionFilter filter = new FileNameExtensionFilter(FILTER_DESCRIPTION, FILTER_EXTENSION);
+	FILE_CHOOSER.setFileFilter(filter);
     }
 
     private LevelChooser() {
@@ -22,19 +22,19 @@ public class LevelChooser
     }
 
     public static String chooseLevel() {
-	final int returnValue = levelChooser.showOpenDialog(null);
+	final int returnValue = FILE_CHOOSER.showOpenDialog(null);
 	if (returnValue == JFileChooser.APPROVE_OPTION) {
-	    return levelChooser.getSelectedFile().getAbsolutePath();
+	    return FILE_CHOOSER.getSelectedFile().getAbsolutePath();
 	}
 	return null;
     }
 
     public static String saveLevelTo() {
-        final int returnValue = levelChooser.showSaveDialog(null);
+        final int returnValue = FILE_CHOOSER.showSaveDialog(null);
 	if (returnValue == JFileChooser.APPROVE_OPTION) {
-	    String fileName = levelChooser.getSelectedFile().getAbsolutePath();
-	    if (!fileName.contains("." + filterExtension)){
-	        fileName += "." + filterExtension;
+	    String fileName = FILE_CHOOSER.getSelectedFile().getAbsolutePath();
+	    if (!fileName.contains("." + FILTER_EXTENSION)){
+	        fileName += "." + FILTER_EXTENSION;
 	    }
 	    return fileName;
 	}
