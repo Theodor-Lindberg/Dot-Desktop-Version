@@ -32,7 +32,7 @@ public class LevelViewer
 
     static {
 	FRAME_TITLE = "Dot";
-	DEMO_LEVEL = "level.json";
+	DEMO_LEVEL = "levels/level.json";
 
 	BACKGROUND_COLOR = new Color(23, 16, 22);
 	BLOCK_COLOR_TABLE = new EnumMap<>(BlockType.class);

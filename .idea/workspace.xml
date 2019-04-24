@@ -8,7 +8,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="84f476f4-3eed-4d4a-9f32-0a44d2e667ba" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/game/FileHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/FileHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/level.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gui/LevelViewer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/LevelViewer.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -25,10 +26,9 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/gui/LevelViewer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="172">
-              <caret line="206" column="41" lean-forward="true" selection-start-line="206" selection-start-column="41" selection-end-line="206" selection-end-column="41" />
+            <state relative-caret-position="277">
+              <caret line="34" column="29" selection-start-line="34" selection-start-column="29" selection-end-line="34" selection-end-column="29" />
               <folding>
-                <element signature="initializer##0;class#LevelViewer#0" />
                 <element signature="method#LevelViewer#0;class#LevelViewer#0" />
                 <element signature="method#initializeMenuBar#0;class#LevelViewer#0" />
                 <element signature="method#addKeyboardEvents#0;class#LevelViewer#0" />
@@ -39,7 +39,7 @@
                 <element signature="class#RestartLevel#0;class#LevelViewer#0" />
                 <element signature="method#exit#0;class#LevelViewer#0" />
                 <element signature="method#initializeGameLoop#0;class#LevelViewer#0" />
-                <element signature="e#6969#6970#0" expanded="true" />
+                <element signature="e#6976#6977#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -140,8 +140,8 @@
         <option value="$PROJECT_DIR$/src/gui/LevelComponent.java" />
         <option value="$PROJECT_DIR$/src/game/Player.java" />
         <option value="$PROJECT_DIR$/src/game/Game.java" />
-        <option value="$PROJECT_DIR$/src/gui/LevelViewer.java" />
         <option value="$PROJECT_DIR$/src/game/FileHandler.java" />
+        <option value="$PROJECT_DIR$/src/gui/LevelViewer.java" />
       </list>
     </option>
   </component>
@@ -196,7 +196,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1556096675271" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1556096963749" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../tdde30-labbar-d1b-g03-13" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -312,12 +312,12 @@
       <workItem from="1554884367621" duration="26156000" />
       <workItem from="1555189655905" duration="1529000" />
       <workItem from="1555447178302" duration="4634000" />
-      <workItem from="1555681623469" duration="29279000" />
+      <workItem from="1555681623469" duration="29404000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="232531000" />
+    <option name="totallyTimeSpent" value="232656000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -932,10 +932,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/gui/LevelViewer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="172">
-          <caret line="206" column="41" lean-forward="true" selection-start-line="206" selection-start-column="41" selection-end-line="206" selection-end-column="41" />
+        <state relative-caret-position="277">
+          <caret line="34" column="29" selection-start-line="34" selection-start-column="29" selection-end-line="34" selection-end-column="29" />
           <folding>
-            <element signature="initializer##0;class#LevelViewer#0" />
             <element signature="method#LevelViewer#0;class#LevelViewer#0" />
             <element signature="method#initializeMenuBar#0;class#LevelViewer#0" />
             <element signature="method#addKeyboardEvents#0;class#LevelViewer#0" />
@@ -946,7 +945,7 @@
             <element signature="class#RestartLevel#0;class#LevelViewer#0" />
             <element signature="method#exit#0;class#LevelViewer#0" />
             <element signature="method#initializeGameLoop#0;class#LevelViewer#0" />
-            <element signature="e#6969#6970#0" expanded="true" />
+            <element signature="e#6976#6977#0" expanded="true" />
           </folding>
         </state>
       </provider>
