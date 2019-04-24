@@ -12,7 +12,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.Arrays;
 import java.util.EnumMap;
 
 /**
@@ -106,7 +105,7 @@ public class LevelViewer
 	final JMenuItem editorItem = new JMenuItem(editorMenuText);
 	final JMenuItem exitItem = new JMenuItem(exitMenuText);
 
-	gameItem.addActionListener(ev -> showGame());
+	gameItem.addActionListener(ev -> loadGame());
 	editorItem.addActionListener(ev -> showLevelEditor());
 	exitItem.addActionListener(ev -> exit());
 
@@ -194,11 +193,7 @@ public class LevelViewer
 	frame.pack();
     }
 
-    private void showGame() {
-	if (Arrays.asList(frame.getComponents()).contains(levelEditor)) {
-	    frame.remove(levelEditor);
-	    frame.pack();
-	}
+    private void loadGame() {
 	final String fileName = LevelChooser.chooseLevel();
 	if (fileName != null) {
 	    level = new Level(fileName);
@@ -207,6 +202,13 @@ public class LevelViewer
 	    levelComponent = new GameComponent(game, BLOCK_COLOR_TABLE, BACKGROUND_COLOR);
 	    game.addListener(levelComponent);
 	    frame.add(levelComponent);
+
+	    try {
+	        frame.remove(levelEditor);
+	    }
+	    catch (Exception ignore) {
+
+	    }
 	    frame.pack();
 
 	}

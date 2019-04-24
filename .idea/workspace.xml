@@ -8,25 +8,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="84f476f4-3eed-4d4a-9f32-0a44d2e667ba" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/borrowedcode/RuntimeTypeAdapterFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/borrowedcode/RuntimeTypeAdapterFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/AIMovement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/AIMovement.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/EndBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/EndBlock.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/Enemy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/Enemy.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/EnemyFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/EnemyFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/FileHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/FileHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/Game.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/KeyBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/KeyBlock.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/Level.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/Level.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/Listener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/Listener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/Movable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/Movable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/Point2D.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/Point2D.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/Publisher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/Publisher.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gui/FittedComboBox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/FittedComboBox.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gui/GameComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/GameComponent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gui/LevelChooser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/LevelChooser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gui/LevelComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/LevelComponent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gui/LevelEditor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/LevelEditor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/gui/LevelViewer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/LevelViewer.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -40,7 +22,31 @@
     <favorites_list name="DotDesktop" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/gui/LevelViewer.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="172">
+              <caret line="210" column="16" selection-start-line="210" selection-start-column="16" selection-end-line="210" selection-end-column="16" />
+              <folding>
+                <element signature="initializer##0;class#LevelViewer#0" />
+                <element signature="method#LevelViewer#0;class#LevelViewer#0" />
+                <element signature="method#initializeMenuBar#0;class#LevelViewer#0" />
+                <element signature="method#addKeyboardEvents#0;class#LevelViewer#0" />
+                <element signature="method#addMotionEvent#0;class#LevelViewer#0" />
+                <element signature="class#MotionAction#0;class#LevelViewer#0" />
+                <element signature="method#MotionAction#0;class#MotionAction#0;class#LevelViewer#0" />
+                <element signature="class#ToggleGamePause#0;class#LevelViewer#0" />
+                <element signature="class#RestartLevel#0;class#LevelViewer#0" />
+                <element signature="method#exit#0;class#LevelViewer#0" />
+                <element signature="method#initializeGameLoop#0;class#LevelViewer#0" />
+                <element signature="e#7008#7009#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -120,7 +126,6 @@
         <option value="$PROJECT_DIR$/src/gui/FittedComboBox.java" />
         <option value="$PROJECT_DIR$/src/borrowedcode/RuntimeTypeAdapterFactory.java" />
         <option value="$PROJECT_DIR$/src/gui/LevelChooser.java" />
-        <option value="$PROJECT_DIR$/src/gui/LevelViewer.java" />
         <option value="$PROJECT_DIR$/src/game/Listener.java" />
         <option value="$PROJECT_DIR$/src/game/Publisher.java" />
         <option value="$PROJECT_DIR$/src/gui/GameComponent.java" />
@@ -128,6 +133,7 @@
         <option value="$PROJECT_DIR$/src/game/Player.java" />
         <option value="$PROJECT_DIR$/src/game/Game.java" />
         <option value="$PROJECT_DIR$/src/game/FileHandler.java" />
+        <option value="$PROJECT_DIR$/src/gui/LevelViewer.java" />
       </list>
     </option>
   </component>
@@ -182,7 +188,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1556095777149" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1556096429964" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../tdde30-labbar-d1b-g03-13" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -298,12 +304,12 @@
       <workItem from="1554884367621" duration="26156000" />
       <workItem from="1555189655905" duration="1529000" />
       <workItem from="1555447178302" duration="4634000" />
-      <workItem from="1555681623469" duration="28476000" />
+      <workItem from="1555681623469" duration="28832000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="231728000" />
+    <option name="totallyTimeSpent" value="232084000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -316,6 +322,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-6" y="-6" width="1293" height="733" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.7870879" visible="true" weight="0.27854252" />
       <window_info id="Structure" order="1" sideWeight="0.21291208" side_tool="true" weight="0.256" />
@@ -326,8 +333,8 @@
       <window_info id="Favorites" order="6" sideWeight="0.50140846" side_tool="true" weight="0.16693333" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3283582" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49973333" visible="true" weight="0.18905473" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.39635158" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49973333" weight="0.18905473" />
+      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.39635158" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.3283582" />
@@ -793,29 +800,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/gui/LevelViewer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="147">
-          <caret line="188" column="28" selection-start-line="188" selection-start-column="28" selection-end-line="188" selection-end-column="28" />
-          <folding>
-            <element signature="initializer##0;class#LevelViewer#0" />
-            <element signature="method#LevelViewer#0;class#LevelViewer#0" />
-            <element signature="method#initializeMenuBar#0;class#LevelViewer#0" />
-            <element signature="method#addKeyboardEvents#0;class#LevelViewer#0" />
-            <element signature="method#addMotionEvent#0;class#LevelViewer#0" />
-            <element signature="class#MotionAction#0;class#LevelViewer#0" />
-            <element signature="method#MotionAction#0;class#MotionAction#0;class#LevelViewer#0" />
-            <element signature="class#ToggleGamePause#0;class#LevelViewer#0" />
-            <element signature="class#RestartLevel#0;class#LevelViewer#0" />
-            <element signature="method#showGame#0;class#LevelViewer#0" />
-            <element signature="method#exit#0;class#LevelViewer#0" />
-            <element signature="method#initializeGameLoop#0;class#LevelViewer#0" />
-            <element signature="e#6973#6974#0" expanded="true" />
-            <element signature="e#7020#7021#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/game/Tickable.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
@@ -935,6 +919,27 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
           <caret line="10" column="50" selection-start-line="10" selection-start-column="50" selection-end-line="10" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/gui/LevelViewer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="172">
+          <caret line="210" column="16" selection-start-line="210" selection-start-column="16" selection-end-line="210" selection-end-column="16" />
+          <folding>
+            <element signature="initializer##0;class#LevelViewer#0" />
+            <element signature="method#LevelViewer#0;class#LevelViewer#0" />
+            <element signature="method#initializeMenuBar#0;class#LevelViewer#0" />
+            <element signature="method#addKeyboardEvents#0;class#LevelViewer#0" />
+            <element signature="method#addMotionEvent#0;class#LevelViewer#0" />
+            <element signature="class#MotionAction#0;class#LevelViewer#0" />
+            <element signature="method#MotionAction#0;class#MotionAction#0;class#LevelViewer#0" />
+            <element signature="class#ToggleGamePause#0;class#LevelViewer#0" />
+            <element signature="class#RestartLevel#0;class#LevelViewer#0" />
+            <element signature="method#exit#0;class#LevelViewer#0" />
+            <element signature="method#initializeGameLoop#0;class#LevelViewer#0" />
+            <element signature="e#7008#7009#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
