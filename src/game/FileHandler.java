@@ -37,7 +37,7 @@ public final class FileHandler
 
     public static void saveLevel(final String fileName, final Block[][] blocks) throws FileNotFoundException {
 	final Gson gson = new GsonBuilder().registerTypeAdapterFactory(
-		TYPE_FACTORY).registerTypeAdapterFactory(getInterfaceTypeAdapterFactory()).setPrettyPrinting().create();
+		TYPE_FACTORY).registerTypeAdapterFactory(getInterfaceTypeAdapterFactory()).create();
 	final String levelAsJson = gson.toJson(blocks, blocks.getClass());
 	try (PrintWriter out = new PrintWriter(fileName)) {
 	    out.println(levelAsJson);
