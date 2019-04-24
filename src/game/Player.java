@@ -43,10 +43,9 @@ public class Player extends Movable
 	}
     }
 
-    @Override protected void handleCollision() { // Player collision (gets temporary stuck) happens here
-        setMoving(false);
-	setReachedBlock(true);
+    @Override protected void handleCollision() {
 	resetPositionAndTarget();
+	setReachedBlock(true);
     }
 
 
@@ -54,8 +53,9 @@ public class Player extends Movable
         if (isMoving()) {
             setDirection();
             move();
-            if (isReachedBlock() && movePriority.getFirstPriority() == null)
+            if (isReachedBlock() && movePriority.getFirstPriority() == null) {
 		setMoving(false);
+	    }
 	}
     }
 

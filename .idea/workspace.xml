@@ -8,8 +8,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="84f476f4-3eed-4d4a-9f32-0a44d2e667ba" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/level.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gui/LevelViewer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/LevelViewer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/game/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/Player.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -26,9 +25,10 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/gui/LevelViewer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="277">
-              <caret line="34" column="29" selection-start-line="34" selection-start-column="29" selection-end-line="34" selection-end-column="29" />
+            <state relative-caret-position="129">
+              <caret line="201" column="19" selection-start-line="201" selection-start-column="19" selection-end-line="201" selection-end-column="19" />
               <folding>
+                <element signature="initializer##0;class#LevelViewer#0" />
                 <element signature="method#LevelViewer#0;class#LevelViewer#0" />
                 <element signature="method#initializeMenuBar#0;class#LevelViewer#0" />
                 <element signature="method#addKeyboardEvents#0;class#LevelViewer#0" />
@@ -46,10 +46,42 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/game/FileHandler.java">
+        <entry file="file://$PROJECT_DIR$/src/game/Game.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="183">
-              <caret line="39" column="90" selection-start-line="39" selection-start-column="90" selection-end-line="39" selection-end-column="90" />
+            <state relative-caret-position="1489">
+              <caret line="142" lean-forward="true" selection-start-line="142" selection-end-line="142" />
+              <folding>
+                <element signature="method#getCollidingEntity#0;class#Game#0" />
+                <element signature="method#removeBlockAt#0;class#Game#0" />
+                <element signature="e#3619#3620#0" expanded="true" />
+                <element signature="e#3656#3657#0" expanded="true" />
+                <element signature="e#4016#4017#0" expanded="true" />
+                <element signature="e#4054#4055#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/game/Player.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="731">
+              <caret line="57" column="13" selection-start-line="57" selection-start-column="13" selection-end-line="57" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/game/Movable.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="83">
+              <caret line="102" column="31" selection-start-line="102" selection-start-column="9" selection-end-line="102" selection-end-column="31" />
+              <folding>
+                <element signature="class#Speed#0;class#Movable#0" />
+                <element signature="method#resetPositionAndTarget#0;class#Movable#0" />
+                <element signature="method#hasReachedBlock#0;class#Movable#0" />
+                <element signature="method#move#0;class#Movable#0" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -138,10 +170,10 @@
         <option value="$PROJECT_DIR$/src/game/Publisher.java" />
         <option value="$PROJECT_DIR$/src/gui/GameComponent.java" />
         <option value="$PROJECT_DIR$/src/gui/LevelComponent.java" />
-        <option value="$PROJECT_DIR$/src/game/Player.java" />
         <option value="$PROJECT_DIR$/src/game/Game.java" />
         <option value="$PROJECT_DIR$/src/game/FileHandler.java" />
         <option value="$PROJECT_DIR$/src/gui/LevelViewer.java" />
+        <option value="$PROJECT_DIR$/src/game/Player.java" />
       </list>
     </option>
   </component>
@@ -196,7 +228,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1556096963749" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1556106280878" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../tdde30-labbar-d1b-g03-13" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -312,12 +344,12 @@
       <workItem from="1554884367621" duration="26156000" />
       <workItem from="1555189655905" duration="1529000" />
       <workItem from="1555447178302" duration="4634000" />
-      <workItem from="1555681623469" duration="29404000" />
+      <workItem from="1555681623469" duration="30727000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="232656000" />
+    <option name="totallyTimeSpent" value="233979000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -341,8 +373,8 @@
       <window_info id="Favorites" order="6" sideWeight="0.50140846" side_tool="true" weight="0.16693333" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3283582" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49973333" visible="true" weight="0.18905473" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.39635158" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49973333" weight="0.18905473" />
+      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.39635158" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.3283582" />
@@ -404,12 +436,12 @@
   <component name="debuggerHistoryManager">
     <expressions id="breakpointCondition">
       <expression>
-        <expression-string>x + dir.dx == 8 &amp;&amp; y + dir.dy == 8</expression-string>
+        <expression-string>direction == Direction.RIGHT</expression-string>
         <language-id>JAVA</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>direction == Direction.RIGHT</expression-string>
+        <expression-string>x + dir.dx == 8 &amp;&amp; y + dir.dy == 8</expression-string>
         <language-id>JAVA</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
@@ -815,20 +847,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/game/Movable.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-205">
-          <caret line="49" column="20" selection-start-line="49" selection-start-column="20" selection-end-line="49" selection-end-column="20" />
-          <folding>
-            <element signature="class#Speed#0;class#Movable#0" />
-            <element signature="method#willCollide#0;class#Movable#0" />
-            <element signature="method#resetPositionAndTarget#0;class#Movable#0" />
-            <element signature="method#hasReachedBlock#0;class#Movable#0" />
-            <element signature="method#move#0;class#Movable#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/game/Enemy.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="373">
@@ -884,26 +902,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/game/Game.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="65" column="30" selection-start-line="65" selection-start-column="26" selection-end-line="65" selection-end-column="30" />
-          <folding>
-            <element signature="method#getCollidingEntity#0;class#Game#0" />
-            <element signature="method#removeBlockAt#0;class#Game#0" />
-            <element signature="e#3619#3620#0" expanded="true" />
-            <element signature="e#3656#3657#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/game/Player.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="217">
-          <caret line="58" column="9" lean-forward="true" selection-start-line="58" selection-start-column="9" selection-end-line="58" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/gui/GameComponent.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1">
@@ -930,11 +928,47 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/game/Game.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1489">
+          <caret line="142" lean-forward="true" selection-start-line="142" selection-end-line="142" />
+          <folding>
+            <element signature="method#getCollidingEntity#0;class#Game#0" />
+            <element signature="method#removeBlockAt#0;class#Game#0" />
+            <element signature="e#3619#3620#0" expanded="true" />
+            <element signature="e#3656#3657#0" expanded="true" />
+            <element signature="e#4016#4017#0" expanded="true" />
+            <element signature="e#4054#4055#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/game/Movable.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="83">
+          <caret line="102" column="31" selection-start-line="102" selection-start-column="9" selection-end-line="102" selection-end-column="31" />
+          <folding>
+            <element signature="class#Speed#0;class#Movable#0" />
+            <element signature="method#resetPositionAndTarget#0;class#Movable#0" />
+            <element signature="method#hasReachedBlock#0;class#Movable#0" />
+            <element signature="method#move#0;class#Movable#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/game/Player.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="731">
+          <caret line="57" column="13" selection-start-line="57" selection-start-column="13" selection-end-line="57" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/gui/LevelViewer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="277">
-          <caret line="34" column="29" selection-start-line="34" selection-start-column="29" selection-end-line="34" selection-end-column="29" />
+        <state relative-caret-position="129">
+          <caret line="201" column="19" selection-start-line="201" selection-start-column="19" selection-end-line="201" selection-end-column="19" />
           <folding>
+            <element signature="initializer##0;class#LevelViewer#0" />
             <element signature="method#LevelViewer#0;class#LevelViewer#0" />
             <element signature="method#initializeMenuBar#0;class#LevelViewer#0" />
             <element signature="method#addKeyboardEvents#0;class#LevelViewer#0" />
