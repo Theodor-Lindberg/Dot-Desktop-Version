@@ -19,6 +19,9 @@ import java.awt.event.MouseEvent;
 import static game.BlockType.*;
 import static game.Movable.*;
 
+/**
+ * This is a component which lets the user edit a level with a graphical user interface.
+ */
 public class LevelEditor extends JPanel
 {
     private final Level level;
@@ -49,7 +52,7 @@ public class LevelEditor extends JPanel
 	addComponent(clearButton);
 
 	final String saveButtonText = "Save level to file";
-	final var saveButton = new JButton(saveButtonText);
+	final JButton saveButton = new JButton(saveButtonText);
 	saveButton.addActionListener(e -> saveLevel());
 	addComponent(saveButton);
 

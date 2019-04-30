@@ -2,7 +2,11 @@ package gui;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import java.io.File;
 
+/**
+ * Lets the user choose which level to load or where to save it.
+ */
 public final class LevelChooser
 {
     private final static JFileChooser FILE_CHOOSER;
@@ -15,6 +19,7 @@ public final class LevelChooser
 	FILTER_EXTENSION = "json";
 	final FileNameExtensionFilter filter = new FileNameExtensionFilter(FILTER_DESCRIPTION, FILTER_EXTENSION);
 	FILE_CHOOSER.setFileFilter(filter);
+	FILE_CHOOSER.setCurrentDirectory(new File("./levels"));
     }
 
     private LevelChooser() {

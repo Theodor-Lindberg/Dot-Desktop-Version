@@ -29,7 +29,7 @@ public class Player extends Movable
     }
 
     private void setDirection() {
-        if (isReachedBlock()) {
+        if (isBlockReached()) {
 	    final Direction old = getDirection();
 	    setDirection(movePriority.getFirstPriority());
 	    if (willCollide()) {
@@ -45,7 +45,7 @@ public class Player extends Movable
 
     @Override protected void handleCollision() {
 	resetPositionAndTarget();
-	setReachedBlock(true);
+	setBlockReached(true);
     }
 
 
@@ -53,7 +53,7 @@ public class Player extends Movable
         if (isMoving()) {
             setDirection();
             move();
-            if (isReachedBlock() && movePriority.getFirstPriority() == null) {
+            if (isBlockReached() && movePriority.getFirstPriority() == null) {
 		setMoving(false);
 	    }
 	}

@@ -6,7 +6,7 @@ package game;
 public abstract class Movable extends Block implements Tickable, Interactable
 {
     public enum Speed {
-        SLOW(0.1f), NORMAL(0.15f), FAST(0.2f);
+        SLOW(0.09f), NORMAL(0.15f), FAST(0.2f);
 
         public final float value;
 
@@ -19,7 +19,7 @@ public abstract class Movable extends Block implements Tickable, Interactable
     private Point2D position;
     private Direction direction;
     private boolean moving;
-    private boolean reachedBlock;
+    private boolean blockReached;
     private Point2D targetPosition;
     protected final Game game;
 
@@ -29,7 +29,7 @@ public abstract class Movable extends Block implements Tickable, Interactable
 	this.speed = speed;
 	this.game = game;
 	moving = false;
-	reachedBlock = true;
+	blockReached = true;
 	targetPosition = new Point2D(position);
 	direction = startDirection;
     }
@@ -62,12 +62,12 @@ public abstract class Movable extends Block implements Tickable, Interactable
 	this.moving = moving;
     }
 
-    boolean isReachedBlock() {
-	return reachedBlock;
+    boolean isBlockReached() {
+	return blockReached;
     }
 
-    void setReachedBlock(final boolean reachedBlock) {
-	this.reachedBlock = reachedBlock;
+    void setBlockReached(final boolean blockReached) {
+	this.blockReached = blockReached;
     }
 
     protected Speed getSpeed() {
@@ -125,7 +125,7 @@ public abstract class Movable extends Block implements Tickable, Interactable
 	    position.setY(position.getY() + direction.deltaY * speed.value);
 
 	    if (hasReachedBlock()) {
-		reachedBlock = true;
+		blockReached = true;
 
 		if (direction == Direction.RIGHT || direction == Direction.DOWN) {
 		    position.setX((int) position.getX());
@@ -136,7 +136,7 @@ public abstract class Movable extends Block implements Tickable, Interactable
 		}
 
 	    } else {
-		reachedBlock = false;
+		blockReached = false;
 	    }
 
 	    Block block = game.getCollidingEntity(this, targetPosition.getX(), targetPosition.getY());

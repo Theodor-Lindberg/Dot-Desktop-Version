@@ -31,7 +31,7 @@ public class Enemy extends Movable
     }
 
     @Override public void tick() {
-	if (isReachedBlock()) {
+	if (isBlockReached()) {
 	    addXTargetPosition(getDirection().deltaX);
 	    addYTargetPosition(getDirection().deltaY);
 	}

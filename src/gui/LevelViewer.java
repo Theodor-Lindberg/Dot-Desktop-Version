@@ -206,11 +206,10 @@ public class LevelViewer
 	    try {
 	        frame.remove(levelEditor);
 	    }
-	    catch (Exception ignore) {
+	    catch (RuntimeException ignore) {
 
 	    }
 	    frame.pack();
-
 	}
     }
 
