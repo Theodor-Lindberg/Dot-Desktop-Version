@@ -10,11 +10,8 @@ public class Level extends Publisher implements LevelGrid
 {
     private Block[][] blocks = null;
 
-    public Level(final String fileName) {
-	try {
-	    blocks = FileHandler.readLevel(fileName);
-	} catch (IOException ignored) {
-	}
+    public Level(final String fileName) throws IOException {
+	blocks = FileHandler.readLevel(fileName);
     }
 
     @Override public int getWidth() {
@@ -34,11 +31,7 @@ public class Level extends Publisher implements LevelGrid
 	return blocks[y][x];
     }
 
-    public void saveToFile(final String fileName) {
-	try {
-	    FileHandler.saveLevel(fileName, blocks);
-	} catch (FileNotFoundException e) {
-	    e.printStackTrace();
-	}
+    public void saveToFile(final String fileName) throws FileNotFoundException {
+	FileHandler.saveLevel(fileName, blocks);
     }
 }

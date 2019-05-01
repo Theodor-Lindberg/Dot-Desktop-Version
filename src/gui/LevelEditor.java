@@ -79,7 +79,13 @@ public class LevelEditor extends JPanel
     private void saveLevel() {
 	final String fileName = LevelChooser.saveLevelTo();
 	if (fileName != null) {
-	    level.saveToFile(fileName);
+	    try {
+		level.saveToFile(fileName);
+	    }
+	    catch(Exception e) {
+	        e.printStackTrace();
+		JOptionPane.showMessageDialog(this, "Could not save level.", "Level save error", JOptionPane.ERROR_MESSAGE);
+	    }
 	}
     }
 

@@ -12,6 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.IOException;
 import java.util.EnumMap;
 
 /**
@@ -196,20 +197,25 @@ public class LevelViewer
     private void loadGame() {
 	final String fileName = LevelChooser.chooseLevel();
 	if (fileName != null) {
-	    level = new Level(fileName);
-	    game = new Game(level);
-	    frame.remove(levelComponent);
-	    levelComponent = new GameComponent(game, BLOCK_COLOR_TABLE, BACKGROUND_COLOR);
-	    game.addListener(levelComponent);
-	    frame.add(levelComponent);
-
 	    try {
-	        frame.remove(levelEditor);
-	    }
-	    catch (RuntimeException ignore) {
+		level = new Level(fileName);
+		game = new Game(level);
+		frame.remove(levelComponent);
+		levelComponent = new GameComponent(game, BLOCK_COLOR_TABLE, BACKGROUND_COLOR);
+		game.addListener(levelComponent);
+		frame.add(levelComponent);
 
+		try {
+		    frame.remove(levelEditor);
+		} catch (RuntimeException ignore) {
+
+		}
+		frame.pack();
 	    }
-	    frame.pack();
+	    catch (Exception e) {
+		e.printStackTrace();
+		JOptionPane.showMessageDialog(frame, "Could not load level.", "Level load error", JOptionPane.ERROR_MESSAGE);
+	    }
 	}
     }
 
@@ -234,6 +240,12 @@ public class LevelViewer
     }
 
     public static void main(String[] args) {
-	new LevelViewer(new Level(DEMO_LEVEL));
+        try {
+	    new LevelViewer(new Level(DEMO_LEVEL));
+	}
+	catch (IOException e) {
+	    e.printStackTrace();
+	    JOptionPane.showMessageDialog(null, "Could not load level.", "Level load error", JOptionPane.ERROR_MESSAGE);
+	}
     }
 }
