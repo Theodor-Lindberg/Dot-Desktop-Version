@@ -211,8 +211,7 @@ public class LevelViewer
 
 		}
 		frame.pack();
-	    }
-	    catch (Exception e) {
+	    } catch (Exception e) {
 		e.printStackTrace();
 		JOptionPane.showMessageDialog(frame, "Could not load level.", "Level load error", JOptionPane.ERROR_MESSAGE);
 	    }

@@ -40,8 +40,15 @@ public class LevelComponent extends JComponent implements Listener
 	for (int y = 0; y < levelGrid.getHeight(); y++)
 	    for (int x = 0; x < levelGrid.getWidth(); x++) {
 		final Block block = levelGrid.getBlockAt(x, y);
-		final BlockType blockType = (block.getBlockType() == BlockType.KEY) ? ((KeyBlock) block).getTargetBlock() : block.getBlockType();
-		drawBackWithPadding(g2d, blockType, x, y);
+		if (block.getBlockType() == BlockType.KEY) {
+		    drawBackWithPadding(g2d, ((KeyBlock) block).getTargetBlock(), x, y);
+		    g2d.setColor(backgroundColor);
+		    g2d.fillRect(x * BLOCK_SIZE + PADDING * 2, y * BLOCK_SIZE + PADDING * 2, BLOCK_SIZE - PADDING * 3, BLOCK_SIZE - PADDING * 3);
+		}
+		else {
+		    drawBackWithPadding(g2d, block.getBlockType(), x, y);
+		}
+
 	    }
     }
 

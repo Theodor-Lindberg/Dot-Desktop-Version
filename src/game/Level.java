@@ -8,7 +8,7 @@ import java.io.IOException;
  */
 public class Level extends Publisher implements LevelGrid
 {
-    private Block[][] blocks = null;
+    private Block[][] blocks;
 
     public Level(final String fileName) throws IOException {
 	blocks = FileHandler.readLevel(fileName);
