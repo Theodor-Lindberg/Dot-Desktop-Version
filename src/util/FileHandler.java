@@ -1,8 +1,13 @@
-package game;
+package util;
 
 import borrowedcode.RuntimeTypeAdapterFactory;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import game.Block;
+import game.EndBlock;
+import game.Enemy;
+import game.KeyBlock;
+import game.Player;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

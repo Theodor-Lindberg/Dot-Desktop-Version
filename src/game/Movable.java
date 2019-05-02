@@ -21,7 +21,7 @@ public abstract class Movable extends Block implements Tickable, Interactable
     private boolean moving;
     private boolean blockReached;
     private Point2D targetPosition;
-    protected final Game game;
+    private final Game game;
 
     protected Movable(final BlockType blockType, final Point2D position, final Speed speed, final Direction startDirection, final Game game) {
 	super(blockType);
@@ -42,7 +42,7 @@ public abstract class Movable extends Block implements Tickable, Interactable
 	return position.getY();
     }
 
-    public Direction getDirection() {
+    protected Direction getDirection() {
 	return direction;
     }
 

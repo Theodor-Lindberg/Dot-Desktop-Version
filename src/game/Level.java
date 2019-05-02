@@ -1,5 +1,7 @@
 package game;
 
+import util.FileHandler;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 

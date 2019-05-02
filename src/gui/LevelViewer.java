@@ -5,6 +5,7 @@ import game.Direction;
 import game.Game;
 import game.Level;
 import gui.LevelEditor.BlockPlacer;
+import util.Logger;
 
 import javax.swing.*;
 import java.awt.*;
@@ -207,12 +208,12 @@ public class LevelViewer
 
 		try {
 		    frame.remove(levelEditor);
-		} catch (RuntimeException ignore) {
-
+		} catch (RuntimeException e) {
+		    Logger.log(java.util.logging.Level.WARNING, this.getClass().getName(), "Tried to remove level editor component.", e);
 		}
 		frame.pack();
 	    } catch (Exception e) {
-		e.printStackTrace();
+		Logger.log(java.util.logging.Level.SEVERE, this.getClass().getName(), "Could not load level", e);
 		JOptionPane.showMessageDialog(frame, "Could not load level.", "Level load error", JOptionPane.ERROR_MESSAGE);
 	    }
 	}
@@ -243,7 +244,7 @@ public class LevelViewer
 	    new LevelViewer(new Level(DEMO_LEVEL));
 	}
 	catch (IOException e) {
-	    e.printStackTrace();
+	    Logger.log(java.util.logging.Level.SEVERE, "main", "Could not load level", e);
 	    JOptionPane.showMessageDialog(null, "Could not load level.", "Level load error", JOptionPane.ERROR_MESSAGE);
 	}
     }

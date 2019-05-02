@@ -10,11 +10,13 @@ import game.KeyBlock;
 import game.Level;
 import game.Player;
 import game.Point2D;
+import util.Logger;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.FileNotFoundException;
 
 import static game.BlockType.*;
 import static game.Movable.*;
@@ -81,9 +83,12 @@ public class LevelEditor extends JPanel
 	if (fileName != null) {
 	    try {
 		level.saveToFile(fileName);
-	    }
-	    catch(Exception e) {
-	        e.printStackTrace();
+	    } catch (FileNotFoundException e) {
+		Logger.log(java.util.logging.Level.SEVERE, this.getClass().getName(),
+			   "Could not save level because the file was not found", e);
+		JOptionPane.showMessageDialog(this, "Could not find file.", "Level save error", JOptionPane.ERROR_MESSAGE);
+	    } catch (Exception e) {
+		Logger.log(java.util.logging.Level.SEVERE, this.getClass().getName(), "Could not save level", e);
 		JOptionPane.showMessageDialog(this, "Could not save level.", "Level save error", JOptionPane.ERROR_MESSAGE);
 	    }
 	}
