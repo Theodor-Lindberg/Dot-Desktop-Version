@@ -97,7 +97,7 @@ public abstract class Movable extends Block implements Tickable, Interactable
 
         final int x = (direction == Direction.RIGHT || direction == Direction.DOWN) ? (int)(position.getX() + direction.deltaX) : (int)(position.getX() + direction.deltaX * speed.value);
         final int y = (direction == Direction.RIGHT || direction == Direction.DOWN) ? (int)(position.getY() + direction.deltaY) : (int)(position.getY() + direction.deltaY * speed.value);
-        return game.getBlockAt(x, y).isSolid();
+        return game.getCollidingEntity(this, x, y).isSolid();
     }
 
     void resetPositionAndTarget() {
@@ -139,10 +139,11 @@ public abstract class Movable extends Block implements Tickable, Interactable
 		blockReached = false;
 	    }
 
-	    Block block = game.getCollidingEntity(this, targetPosition.getX(), targetPosition.getY());
-	    if (block instanceof Interactable) {
-		((Interactable)block).interact(this);
-	    }
+		final Block block = game.getCollidingEntity(this, position.getX(), position.getY());
+		if (block instanceof Interactable) {
+		    ((Interactable) block).interact(this);
+		}
+
 	}
     }
 
