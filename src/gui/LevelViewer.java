@@ -5,6 +5,7 @@ import game.Direction;
 import game.Game;
 import game.Level;
 import gui.LevelEditor.BlockPlacer;
+import util.FileHandler;
 import util.Logger;
 
 import javax.swing.*;
@@ -13,7 +14,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.IOException;
 import java.util.EnumMap;
 
 /**
@@ -34,7 +34,7 @@ public class LevelViewer
 
     static {
 	FRAME_TITLE = "Dot";
-	DEMO_LEVEL = "levels/level.json";
+	DEMO_LEVEL = "level7.json";
 
 	BACKGROUND_COLOR = new Color(23, 16, 22);
 	BLOCK_COLOR_TABLE = new EnumMap<>(BlockType.class);
@@ -96,25 +96,36 @@ public class LevelViewer
     private void initializeMenuBar() {
 	final JMenuBar menuBar = new JMenuBar();
 
-	final String menuText = "Options";
-	final JMenu menu = new JMenu(menuText);
-	final String gameMenuText = "Load Game";
-	final String editorMenuText = "Editor";
-	final String exitMenuText = "Exit";
+	final JMenu menu = new JMenu("Options");
 
+	final JMenuItem editorItem = new JMenuItem("Editor");
+	final JMenuItem exitItem = new JMenuItem("Exit");
+	final JMenu loadItem = new JMenu("Load Game");
+	final JMenu loadIncludedLevelItem = new JMenu("Included Levels");
+	final JMenuItem loadCustomLevelItem = new JMenuItem("Custom Level");
 
-	final JMenuItem gameItem = new JMenuItem(gameMenuText);
-	final JMenuItem editorItem = new JMenuItem(editorMenuText);
-	final JMenuItem exitItem = new JMenuItem(exitMenuText);
+	try {
+	    for (String defaultFile : FileHandler.getDefaultFiles()) {
+		final JMenuItem defLevelItem = new JMenuItem(defaultFile);
+		defLevelItem.addActionListener(ev -> loadGame(defaultFile));
+		loadIncludedLevelItem.add(defLevelItem);
+	    }
+	}
+	catch(Exception e) {
+	    Logger.log(java.util.logging.Level.SEVERE, getClass().getName(), "Could not list resource files.", e);
+	}
 
-	gameItem.addActionListener(ev -> loadGame());
+	loadCustomLevelItem.addActionListener(ev -> loadGame(LevelChooser.chooseLevel()));
 	editorItem.addActionListener(ev -> showLevelEditor());
 	exitItem.addActionListener(ev -> exit());
 
-	menu.add(gameItem);
+	loadItem.add(loadCustomLevelItem);
+	loadItem.add(loadIncludedLevelItem);
+	menu.add(loadItem);
 	menu.add(editorItem);
 	menu.add(exitItem);
 	menuBar.add(menu);
+
 	frame.setJMenuBar(menuBar);
     }
 
@@ -195,8 +206,7 @@ public class LevelViewer
 	frame.pack();
     }
 
-    private void loadGame() {
-	final String fileName = LevelChooser.chooseLevel();
+    private void loadGame(final String fileName) {
 	if (fileName != null) {
 	    try {
 		level = new Level(fileName);
@@ -209,7 +219,7 @@ public class LevelViewer
 		try {
 		    frame.remove(levelEditor);
 		} catch (RuntimeException e) {
-		    Logger.log(java.util.logging.Level.WARNING, this.getClass().getName(), "Tried to remove level editor component.", e);
+		    Logger.log(java.util.logging.Level.FINE, this.getClass().getName(), "Tried to remove level editor component.", e);
 		}
 		frame.pack();
 	    } catch (Exception e) {
@@ -243,7 +253,7 @@ public class LevelViewer
         try {
 	    new LevelViewer(new Level(DEMO_LEVEL));
 	}
-	catch (IOException e) {
+	catch (Exception e) {
 	    Logger.log(java.util.logging.Level.SEVERE, "main", "Could not load level", e);
 	    JOptionPane.showMessageDialog(null, "Could not load level.", "Level load error", JOptionPane.ERROR_MESSAGE);
 	}

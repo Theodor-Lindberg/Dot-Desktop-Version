@@ -1,4 +1,4 @@
-package game;
+package util;
 
 /**
  * To be notified when a property has changed one must implement this interface and subscribe to the publisher.

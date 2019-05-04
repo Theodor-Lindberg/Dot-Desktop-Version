@@ -8,12 +8,25 @@ import game.EndBlock;
 import game.Enemy;
 import game.KeyBlock;
 import game.Player;
+import gui.LevelChooser;
 
+import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.List;
+import java.util.jar.JarEntry;
+import java.util.jar.JarFile;
+import java.util.stream.Collectors;
 
 import static borrowedcode.InterfaceTypeAdapterFactory.getInterfaceTypeAdapterFactory;
 
@@ -23,8 +36,10 @@ import static borrowedcode.InterfaceTypeAdapterFactory.getInterfaceTypeAdapterFa
 public final class FileHandler
 {
     private final static RuntimeTypeAdapterFactory<Block> TYPE_FACTORY;
+    private final static String RESOURCE_DIRECTORY;
 
     static {
+	RESOURCE_DIRECTORY = "levels/";
 	TYPE_FACTORY =	RuntimeTypeAdapterFactory.of(Block.class, "type").registerSubtype(KeyBlock.class, KeyBlock.class.getName())
 				.registerSubtype(Player.class, Player.class.getName()).registerSubtype(Block.class, Block.class.getName())
 				.registerSubtype(EndBlock.class, EndBlock.class.getName()).registerSubtype(Enemy.class, Enemy.class.getName());
@@ -34,7 +49,30 @@ public final class FileHandler
     }
 
     public static Block[][] readLevel(final String fileName) throws IOException {
-	final String content = Files.readString(Paths.get(fileName));
+        return (isResourceFile(fileName)) ? readLevelFromResources(fileName) : readLevelFromFile(fileName);
+    }
+
+    private static Block[][] readLevelFromFile(final String fileName) throws IOException {
+	return interpretJsonData(Files.readString(Paths.get(fileName)));
+    }
+
+    private static boolean isResourceFile(final String fileName) {
+	return ClassLoader.getSystemClassLoader().getResource(RESOURCE_DIRECTORY + LevelChooser.addFileExtension(fileName)) != null;
+    }
+
+    private static Block[][] readLevelFromResources(String fileName) {
+        fileName = RESOURCE_DIRECTORY + LevelChooser.addFileExtension(fileName);
+
+	final ClassLoader classLoader = ClassLoader.getSystemClassLoader();
+	final InputStream is = classLoader.getResourceAsStream(fileName);
+	if (is != null) {
+	    final BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+	    return interpretJsonData(reader.lines().collect(Collectors.joining(System.lineSeparator())));
+	}
+	return null;
+    }
+
+    private static Block[][] interpretJsonData(final String content) {
 	final Gson gson = new GsonBuilder().registerTypeAdapterFactory(
 		TYPE_FACTORY).registerTypeAdapterFactory(getInterfaceTypeAdapterFactory()).setPrettyPrinting().create();
 	return gson.fromJson(content, Block[][].class);
@@ -47,5 +85,32 @@ public final class FileHandler
 	try (PrintWriter out = new PrintWriter(fileName)) {
 	    out.println(levelAsJson);
 	}
+    }
+
+    public static List<String> getDefaultFiles() throws IOException, URISyntaxException {
+	final List<String> levelsFound = new ArrayList<>();
+
+	final File jarFile = new File(FileHandler.class.getProtectionDomain().getCodeSource().getLocation().getPath());
+	if (jarFile.isFile()) {  // Run with JAR file
+	    final JarFile jar = new JarFile(jarFile);
+	    final Enumeration<JarEntry> entries = jar.entries(); //gives ALL entries in jar
+	    while (entries.hasMoreElements()) {
+		final String name = entries.nextElement().getRealName();
+		if (name.contains(RESOURCE_DIRECTORY) && !name.equals(RESOURCE_DIRECTORY)) { //filter according to the path
+		    levelsFound.add(LevelChooser.removeFileExtension(name.replace(RESOURCE_DIRECTORY, "")));
+		}
+	    }
+	    jar.close();
+	} else { // Run with IDE
+	    final URL url = FileHandler.class.getResource("/" + RESOURCE_DIRECTORY);
+	    if (url != null) {
+		final File levels = new File(url.toURI());
+		for (File level : levels.listFiles()) {
+		    levelsFound.add(LevelChooser.removeFileExtension(level.getName()));
+		}
+	    }
+	}
+
+	return levelsFound;
     }
 }

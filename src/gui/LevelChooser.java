@@ -19,7 +19,7 @@ public final class LevelChooser
 	FILTER_EXTENSION = "json";
 	final FileNameExtensionFilter filter = new FileNameExtensionFilter(FILTER_DESCRIPTION, FILTER_EXTENSION);
 	FILE_CHOOSER.setFileFilter(filter);
-	FILE_CHOOSER.setCurrentDirectory(new File("./levels"));
+	FILE_CHOOSER.setCurrentDirectory(new File("resources/levels"));
     }
 
     private LevelChooser() {
@@ -34,14 +34,18 @@ public final class LevelChooser
 	return null;
     }
 
+    public static String addFileExtension(final String fileName) {
+        return (fileName.endsWith(FILTER_EXTENSION)) ? fileName : fileName + "." + FILTER_EXTENSION;
+    }
+
+    public static String removeFileExtension(final String fileName) {
+        return fileName.replace("." + FILTER_EXTENSION, "");
+    }
+
     public static String saveLevelTo() {
         final int returnValue = FILE_CHOOSER.showSaveDialog(null);
 	if (returnValue == JFileChooser.APPROVE_OPTION) {
-	    String fileName = FILE_CHOOSER.getSelectedFile().getAbsolutePath();
-	    if (!fileName.contains("." + FILTER_EXTENSION)){
-	        fileName += "." + FILTER_EXTENSION;
-	    }
-	    return fileName;
+	    return addFileExtension(FILE_CHOOSER.getSelectedFile().getAbsolutePath());
 	}
 	return null;
     }

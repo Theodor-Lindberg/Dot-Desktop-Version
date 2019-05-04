@@ -4,7 +4,7 @@ import game.Block;
 import game.BlockType;
 import game.KeyBlock;
 import game.LevelGrid;
-import game.Listener;
+import util.Listener;
 
 import javax.swing.*;
 import java.awt.*;
