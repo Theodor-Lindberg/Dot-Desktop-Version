@@ -5,5 +5,5 @@ package game;
  */
 public interface Interactable
 {
-    void interact(Movable movingObject);
+    void interact(final Movable movingObject);
 }

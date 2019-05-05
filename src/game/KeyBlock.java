@@ -25,7 +25,7 @@ public class KeyBlock extends Block implements Interactable
 	return targetBlock;
     }
 
-    @Override public void interact(Movable movingObject) {
+    @Override public void interact(final Movable movingObject) {
         if (movingObject.getBlockType() == BlockType.PLAYER) {
             game.removeBlockAt(gameKey, (int)movingObject.getTargetX(), (int)movingObject.getTargetY());
 	    borrowedcode_floodFill((int)movingObject.getX(), (int)movingObject.getY());

@@ -28,40 +28,25 @@ public class LevelViewer
     private LevelEditor levelEditor = null;
 
     private final static String FRAME_TITLE;
-    private final static String DEMO_LEVEL;
+    private final static String START_LEVEL;
     private final static Color BACKGROUND_COLOR;
     private final static EnumMap<BlockType, Color> BLOCK_COLOR_TABLE;
 
     static {
 	FRAME_TITLE = "Dot";
-	DEMO_LEVEL = "level7.json";
+	START_LEVEL = "level1.json";
 
 	BACKGROUND_COLOR = new Color(23, 16, 22);
+
 	BLOCK_COLOR_TABLE = new EnumMap<>(BlockType.class);
-
-	final Color emptyColor = new Color(39, 32, 28, 255);
-	BLOCK_COLOR_TABLE.put(BlockType.EMPTY, emptyColor);
-
-	final Color wallColor = new Color(125, 190, 255, 255);
-	BLOCK_COLOR_TABLE.put(BlockType.WALL, wallColor);
-
-	final Color keyColor = new Color(222, 0, 235, 255);
-	BLOCK_COLOR_TABLE.put(BlockType.KEY, keyColor);
-
-	final Color wall1Color = new Color(131, 77, 235, 255);
-	BLOCK_COLOR_TABLE.put(BlockType.WALL1, wall1Color);
-
-	final Color wall2Color = new Color(224, 197, 20, 255);
-	BLOCK_COLOR_TABLE.put(BlockType.WALL2, wall2Color);
-
-	final Color endColor = new Color(40, 242, 134, 255);
-	BLOCK_COLOR_TABLE.put(BlockType.END, endColor);
-
-	final Color playerColor = new Color(237, 228, 228, 255);
-	BLOCK_COLOR_TABLE.put(BlockType.PLAYER, playerColor);
-
-	final Color enemyColor = new Color(242, 0, 70, 255);
-	BLOCK_COLOR_TABLE.put(BlockType.ENEMY, enemyColor);
+	BLOCK_COLOR_TABLE.put(BlockType.EMPTY, new Color(39, 32, 28, 255));
+	BLOCK_COLOR_TABLE.put(BlockType.WALL, new Color(125, 190, 255, 255));
+	BLOCK_COLOR_TABLE.put(BlockType.KEY, new Color(222, 0, 235, 255));
+	BLOCK_COLOR_TABLE.put(BlockType.WALL1, new Color(131, 77, 235, 255));
+	BLOCK_COLOR_TABLE.put(BlockType.WALL2, new Color(224, 197, 20, 255));
+	BLOCK_COLOR_TABLE.put(BlockType.END, new Color(40, 242, 134, 255));
+	BLOCK_COLOR_TABLE.put(BlockType.PLAYER, new Color(237, 228, 228, 255));
+	BLOCK_COLOR_TABLE.put(BlockType.ENEMY, new Color(242, 0, 70, 255));
     }
 
     public LevelViewer(final Level level) {
@@ -252,7 +237,7 @@ public class LevelViewer
 
     public static void main(String[] args) {
         try {
-	    new LevelViewer(new Level(DEMO_LEVEL));
+	    new LevelViewer(new Level(START_LEVEL));
 	}
 	catch (Exception e) {
 	    Logger.log(java.util.logging.Level.SEVERE, "main", "Could not load level", e);

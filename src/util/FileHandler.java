@@ -63,10 +63,11 @@ public final class FileHandler
     private static Block[][] readLevelFromResources(String fileName) {
         fileName = RESOURCE_DIRECTORY + LevelChooser.addFileExtension(fileName);
 
+        // borrowcode
 	final ClassLoader classLoader = ClassLoader.getSystemClassLoader();
-	final InputStream is = classLoader.getResourceAsStream(fileName);
-	if (is != null) {
-	    final BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+	final InputStream inputStream = classLoader.getResourceAsStream(fileName);
+	if (inputStream != null) {
+	    final BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
 	    return interpretJsonData(reader.lines().collect(Collectors.joining(System.lineSeparator())));
 	}
 	return null;
@@ -88,6 +89,10 @@ public final class FileHandler
     }
 
     public static List<String> getLevelsFromResources() throws IOException, URISyntaxException {
+        return borrowcode_getLevelsFromResources();
+    }
+
+    private static List<String> borrowcode_getLevelsFromResources() throws IOException, URISyntaxException {
 	final List<String> levelsFound = new ArrayList<>();
 
 	final File jarFile = new File(FileHandler.class.getProtectionDomain().getCodeSource().getLocation().getPath());
@@ -111,6 +116,7 @@ public final class FileHandler
 	    }
 	}
 
+	levelsFound.sort(String::compareToIgnoreCase);
 	return levelsFound;
     }
 }
