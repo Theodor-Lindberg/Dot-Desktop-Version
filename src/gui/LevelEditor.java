@@ -9,7 +9,7 @@ import game.EnemyFactory.EnemyAI;
 import game.KeyBlock;
 import game.Level;
 import game.Player;
-import game.Point2D;
+import util.Point2D;
 import util.Logger;
 
 import javax.swing.*;

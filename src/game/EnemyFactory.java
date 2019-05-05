@@ -1,6 +1,7 @@
 package game;
 
 import game.Movable.Speed;
+import util.Point2D;
 
 import static game.BasicAI.*;
 

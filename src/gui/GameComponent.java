@@ -3,7 +3,7 @@ package gui;
 import game.BlockType;
 import game.Game;
 import game.Movable;
-import game.Point2D;
+import util.Point2D;
 
 import java.awt.*;
 import java.util.EnumMap;

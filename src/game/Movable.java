@@ -1,5 +1,7 @@
 package game;
 
+import util.Point2D;
+
 /**
  * Base class for all moving objects.
  */
@@ -95,8 +97,8 @@ public abstract class Movable extends Block implements Tickable, Interactable
 	    return true;
         }
 
-        final int x = (direction == Direction.RIGHT || direction == Direction.DOWN) ? (int)(position.getX() + direction.deltaX) : (int)(position.getX() + direction.deltaX * speed.value);
-        final int y = (direction == Direction.RIGHT || direction == Direction.DOWN) ? (int)(position.getY() + direction.deltaY) : (int)(position.getY() + direction.deltaY * speed.value);
+        final int x = (direction == Direction.RIGHT || direction == Direction.DOWN) ? (int)(position.getX() + direction.deltaX) : (int)Math.floor((position.getX() + direction.deltaX * speed.value));
+        final int y = (direction == Direction.RIGHT || direction == Direction.DOWN) ? (int)(position.getY() + direction.deltaY) : (int)Math.floor((position.getY() + direction.deltaY * speed.value));
         return game.getCollidingEntity(this, x, y).isSolid();
     }
 
@@ -110,8 +112,8 @@ public abstract class Movable extends Block implements Tickable, Interactable
     private boolean hasReachedBlock() {
 	if (direction == Direction.RIGHT) if (position.getX() > targetPosition.getX()) return true;
 	if (direction == Direction.DOWN) if (position.getY() > targetPosition.getY()) return true;
-	if (direction == Direction.LEFT) if ((int) position.getX() < targetPosition.getX()) return true;
-	if (direction == Direction.UP) return (int) position.getY() < targetPosition.getY();
+	if (direction == Direction.LEFT) if (Math.floor(position.getX()) < targetPosition.getX()) return true;
+	if (direction == Direction.UP) return Math.floor(position.getY()) < targetPosition.getY();
 	return false;
     }
 

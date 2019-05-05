@@ -49,14 +49,14 @@ public final class FileHandler
     }
 
     public static Block[][] readLevel(final String fileName) throws IOException {
-        return (isResourceFile(fileName)) ? readLevelFromResources(fileName) : readLevelFromFile(fileName);
+        return (isResourceLevel(fileName)) ? readLevelFromResources(fileName) : readLevelFromFile(fileName);
     }
 
     private static Block[][] readLevelFromFile(final String fileName) throws IOException {
 	return interpretJsonData(Files.readString(Paths.get(fileName)));
     }
 
-    private static boolean isResourceFile(final String fileName) {
+    private static boolean isResourceLevel(final String fileName) {
 	return ClassLoader.getSystemClassLoader().getResource(RESOURCE_DIRECTORY + LevelChooser.addFileExtension(fileName)) != null;
     }
 
@@ -87,7 +87,7 @@ public final class FileHandler
 	}
     }
 
-    public static List<String> getDefaultFiles() throws IOException, URISyntaxException {
+    public static List<String> getLevelsFromResources() throws IOException, URISyntaxException {
 	final List<String> levelsFound = new ArrayList<>();
 
 	final File jarFile = new File(FileHandler.class.getProtectionDomain().getCodeSource().getLocation().getPath());

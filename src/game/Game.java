@@ -1,5 +1,6 @@
 package game;
 
+import util.Point2D;
 import util.Publisher;
 
 import java.util.ArrayList;
@@ -100,7 +101,10 @@ public class Game extends Publisher implements Tickable, LevelGrid
     }
 
     @Override public Block getBlockAt(final int x, final int y) {
-	return blocks[y][x];
+        if (x >= 0 && x < getWidth() && y >= 0 && y < getHeight()) {
+	    return blocks[y][x];
+	}
+	return new Block(BlockType.WALL);
     }
 
     public Block getCollidingEntity(final Block block, final float x, final float y) {

@@ -105,7 +105,7 @@ public class LevelViewer
 	final JMenuItem loadCustomLevelItem = new JMenuItem("Custom Level");
 
 	try {
-	    for (String defaultFile : FileHandler.getDefaultFiles()) {
+	    for (String defaultFile : FileHandler.getLevelsFromResources()) {
 		final JMenuItem defLevelItem = new JMenuItem(defaultFile);
 		defLevelItem.addActionListener(ev -> loadGame(defaultFile));
 		loadIncludedLevelItem.add(defLevelItem);
@@ -194,6 +194,7 @@ public class LevelViewer
     }
 
     private void showLevelEditor() {
+        game.setPaused(true);
 	levelEditor = new LevelEditor(level);
 	frame.add(levelEditor, BorderLayout.WEST);
 	final BlockPlacer blockPlacer = levelEditor.new BlockPlacer();

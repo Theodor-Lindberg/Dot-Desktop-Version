@@ -1,4 +1,4 @@
-package game;
+package util;
 
 /**
  * This class stores two floats representing a position.

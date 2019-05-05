@@ -1,6 +1,7 @@
 package game;
 
 import game.Game.GameKey;
+import util.Point2D;
 
 /**
  * The player class.
@@ -45,7 +46,6 @@ public class Player extends Movable
 
     @Override protected void handleCollision() {
 	resetPositionAndTarget();
-	setBlockReached(true);
     }
 
 

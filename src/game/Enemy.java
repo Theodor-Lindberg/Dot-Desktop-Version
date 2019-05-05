@@ -1,5 +1,7 @@
 package game;
 
+import util.Point2D;
+
 /**
  * Generic Enemy class, can have different types of ai.
  */
