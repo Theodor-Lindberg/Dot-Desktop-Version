@@ -17,7 +17,7 @@ public class Player extends Movable
 	movePriority = new MovePriority();
     }
 
-    public void move(Direction direction) {
+    public void move(final Direction direction) {
         movePriority.addDirection(direction);
         setMoving(true);
         if (getDirection() == null) {
@@ -25,7 +25,7 @@ public class Player extends Movable
 	}
     }
 
-    public void releaseDirection(Direction direction) {
+    public void releaseDirection(final Direction direction) {
         movePriority.releaseDirection(direction);
     }
 

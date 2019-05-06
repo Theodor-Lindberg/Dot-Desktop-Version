@@ -44,15 +44,15 @@ public abstract class Movable extends Block implements Tickable, Interactable
 	return position.getY();
     }
 
-    protected Direction getDirection() {
+    Direction getDirection() {
 	return direction;
     }
 
-    public Game getGame() {
+    Game getGame() {
         return game;
     }
 
-    public void setDirection(final Direction direction) {
+    void setDirection(final Direction direction) {
 	this.direction = direction;
     }
 
@@ -72,7 +72,7 @@ public abstract class Movable extends Block implements Tickable, Interactable
 	this.blockReached = blockReached;
     }
 
-    protected Speed getSpeed() {
+    Speed getSpeed() {
         return speed;
     }
 
@@ -117,7 +117,7 @@ public abstract class Movable extends Block implements Tickable, Interactable
 	return false;
     }
 
-    protected void move() {
+    void move() {
 	if (willCollide()) {
 	    handleCollision();
 	}
@@ -149,5 +149,5 @@ public abstract class Movable extends Block implements Tickable, Interactable
 	}
     }
 
-    protected abstract void handleCollision();
+    abstract void handleCollision();
 }

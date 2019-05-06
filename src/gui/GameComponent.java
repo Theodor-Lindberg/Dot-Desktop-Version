@@ -36,7 +36,7 @@ public class GameComponent extends LevelComponent
 	super.paintComponent(g);
 	final Graphics2D g2d = (Graphics2D) g;
 
-	Iterator<Movable> movingObjects = game.getMovingObjectsIterator();
+	final Iterator<Movable> movingObjects = game.getMovingObjectsIterator();
 	while (movingObjects.hasNext()) {
 	    final Movable movingObject = movingObjects.next();
 	    drawBlock(g2d, blockColorTable.get(movingObject.getBlockType()), movingObject.getX(), movingObject.getY());

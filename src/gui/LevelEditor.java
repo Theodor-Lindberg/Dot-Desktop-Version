@@ -44,25 +44,31 @@ public class LevelEditor extends JPanel
 
 	setLayout( new BoxLayout(this, BoxLayout.PAGE_AXIS));
 	setupButtons();
+	addComboBoxes();
 	setMaximumSize( this.getPreferredSize() );
     }
 
     private void setupButtons() {
-	final String clearButtonText = "Clear level";
-	final JButton clearButton = new JButton(clearButtonText);
+	final JButton clearButton = new JButton("Clear level");
 	clearButton.addActionListener(e -> clearLevel());
 	addComponent(clearButton);
 
-	final String saveButtonText = "Save level to file";
-	final JButton saveButton = new JButton(saveButtonText);
+	final JButton saveButton = new JButton("Save level to file");
 	saveButton.addActionListener(e -> saveLevel());
 	addComponent(saveButton);
+    }
 
+    private void addComboBoxes() {
+        addComponent(new JLabel("Block Type:"));
 	addComponent(blockTypeBox);
+	addComponent(new JLabel("Target block for key blocks:"));
 	addComponent(keyTargetTypeBox);
+	addComponent(new JLabel("Speed for enemies and player:"));
 	addComponent(speedBox);
-	addComponent(directionBox);
+	addComponent(new JLabel("AI type for enemies:"));
 	addComponent(aiBox);
+	addComponent(new JLabel("Start direction for enemies:"));
+	addComponent(directionBox);
     }
 
     private void addComponent(final JComponent component) {
@@ -111,9 +117,9 @@ public class LevelEditor extends JPanel
 		    level.insertBlockAt(blockPosition.x, blockPosition.y, block);
 		}
 		else if (blockType == ENEMY) {
-		    final EnemyFactory ef = new EnemyFactory(null);
-		    final Enemy e = ef.createEnemy(new Point2D(blockPosition.x,blockPosition.y), (Direction)directionBox.getSelectedItem(), (Speed)speedBox.getSelectedItem(), (EnemyAI)aiBox.getSelectedItem());
-		    level.insertBlockAt(blockPosition.x, blockPosition.y, e);
+		    final EnemyFactory enemyFactory = new EnemyFactory(null);
+		    final Enemy enemy = enemyFactory.createEnemy(new Point2D(blockPosition.x,blockPosition.y), (Direction)directionBox.getSelectedItem(), (Speed)speedBox.getSelectedItem(), (EnemyAI)aiBox.getSelectedItem());
+		    level.insertBlockAt(blockPosition.x, blockPosition.y, enemy);
 		}
 		else if (blockType == PLAYER) {
 		    final Player player = new Player(new Point2D(blockPosition.x,blockPosition.y), (Speed)speedBox.getSelectedItem(), null, null);
