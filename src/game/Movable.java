@@ -44,55 +44,51 @@ public abstract class Movable extends Block implements Tickable, Interactable
 	return position.getY();
     }
 
-    Direction getDirection() {
+    public Direction getDirection() {
 	return direction;
     }
 
-    Game getGame() {
+    public Game getGame() {
         return game;
     }
 
-    void setDirection(final Direction direction) {
+    public void setDirection(final Direction direction) {
 	this.direction = direction;
     }
 
-    boolean isMoving() {
+    public boolean isMoving() {
 	return moving;
     }
 
-    void setMoving(final boolean moving) {
+    public void setMoving(final boolean moving) {
 	this.moving = moving;
     }
 
-    boolean isBlockReached() {
+    public boolean isBlockReached() {
 	return blockReached;
     }
 
-    void setBlockReached(final boolean blockReached) {
-	this.blockReached = blockReached;
-    }
-
-    Speed getSpeed() {
+    public Speed getSpeed() {
         return speed;
     }
 
-    float getTargetX() {
+    public float getTargetX() {
 	return targetPosition.getX();
     }
 
-    float getTargetY() {
+    public float getTargetY() {
 	return targetPosition.getY();
     }
 
-    void addXTargetPosition(final float dx) {
+    public void addXTargetPosition(final float dx) {
 	targetPosition.addX(dx);
     }
 
-    void addYTargetPosition(final float dy) {
+    public void addYTargetPosition(final float dy) {
 	targetPosition.addY(dy);
     }
 
-    boolean willCollide() {
+    public boolean willCollide() {
         if (direction == null){
 	    return true;
         }
@@ -102,7 +98,7 @@ public abstract class Movable extends Block implements Tickable, Interactable
         return game.getCollidingEntity(this, x, y).isSolid();
     }
 
-    void resetPositionAndTarget() {
+    public void resetPositionAndTarget() {
 	position.setX((int)position.getX());
 	position.setY((int)position.getY());
         targetPosition.setX(position.getX());
@@ -117,7 +113,7 @@ public abstract class Movable extends Block implements Tickable, Interactable
 	return false;
     }
 
-    void move() {
+    public void move() {
 	if (willCollide()) {
 	    handleCollision();
 	}
@@ -149,5 +145,5 @@ public abstract class Movable extends Block implements Tickable, Interactable
 	}
     }
 
-    abstract void handleCollision();
+    protected abstract void handleCollision();
 }
