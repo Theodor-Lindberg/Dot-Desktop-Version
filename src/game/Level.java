@@ -1,7 +1,7 @@
 package game;
 
 import util.FileHandler;
-import util.Publisher;
+import util.Observable;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -9,7 +9,7 @@ import java.io.IOException;
 /**
  * This class acts as a wrapper for the level and works as a template when the game is generated.
  */
-public class Level extends Publisher implements LevelGrid
+public class Level extends Observable implements LevelGrid
 {
     private Block[][] blocks;
 
@@ -27,7 +27,7 @@ public class Level extends Publisher implements LevelGrid
 
     public void insertBlockAt(final int x, final int y, final Block block) {
 	blocks[y][x] = block;
-	notifyListeners();
+	notifyObservers();
     }
 
     @Override public Block getBlockAt(final int x, final int y) {

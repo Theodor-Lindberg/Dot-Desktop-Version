@@ -1,7 +1,7 @@
 package game;
 
 import util.Point2D;
-import util.Publisher;
+import util.Observable;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Game class
  */
-public class Game extends Publisher implements Tickable, LevelGrid
+public class Game extends Observable implements Tickable, LevelGrid
 {
     private Block[][] blocks;
     private final Level level;
@@ -20,6 +20,7 @@ public class Game extends Publisher implements Tickable, LevelGrid
     private List<Movable> movingObjects;
     private boolean paused;
     private boolean levelCompleted;
+    private boolean levelRestarted;
 
     // Works a proxy to grant access to certain methods, the warning is ignored.
     public class GameKey
@@ -30,33 +31,30 @@ public class Game extends Publisher implements Tickable, LevelGrid
         super();
         this.level = level;
 	gameKey = new GameKey();
-	initializeLevel();
+	restartLevel();
     }
 
-    private void initializeLevel() {
+    public void restartLevel() {
+	levelRestarted = true;
 	levelCompleted = false;
-        blocks = new Block[level.getHeight()][level.getHeight()];
+	blocks = new Block[level.getHeight()][level.getHeight()];
 	movingObjects = new ArrayList<>();
 
 	for (int y = 0; y < level.getHeight(); y++) {
 	    for (int x = 0; x < level.getWidth(); x++) {
-	        final Block block = level.getBlockAt(x, y);
-	        if (block.getBlockType() == BlockType.PLAYER) {
-	            player = new Player(new Point2D(x, y), ((Player)block).getSpeed(), this, gameKey);
-	            movingObjects.add(player);
+		final Block block = level.getBlockAt(x, y);
+		if (block.getBlockType() == BlockType.PLAYER) {
+		    player = new Player(new Point2D(x, y), ((Player) block).getSpeed(), this, gameKey);
+		    movingObjects.add(player);
 		    insertBlockAt(x, y, new Block(BlockType.EMPTY));
-		}
-	        else if (block.getBlockType() == BlockType.ENEMY) {
-		    movingObjects.add(new Enemy((Enemy)block, this));
+		} else if (block.getBlockType() == BlockType.ENEMY) {
+		    movingObjects.add(new Enemy((Enemy) block, this));
 		    insertBlockAt(x, y, new Block(BlockType.EMPTY));
-		}
-	        else if (block.getBlockType() == BlockType.KEY) {
-	            insertBlockAt(x, y, new KeyBlock(((KeyBlock)block).getTargetBlock(), this, gameKey));
-		}
-	        else if (block.getBlockType() == BlockType.END) {
+		} else if (block.getBlockType() == BlockType.KEY) {
+		    insertBlockAt(x, y, new KeyBlock(((KeyBlock) block).getTargetBlock(), this, gameKey));
+		} else if (block.getBlockType() == BlockType.END) {
 		    insertBlockAt(x, y, new EndBlock(this, gameKey));
-		}
-	        else {
+		} else {
 		    insertBlockAt(x, y, new Block(block.getBlockType()));
 		}
 	    }
@@ -68,12 +66,15 @@ public class Game extends Publisher implements Tickable, LevelGrid
 
     @Override public void tick() {
 	if (!paused) {
+	    levelRestarted = false;
 	    for (Tickable tickable : tickables) {
-		tickable.tick();
+		if (!levelRestarted) {
+		    tickable.tick();
+		}
 	    }
 	}
 
-	notifyListeners();
+	notifyObservers();
     }
 
     @Override public int getWidth() {
@@ -90,10 +91,6 @@ public class Game extends Publisher implements Tickable, LevelGrid
 
     public void setPaused(final boolean paused) {
 	this.paused = paused;
-    }
-
-    public void restartLevel() {
-	initializeLevel();
     }
 
     public Iterator<Movable> getMovingObjectsIterator() {
@@ -148,4 +145,8 @@ public class Game extends Publisher implements Tickable, LevelGrid
     }
 
     public void removeDirection(final Direction direction) { player.releaseDirection(direction); }
+
+    public static boolean isBlockTypeUnique(final BlockType blockType) {
+        return (blockType == BlockType.PLAYER);
+    }
 }

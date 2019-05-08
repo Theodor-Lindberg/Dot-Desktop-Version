@@ -4,7 +4,7 @@ import game.Block;
 import game.BlockType;
 import game.KeyBlock;
 import game.LevelGrid;
-import util.Listener;
+import util.Observer;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,7 +13,7 @@ import java.util.EnumMap;
 /**
  * Handles the rendering of the level.
  */
-public class LevelComponent extends JComponent implements Listener
+public class LevelComponent extends JComponent implements Observer
 {
     private LevelGrid levelGrid;
     protected final EnumMap<BlockType, Color> blockColorTable;
@@ -67,7 +67,7 @@ public class LevelComponent extends JComponent implements Listener
         return new Dimension(PADDING + BLOCK_SIZE * levelGrid.getWidth(), PADDING + BLOCK_SIZE * levelGrid.getHeight());
     }
 
-    @Override public void publisherUpdated() {
+    @Override public void observableUpdated() {
         this.repaint();
     }
 }

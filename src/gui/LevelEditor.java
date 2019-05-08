@@ -6,6 +6,7 @@ import game.Direction;
 import game.Enemy;
 import game.EnemyFactory;
 import game.EnemyFactory.EnemyAI;
+import game.Game;
 import game.KeyBlock;
 import game.Level;
 import game.Player;
@@ -17,6 +18,8 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
 
 import static game.BlockType.*;
 import static game.Movable.*;
@@ -32,12 +35,11 @@ public class LevelEditor extends JPanel
     private final FittedComboBox<Speed> speedBox;
     private final FittedComboBox<EnemyAI> aiBox;
     private final FittedComboBox<Direction> directionBox;
-
-    private boolean placedPlayer;
+    private final List<BlockType> uniqueBlocksPlaced;
 
     public LevelEditor(final Level level) {
 	this.level = level;
-	placedPlayer = isBlockTypePlaced(level, PLAYER);
+	uniqueBlocksPlaced = findUniqueBlocksPlaced(level);
 
 	blockTypeBox = new FittedComboBox<>(new BlockType[] { EMPTY, WALL, WALL1, WALL2, KEY, ENEMY, PLAYER, END });
 	keyTargetTypeBox = new FittedComboBox<>(new BlockType[] { WALL1, WALL2 });
@@ -103,6 +105,16 @@ public class LevelEditor extends JPanel
 	}
     }
 
+    private List<BlockType> findUniqueBlocksPlaced(final Level level) {
+        final List<BlockType> uniqueBlocksPlaced = new ArrayList<>();
+	for (BlockType blockType : BlockType.values()) {
+	    if (Game.isBlockTypeUnique(blockType) && isBlockTypePlaced(level, blockType)) {
+		uniqueBlocksPlaced.add(blockType);
+	    }
+	}
+	return uniqueBlocksPlaced;
+    }
+
     private boolean isBlockTypePlaced(final Level level, final BlockType blockType) {
 	for (int y = 0; y < level.getHeight(); y++) {
 	    for (int x = 0; x < level.getHeight(); x++) {
@@ -121,33 +133,31 @@ public class LevelEditor extends JPanel
     private void placeBlock(final int x, final int y, final Boolean remove) {
 	final Point blockPosition = convertToBlockPosition(x, y);
 	if (blockPosition.x >= 0 && blockPosition.x < level.getWidth() && blockPosition.y >= 0 && blockPosition.y < level.getHeight()) {
-	    if (level.getBlockAt(blockPosition.x, blockPosition.y).getBlockType() == PLAYER) {
-		placedPlayer = false;
-	    }
 	    if (remove) {
+		uniqueBlocksPlaced.remove(level.getBlockAt(blockPosition.x, blockPosition.y).getBlockType());
 		level.insertBlockAt(blockPosition.x, blockPosition.y, new Block(EMPTY));
-	    }
-	    else {
-	        final BlockType blockType = (BlockType) blockTypeBox.getSelectedItem();
-	        if (blockType == KEY) {
-	            final KeyBlock block = new KeyBlock((BlockType) keyTargetTypeBox.getSelectedItem(), null, null);
-		    level.insertBlockAt(blockPosition.x, blockPosition.y, block);
-		}
-		else if (blockType == ENEMY) {
-		    final EnemyFactory enemyFactory = new EnemyFactory(null);
-		    final Enemy enemy = enemyFactory.createEnemy(new Point2D(blockPosition.x,blockPosition.y), (Direction)directionBox.getSelectedItem(), (Speed)speedBox.getSelectedItem(), (EnemyAI)aiBox.getSelectedItem());
-		    level.insertBlockAt(blockPosition.x, blockPosition.y, enemy);
-		}
-		else if (blockType == PLAYER) {
-		    if (!placedPlayer) {
+	    } else {
+		final BlockType blockType = (BlockType) blockTypeBox.getSelectedItem();
+		if (!uniqueBlocksPlaced.contains(blockType)) {
+		    if (Game.isBlockTypeUnique(blockType)) {
+		        uniqueBlocksPlaced.add(blockType);
+		    }
+
+		    if (blockType == KEY) {
+			final KeyBlock block = new KeyBlock((BlockType) keyTargetTypeBox.getSelectedItem(), null, null);
+			level.insertBlockAt(blockPosition.x, blockPosition.y, block);
+		    } else if (blockType == ENEMY) {
+			final EnemyFactory enemyFactory = new EnemyFactory(null);
+			final Enemy enemy = enemyFactory.createEnemy(new Point2D(blockPosition.x, blockPosition.y), (Direction) directionBox.getSelectedItem(),
+								     (Speed) speedBox.getSelectedItem(), (EnemyAI) aiBox.getSelectedItem());
+			level.insertBlockAt(blockPosition.x, blockPosition.y, enemy);
+		    } else if (blockType == PLAYER) {
 			final Player player = new Player(new Point2D(blockPosition.x, blockPosition.y), (Speed) speedBox.getSelectedItem(),
 							 null, null);
 			level.insertBlockAt(blockPosition.x, blockPosition.y, player);
-			placedPlayer = true;
+		    } else {
+			level.insertBlockAt(blockPosition.x, blockPosition.y, new Block((BlockType) blockTypeBox.getSelectedItem()));
 		    }
-		}
-		else {
-		    level.insertBlockAt(blockPosition.x, blockPosition.y, new Block((BlockType) blockTypeBox.getSelectedItem()));
 		}
 	    }
 	}

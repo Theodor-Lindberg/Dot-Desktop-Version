@@ -7,7 +7,7 @@ import util.Point2D;
  */
 public class Enemy extends Movable
 {
-    private AIMovement ai;
+    private final AIMovement ai;
 
     public Enemy(final Point2D position, final Direction startDirection, final Speed speed, final Game game, final AIMovement ai)
     {

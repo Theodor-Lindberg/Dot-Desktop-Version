@@ -54,7 +54,7 @@ public class LevelViewer
 	game = new Game(level);
 
 	levelComponent = new GameComponent(game, BLOCK_COLOR_TABLE, BACKGROUND_COLOR);
-	game.addListener(levelComponent);
+	game.addObserver(levelComponent);
 
 	frame = new JFrame(FRAME_TITLE);
 	initializeMenuBar();
@@ -188,7 +188,7 @@ public class LevelViewer
 	levelComponent.addMouseMotionListener(blockPlacer);
 	levelComponent.addMouseListener(blockPlacer);
 	frame.add(levelComponent);
-	level.addListener(levelComponent);
+	level.addObserver(levelComponent);
 	frame.pack();
     }
 
@@ -199,7 +199,7 @@ public class LevelViewer
 		game = new Game(level);
 		frame.remove(levelComponent);
 		levelComponent = new GameComponent(game, BLOCK_COLOR_TABLE, BACKGROUND_COLOR);
-		game.addListener(levelComponent);
+		game.addObserver(levelComponent);
 		frame.add(levelComponent);
 
 		try {
