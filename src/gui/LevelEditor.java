@@ -35,7 +35,7 @@ public class LevelEditor extends JPanel
     private final FittedComboBox<Speed> speedBox;
     private final FittedComboBox<EnemyAI> aiBox;
     private final FittedComboBox<Direction> directionBox;
-    private final List<BlockType> uniqueBlocksPlaced;
+    private  List<BlockType> uniqueBlocksPlaced;
 
     public LevelEditor(final Level level) {
 	this.level = level;
@@ -87,6 +87,7 @@ public class LevelEditor extends JPanel
 		level.insertBlockAt(x, y, new Block(EMPTY));
 	    }
 	}
+	uniqueBlocksPlaced = new ArrayList<>();
     }
 
     private void saveLevel() {
