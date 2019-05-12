@@ -1,4 +1,4 @@
-package game;
+package game.GameObjects.MovingObjects;
 
 /**
  * Enum listing all available directions for a movable object.

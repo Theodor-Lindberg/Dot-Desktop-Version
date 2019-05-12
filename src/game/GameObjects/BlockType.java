@@ -1,4 +1,4 @@
-package game;
+package game.GameObjects;
 
 /**
  * Enum listing all available block types and their characteristics.

@@ -1,15 +1,15 @@
 package gui;
 
-import game.Block;
-import game.BlockType;
-import game.Direction;
-import game.Enemy;
-import game.EnemyFactory;
-import game.EnemyFactory.EnemyAI;
+import game.GameObjects.Block;
+import game.GameObjects.BlockType;
+import game.GameObjects.MovingObjects.Direction;
+import game.GameObjects.MovingObjects.Enemy;
+import game.GameObjects.MovingObjects.EnemyFactory;
+import game.GameObjects.MovingObjects.EnemyFactory.EnemyAI;
 import game.Game;
-import game.KeyBlock;
+import game.GameObjects.KeyBlock;
 import game.Level;
-import game.Player;
+import game.GameObjects.MovingObjects.Player;
 import util.Point2D;
 import util.Logger;
 
@@ -21,8 +21,8 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static game.BlockType.*;
-import static game.Movable.*;
+import static game.GameObjects.BlockType.*;
+import static game.GameObjects.MovingObjects.Movable.*;
 
 /**
  * This is a component which lets the user edit a level with a graphical user interface.
@@ -35,7 +35,7 @@ public class LevelEditor extends JPanel
     private final FittedComboBox<Speed> speedBox;
     private final FittedComboBox<EnemyAI> aiBox;
     private final FittedComboBox<Direction> directionBox;
-    private  List<BlockType> uniqueBlocksPlaced;
+    private final List<BlockType> uniqueBlocksPlaced;
 
     public LevelEditor(final Level level) {
 	this.level = level;
@@ -87,7 +87,7 @@ public class LevelEditor extends JPanel
 		level.insertBlockAt(x, y, new Block(EMPTY));
 	    }
 	}
-	uniqueBlocksPlaced = new ArrayList<>();
+	uniqueBlocksPlaced.clear();
     }
 
     private void saveLevel() {

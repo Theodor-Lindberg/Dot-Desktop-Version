@@ -1,9 +1,18 @@
 package game;
 
+import game.GameObjects.Block;
+import game.GameObjects.BlockType;
+import game.GameObjects.EndBlock;
+import game.GameObjects.KeyBlock;
+import game.GameObjects.MovingObjects.Direction;
+import game.GameObjects.MovingObjects.Enemy;
+import game.GameObjects.MovingObjects.Movable;
+import game.GameObjects.MovingObjects.Player;
 import util.Point2D;
 import util.Observable;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
@@ -18,9 +27,14 @@ public class Game extends Observable implements Tickable, LevelGrid
     private final GameKey gameKey;
     private List<Tickable> tickables;
     private List<Movable> movingObjects;
+    private static final List<BlockType> uniqueBlockTypes;
     private boolean paused;
     private boolean levelCompleted;
     private boolean levelRestarted;
+
+    static {
+	uniqueBlockTypes = new ArrayList<>(Arrays.asList(BlockType.PLAYER));
+    }
 
     // Works a proxy to grant access to certain methods, the warning is ignored.
     public class GameKey
@@ -85,6 +99,13 @@ public class Game extends Observable implements Tickable, LevelGrid
 	return level.getHeight();
     }
 
+    @Override public Block getBlockAt(final int x, final int y) {
+        if (x >= 0 && x < getWidth() && y >= 0 && y < getHeight()) {
+	    return blocks[y][x];
+	}
+	return new Block(BlockType.WALL);
+    }
+
     public boolean isPaused() {
 	return paused;
     }
@@ -95,13 +116,6 @@ public class Game extends Observable implements Tickable, LevelGrid
 
     public Iterator<Movable> getMovingObjectsIterator() {
         return movingObjects.iterator();
-    }
-
-    @Override public Block getBlockAt(final int x, final int y) {
-        if (x >= 0 && x < getWidth() && y >= 0 && y < getHeight()) {
-	    return blocks[y][x];
-	}
-	return new Block(BlockType.WALL);
     }
 
     public Block getCollidingEntity(final Block block, final float x, final float y) {
@@ -130,7 +144,7 @@ public class Game extends Observable implements Tickable, LevelGrid
         return levelCompleted;
     }
 
-    private void insertBlockAt(final int x, final int y, Block block) {
+    private void insertBlockAt(final int x, final int y, final Block block) {
 	blocks[y][x] = block;
     }
 
@@ -147,6 +161,6 @@ public class Game extends Observable implements Tickable, LevelGrid
     public void removeDirection(final Direction direction) { player.releaseDirection(direction); }
 
     public static boolean isBlockTypeUnique(final BlockType blockType) {
-        return (blockType == BlockType.PLAYER);
+        return uniqueBlockTypes.contains(blockType);
     }
 }

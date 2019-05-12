@@ -1,6 +1,9 @@
-package game;
+package game.GameObjects.MovingObjects;
 
+import game.Game;
 import game.Game.GameKey;
+import game.GameObjects.BlockType;
+import game.AIMovement.MovePriority;
 import util.Point2D;
 
 /**

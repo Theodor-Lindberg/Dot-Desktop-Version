@@ -1,4 +1,6 @@
-package game;
+package game.AIMovement;
+
+import game.GameObjects.MovingObjects.Direction;
 
 import java.util.Stack;
 

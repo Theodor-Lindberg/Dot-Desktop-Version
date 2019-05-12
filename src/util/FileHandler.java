@@ -3,11 +3,11 @@ package util;
 import borrowedcode.RuntimeTypeAdapterFactory;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import game.Block;
-import game.EndBlock;
-import game.Enemy;
-import game.KeyBlock;
-import game.Player;
+import game.GameObjects.Block;
+import game.GameObjects.EndBlock;
+import game.GameObjects.MovingObjects.Enemy;
+import game.GameObjects.KeyBlock;
+import game.GameObjects.MovingObjects.Player;
 import gui.LevelChooser;
 
 import java.io.BufferedReader;

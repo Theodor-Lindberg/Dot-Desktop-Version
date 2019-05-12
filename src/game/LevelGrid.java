@@ -1,5 +1,7 @@
 package game;
 
+import game.GameObjects.Block;
+
 /**
  * All classes that acts as grid of Blocks implements this interface.
  */

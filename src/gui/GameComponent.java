@@ -1,8 +1,8 @@
 package gui;
 
-import game.BlockType;
+import game.GameObjects.BlockType;
 import game.Game;
-import game.Movable;
+import game.GameObjects.MovingObjects.Movable;
 import util.Point2D;
 
 import java.awt.*;

@@ -1,6 +1,10 @@
-package game;
+package game.GameObjects;
 
+import game.GameObjects.MovingObjects.Direction;
+import game.Game;
 import game.Game.GameKey;
+import game.Interactable;
+import game.GameObjects.MovingObjects.Movable;
 
 import java.awt.Point;
 import java.util.LinkedList;
@@ -45,7 +49,7 @@ public class KeyBlock extends Block implements Interactable
 
             if(borrowedcode_removeBlock(visited, p.x, p.y))
             {
-		blocksToVisit.add(new Point(p.x,p.y + Direction.UP.deltaY));
+		blocksToVisit.add(new Point(p.x, p.y + Direction.UP.deltaY));
 		blocksToVisit.add(new Point(p.x,p.y + Direction.DOWN.deltaY));
 		blocksToVisit.add(new Point(p.x + Direction.LEFT.deltaX, p.y));
 		blocksToVisit.add(new Point(p.x + Direction.RIGHT.deltaX, p.y));

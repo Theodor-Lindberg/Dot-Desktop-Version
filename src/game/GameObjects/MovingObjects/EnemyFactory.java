@@ -1,9 +1,11 @@
-package game;
+package game.GameObjects.MovingObjects;
 
-import game.Movable.Speed;
+import game.AIMovement.BasicAI;
+import game.Game;
+import game.GameObjects.MovingObjects.Movable.Speed;
 import util.Point2D;
 
-import static game.BasicAI.*;
+import static game.AIMovement.BasicAI.*;
 
 /**
  * Factory for creating enemies.

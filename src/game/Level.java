@@ -1,5 +1,6 @@
 package game;
 
+import game.GameObjects.Block;
 import util.FileHandler;
 import util.Observable;
 
@@ -34,6 +35,11 @@ public class Level extends Observable implements LevelGrid
 	return blocks[y][x];
     }
 
+    /**
+     * @param fileName The name of the file to save to.
+     *
+     * @throws FileNotFoundException
+     */
     public void saveToFile(final String fileName) throws FileNotFoundException {
 	FileHandler.saveLevel(fileName, blocks);
     }

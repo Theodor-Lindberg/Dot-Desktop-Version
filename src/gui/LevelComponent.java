@@ -1,8 +1,8 @@
 package gui;
 
-import game.Block;
-import game.BlockType;
-import game.KeyBlock;
+import game.GameObjects.Block;
+import game.GameObjects.BlockType;
+import game.GameObjects.KeyBlock;
 import game.LevelGrid;
 import util.Observer;
 

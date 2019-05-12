@@ -1,4 +1,7 @@
-package game;
+package game.AIMovement;
+
+import game.GameObjects.MovingObjects.Direction;
+import game.GameObjects.MovingObjects.Movable;
 
 /**
  * Contains logic for basic ai movement, i.e turn right, left or back on collision.

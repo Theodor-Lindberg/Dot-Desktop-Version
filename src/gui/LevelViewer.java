@@ -1,7 +1,7 @@
 package gui;
 
-import game.BlockType;
-import game.Direction;
+import game.GameObjects.BlockType;
+import game.GameObjects.MovingObjects.Direction;
 import game.Game;
 import game.Level;
 import gui.LevelEditor.BlockPlacer;

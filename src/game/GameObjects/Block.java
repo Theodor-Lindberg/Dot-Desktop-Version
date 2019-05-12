@@ -1,4 +1,4 @@
-package game;
+package game.GameObjects;
 
 /**
  * Base class for all blocks.

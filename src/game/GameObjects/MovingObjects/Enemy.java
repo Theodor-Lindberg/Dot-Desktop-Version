@@ -1,5 +1,8 @@
-package game;
+package game.GameObjects.MovingObjects;
 
+import game.AIMovement.AIMovement;
+import game.Game;
+import game.GameObjects.BlockType;
 import util.Point2D;
 
 /**

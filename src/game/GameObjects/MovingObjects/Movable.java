@@ -1,5 +1,10 @@
-package game;
+package game.GameObjects.MovingObjects;
 
+import game.Game;
+import game.GameObjects.Block;
+import game.GameObjects.BlockType;
+import game.Interactable;
+import game.Tickable;
 import util.Point2D;
 
 /**
