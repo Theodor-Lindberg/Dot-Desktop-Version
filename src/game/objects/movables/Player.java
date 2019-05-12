@@ -23,7 +23,7 @@ public class Player extends Movable
     }
 
     /**
-     * Construct a new Player object based on another one but with a new reference to Game.
+     * Clones an existing Player objects but with a new reference to Game.
      *
      * @param clone 	The Player object to clone.
      * @param game	The reference to the Game.

@@ -57,7 +57,6 @@ public final class FileHandler
      * @param fileName 	The name of the file to read.
      *
      * @return 		An 2D array of the blocks read from the file.
-     * @throws IOException
      */
     public static Block[][] readLevel(final String fileName) throws IOException {
         return (isResourceLevel(fileName)) ? readLevelFromResources(fileName) : readLevelFromFile(fileName);
@@ -69,7 +68,6 @@ public final class FileHandler
      * @param fileName 	The name of the file to read.
      *
      * @return 		An 2D array of the blocks read from the file.
-     * @throws IOException
      */
     private static Block[][] readLevelFromFile(final String fileName) throws IOException {
 	return interpretJsonData(Files.readString(Paths.get(fileName)));
@@ -130,8 +128,6 @@ public final class FileHandler
      *
      * @param fileName 	The name of the file to save to.
      * @param blocks 	The 2D array of blocks to save.
-     *
-     * @throws FileNotFoundException
      */
     public static void saveLevel(final String fileName, final Block[][] blocks) throws FileNotFoundException {
 	final Gson gson = new GsonBuilder().registerTypeAdapterFactory(
@@ -146,8 +142,6 @@ public final class FileHandler
      * Get a list of all the names of the levels in the resource folder.
      *
      * @return A list of level names.
-     * @throws IOException
-     * @throws URISyntaxException
      */
     public static List<String> getLevelsFromResources() throws IOException, URISyntaxException {
         return borrowcode_getLevelsFromResources();
@@ -157,8 +151,6 @@ public final class FileHandler
      * Get a list of all the names of the levels in the resource folder.
      *
      * @return A list of level names.
-     * @throws IOException
-     * @throws URISyntaxException
      */
     private static List<String> borrowcode_getLevelsFromResources() throws IOException, URISyntaxException { // The warning is ignored because it's named according to instructions.
 	final List<String> levelsFound = new ArrayList<>();
@@ -173,7 +165,6 @@ public final class FileHandler
 			levelsFound.add(LevelChooser.removeFileExtension(name.replace(RESOURCE_DIRECTORY, "")));
 		    }
 		}
-		jar.close();
 	    }
 	} else { // Run with IDE
 	    final URL url = FileHandler.class.getResource("/" + RESOURCE_DIRECTORY);

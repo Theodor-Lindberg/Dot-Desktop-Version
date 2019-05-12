@@ -16,6 +16,9 @@ public abstract class Movable extends Block implements Tickable, Interactable
 	// The names are self explanatory so Javadoc is not needed, warnings ignored.
         SLOW(0.09f), NORMAL(0.15f), FAST(0.2f);
 
+	/**
+	 * The speed.
+	 */
         public final float value;
 
         Speed(final float speed) {

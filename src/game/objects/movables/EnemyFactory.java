@@ -16,7 +16,7 @@ public class EnemyFactory
      * All available types of ai.
      */
     public enum EnemyAI
-    {	// For some reason IntelliJ doesn't remove the warnings about javadoc on the enums, so these warnings are ignored.
+    {	// For some reason IntelliJ doesn't map the Javadoc comments to the enums properly, so the warnings are ignored.
         /**
 	 * Maps to BasicAI with always turn left configuration.
 	 */
@@ -24,7 +24,7 @@ public class EnemyFactory
 	/**
 	* Maps to BasicAI with always turn right configuration.
 	*/
-	, BASIC_TURN_RIGHT,
+, BASIC_TURN_RIGHT,
 	/**
 	 * Maps to BasicAI with always turn back configuration.
 	 */

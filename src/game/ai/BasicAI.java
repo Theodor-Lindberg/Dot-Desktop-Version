@@ -15,8 +15,6 @@ public class BasicAI implements AIMovement
     private TurnDirection turnDirection;
 
     /**
-     * Constructs a BasicAI object.
-     *
      * @param turnDirection The direction to turn when colliding.
      */
     public BasicAI(final TurnDirection turnDirection) {

@@ -111,6 +111,12 @@ public class LevelEditor extends JPanel
      * Let user save the level to a file which they choose.
      */
     private void saveLevel() {
+        if (!isBlockTypePlaced(level, PLAYER) || !isBlockTypePlaced(level, END)) {
+	    Logger.log(java.util.logging.Level.FINE, this.getClass().getName(), "Could not save level because player or end block was not placed", null);
+	    JOptionPane.showMessageDialog(this, "You must have a player and an end inorder to save.", "Could not save level", JOptionPane.ERROR_MESSAGE);
+	    return;
+	}
+
 	final String fileName = LevelChooser.saveLevelTo();
 	if (fileName != null) {
 	    try {
@@ -182,6 +188,9 @@ public class LevelEditor extends JPanel
 	final Point blockPosition = convertToBlockPosition(x, y);
 	if (blockPosition.x >= 0 && blockPosition.x < level.getWidth() && blockPosition.y >= 0 && blockPosition.y < level.getHeight()) {
 	    if (!uniqueBlocksPlaced.contains(blockType)) {
+	        if (Game.isBlockTypeUnique(level.getBlockAt(blockPosition.x, blockPosition.y).getBlockType())) {
+	            uniqueBlocksPlaced.remove(level.getBlockAt(blockPosition.x, blockPosition.y).getBlockType());
+		}
 		if (Game.isBlockTypeUnique(blockType)) {
 		    uniqueBlocksPlaced.add(blockType);
 		}
