@@ -15,15 +15,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="84f476f4-3eed-4d4a-9f32-0a44d2e667ba" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/docs/projektbeskrivning-2019.odt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/tehli316-rapport.pdf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/ai/BasicAI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/ai/BasicAI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/objects/movables/EnemyFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/objects/movables/EnemyFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/objects/movables/Movable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/objects/movables/Movable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/objects/movables/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/objects/movables/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gui/LevelEditor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/LevelEditor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/util/FileHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/FileHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/game/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/Game.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -41,7 +34,36 @@
     <favorites_list name="DotDesktop" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/game/Game.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="417">
+              <caret line="198" column="9" selection-start-line="198" selection-start-column="9" selection-end-line="198" selection-end-column="9" />
+              <folding>
+                <element signature="docComment;class#Game#0" />
+                <element signature="class#GameKey#0;class#Game#0" />
+                <element signature="docComment;method#Game#0;class#Game#0" />
+                <element signature="method#Game#0;class#Game#0" />
+                <element signature="docComment;method#restart#0;class#Game#0" />
+                <element signature="method#restart#0;class#Game#0" />
+                <element signature="method#tick#0;class#Game#0" />
+                <element signature="method#getBlockAt#0;class#Game#0" />
+                <element signature="docComment;method#getMovingObjectsIterator#0;class#Game#0" />
+                <element signature="docComment;method#getCollidingEntity#0;class#Game#0" />
+                <element signature="docComment;method#removeBlockAt#0;class#Game#0" />
+                <element signature="docComment;method#setLevelCompleted#0;class#Game#0" />
+                <element signature="docComment;method#insertBlockAt#0;class#Game#0" />
+                <element signature="docComment;method#movePlayer#0;class#Game#0" />
+                <element signature="docComment;method#removeDirection#0;class#Game#0" />
+                <element signature="method#removeDirection#0;class#Game#0" />
+                <element signature="docComment;method#isBlockTypeUnique#0;class#Game#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -128,7 +150,6 @@
         <option value="$PROJECT_DIR$/src/gui/LevelComponent.java" />
         <option value="$PROJECT_DIR$/src/game/GameObjects/MovingObjects/Movable.java" />
         <option value="$PROJECT_DIR$/src/game/GameObjects/KeyBlock.java" />
-        <option value="$PROJECT_DIR$/src/game/Game.java" />
         <option value="$PROJECT_DIR$/src/game/GameObjects/MovingObjects/EnemyFactory.java" />
         <option value="$PROJECT_DIR$/src/gui/LevelViewer.java" />
         <option value="$PROJECT_DIR$/src/game/gameObjects/movables/Movable.java" />
@@ -138,6 +159,7 @@
         <option value="$PROJECT_DIR$/src/game/objects/movables/EnemyFactory.java" />
         <option value="$PROJECT_DIR$/src/util/FileHandler.java" />
         <option value="$PROJECT_DIR$/src/game/objects/movables/Movable.java" />
+        <option value="$PROJECT_DIR$/src/game/Game.java" />
       </list>
     </option>
   </component>
@@ -200,8 +222,8 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1557693020280" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/levels" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1557693552718" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../test/tdde30-projekt-2019-d1-g23-07" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
@@ -341,12 +363,12 @@
       <workItem from="1557505364156" duration="1137000" />
       <workItem from="1557515871021" duration="1997000" />
       <workItem from="1557564631367" duration="2848000" />
-      <workItem from="1557607947758" duration="31750000" />
+      <workItem from="1557607947758" duration="32274000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="381017000" />
+    <option name="totallyTimeSpent" value="381541000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -359,8 +381,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-6" y="-6" width="1933" height="1093" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.78504676" visible="true" weight="0.2832" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.78504676" visible="true" weight="0.2832" />
       <window_info id="Structure" order="1" sideWeight="0.21495327" side_tool="true" weight="0.2832" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -380,7 +403,7 @@
       <window_info anchor="bottom" id="Terminal" order="10" weight="0.32606438" />
       <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.5002667" side_tool="true" weight="0.14330219" />
       <window_info anchor="bottom" id="Messages" order="12" weight="0.32502595" />
-      <window_info active="true" anchor="bottom" id="Inspection Results" order="13" visible="true" weight="0.33333334" />
+      <window_info anchor="bottom" id="Inspection Results" order="13" visible="true" weight="0.33333334" />
       <window_info anchor="bottom" id="Dependency Viewer" order="14" weight="0.32917964" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -877,32 +900,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/game/Game.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="197">
-          <caret line="171" column="20" selection-start-line="171" selection-start-column="20" selection-end-line="171" selection-end-column="20" />
-          <folding>
-            <element signature="docComment;class#Game#0" />
-            <element signature="class#GameKey#0;class#Game#0" />
-            <element signature="docComment;method#Game#0;class#Game#0" />
-            <element signature="method#Game#0;class#Game#0" />
-            <element signature="docComment;method#restart#0;class#Game#0" />
-            <element signature="method#restart#0;class#Game#0" />
-            <element signature="method#tick#0;class#Game#0" />
-            <element signature="method#getBlockAt#0;class#Game#0" />
-            <element signature="docComment;method#getMovingObjectsIterator#0;class#Game#0" />
-            <element signature="docComment;method#getCollidingEntity#0;class#Game#0" />
-            <element signature="docComment;method#removeBlockAt#0;class#Game#0" />
-            <element signature="docComment;method#setLevelCompleted#0;class#Game#0" />
-            <element signature="docComment;method#insertBlockAt#0;class#Game#0" />
-            <element signature="docComment;method#movePlayer#0;class#Game#0" />
-            <element signature="docComment;method#removeDirection#0;class#Game#0" />
-            <element signature="method#removeDirection#0;class#Game#0" />
-            <element signature="docComment;method#isBlockTypeUnique#0;class#Game#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/game/ai/BasicAI.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="272">
@@ -1218,6 +1215,32 @@
             <element signature="method#turn#0;class#Direction#0" />
             <element signature="docComment;method#toDirection#0;class#Direction#0" />
             <element signature="method#toDirection#0;class#Direction#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/game/Game.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="417">
+          <caret line="198" column="9" selection-start-line="198" selection-start-column="9" selection-end-line="198" selection-end-column="9" />
+          <folding>
+            <element signature="docComment;class#Game#0" />
+            <element signature="class#GameKey#0;class#Game#0" />
+            <element signature="docComment;method#Game#0;class#Game#0" />
+            <element signature="method#Game#0;class#Game#0" />
+            <element signature="docComment;method#restart#0;class#Game#0" />
+            <element signature="method#restart#0;class#Game#0" />
+            <element signature="method#tick#0;class#Game#0" />
+            <element signature="method#getBlockAt#0;class#Game#0" />
+            <element signature="docComment;method#getMovingObjectsIterator#0;class#Game#0" />
+            <element signature="docComment;method#getCollidingEntity#0;class#Game#0" />
+            <element signature="docComment;method#removeBlockAt#0;class#Game#0" />
+            <element signature="docComment;method#setLevelCompleted#0;class#Game#0" />
+            <element signature="docComment;method#insertBlockAt#0;class#Game#0" />
+            <element signature="docComment;method#movePlayer#0;class#Game#0" />
+            <element signature="docComment;method#removeDirection#0;class#Game#0" />
+            <element signature="method#removeDirection#0;class#Game#0" />
+            <element signature="docComment;method#isBlockTypeUnique#0;class#Game#0" />
           </folding>
         </state>
       </provider>

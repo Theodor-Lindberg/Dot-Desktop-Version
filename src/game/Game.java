@@ -194,7 +194,9 @@ public class Game extends Observable implements Tickable, LevelGrid
      * @param direction	The direction to move.
      */
     public void movePlayer(final Direction direction) {
-        player.move(direction);
+        if (!paused) {
+	    player.move(direction);
+	}
     }
 
 
