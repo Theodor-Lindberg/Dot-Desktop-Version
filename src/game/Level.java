@@ -1,6 +1,6 @@
 package game;
 
-import game.GameObjects.Block;
+import game.objects.Block;
 import util.FileHandler;
 import util.Observable;
 

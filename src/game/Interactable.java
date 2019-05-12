@@ -1,6 +1,6 @@
 package game;
 
-import game.GameObjects.MovingObjects.Movable;
+import game.objects.movables.Movable;
 
 /**
  * Interface that all game objects that can be interacted with implements.

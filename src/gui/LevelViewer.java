@@ -1,7 +1,7 @@
 package gui;
 
-import game.GameObjects.BlockType;
-import game.GameObjects.MovingObjects.Direction;
+import game.objects.BlockType;
+import game.objects.movables.Direction;
 import game.Game;
 import game.Level;
 import gui.LevelEditor.BlockPlacer;
@@ -14,6 +14,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.EnumMap;
 
 /**
@@ -39,14 +41,27 @@ public class LevelViewer
 	BACKGROUND_COLOR = new Color(23, 16, 22);
 
 	BLOCK_COLOR_TABLE = new EnumMap<>(BlockType.class);
-	BLOCK_COLOR_TABLE.put(BlockType.EMPTY, new Color(39, 32, 28, 255));
-	BLOCK_COLOR_TABLE.put(BlockType.WALL, new Color(125, 190, 255, 255));
-	BLOCK_COLOR_TABLE.put(BlockType.KEY, new Color(222, 0, 235, 255));
-	BLOCK_COLOR_TABLE.put(BlockType.WALL1, new Color(131, 77, 235, 255));
-	BLOCK_COLOR_TABLE.put(BlockType.WALL2, new Color(224, 197, 20, 255));
-	BLOCK_COLOR_TABLE.put(BlockType.END, new Color(40, 242, 134, 255));
-	BLOCK_COLOR_TABLE.put(BlockType.PLAYER, new Color(237, 228, 228, 255));
-	BLOCK_COLOR_TABLE.put(BlockType.ENEMY, new Color(242, 0, 70, 255));
+
+	final Color emptyBlockColor = new Color(39, 32, 28, 255);
+	BLOCK_COLOR_TABLE.put(BlockType.EMPTY, emptyBlockColor);
+
+	final Color wallBlockColor = new Color(125, 190, 255, 255);
+	BLOCK_COLOR_TABLE.put(BlockType.WALL, wallBlockColor);
+
+	final Color wall1BlockColor = new Color(131, 77, 235, 255);
+	BLOCK_COLOR_TABLE.put(BlockType.WALL1, wall1BlockColor);
+
+	final Color wall2BlockColor = new Color(224, 197, 20, 255);
+	BLOCK_COLOR_TABLE.put(BlockType.WALL2, wall2BlockColor);
+
+	final Color endBlockColor = new Color(40, 242, 134, 255);
+	BLOCK_COLOR_TABLE.put(BlockType.END, endBlockColor);
+
+	final Color playerBlockColor = new Color(237, 228, 228, 255);
+	BLOCK_COLOR_TABLE.put(BlockType.PLAYER,playerBlockColor );
+
+	final Color enemyBlockColor = new Color(242, 0, 70, 255);
+	BLOCK_COLOR_TABLE.put(BlockType.ENEMY, enemyBlockColor);
     }
 
     /**
@@ -101,9 +116,9 @@ public class LevelViewer
 		defLevelItem.addActionListener(ev -> showGame(defaultFile));
 		loadIncludedLevelItem.add(defLevelItem);
 	    }
-	}
-	catch(Exception e) {
+	} catch (IOException | URISyntaxException e) {
 	    Logger.log(java.util.logging.Level.SEVERE, getClass().getName(), "Could not list resource files.", e);
+	    e.printStackTrace();
 	}
 
 	loadCustomLevelItem.addActionListener(ev -> showGame(LevelChooser.chooseLevel()));
@@ -231,12 +246,12 @@ public class LevelViewer
 		frame.add(levelComponent);
 		try {
 		    frame.remove(levelEditor);
-		} catch (RuntimeException e) {
+		} catch (RuntimeException e) { // If the level editor is not in the frame RuntimeException will be thrown but is caught here, so the warning is ignored.
 		    Logger.log(java.util.logging.Level.FINE, this.getClass().getName(), "Tried to remove level editor component.", e);
 		}
 		frame.pack();
 
-	    } catch (Exception e) {
+	    } catch (Exception e) { // Not all exception are caught with IOException, because of the Gson library, so the warning is ignored.
 		Logger.log(java.util.logging.Level.SEVERE, this.getClass().getName(), "Could not load level", e);
 		JOptionPane.showMessageDialog(frame, "Could not load level.", "Level load error", JOptionPane.ERROR_MESSAGE);
 	    }
@@ -271,9 +286,9 @@ public class LevelViewer
 
     public static void main(String[] args) {
         try {
-	    new LevelViewer(new Level(START_LEVEL));
+	    new LevelViewer(new Level(START_LEVEL)); // The result of the allocation is not needed, warning ignored.
 	}
-	catch (Exception e) {
+	catch (Exception e) { // Not all exception are caught with IOException, because of the Gson library, so the warning is ignored.
 	    Logger.log(java.util.logging.Level.SEVERE, "main", "Could not load level", e);
 	    JOptionPane.showMessageDialog(null, "Could not load level.", "Level load error", JOptionPane.ERROR_MESSAGE);
 	}

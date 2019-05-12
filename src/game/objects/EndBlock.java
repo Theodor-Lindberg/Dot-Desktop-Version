@@ -1,9 +1,9 @@
-package game.GameObjects;
+package game.objects;
 
 import game.Game;
 import game.Game.GameKey;
 import game.Interactable;
-import game.GameObjects.MovingObjects.Movable;
+import game.objects.movables.Movable;
 
 /**
  * Determines when the player has won.

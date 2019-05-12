@@ -1,10 +1,11 @@
-package game.GameObjects;
+package game.objects;
 
 /**
  * Enum listing all available block types and their characteristics.
  */
 public enum BlockType
 {
+    // The names are self explanatory so Javadoc is not needed, warnings ignored.
     EMPTY(false), WALL(true), WALL1(true), WALL2(true),
     END(false), KEY(false), PLAYER(false), ENEMY(false);
 

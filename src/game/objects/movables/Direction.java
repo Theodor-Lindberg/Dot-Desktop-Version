@@ -1,10 +1,11 @@
-package game.GameObjects.MovingObjects;
+package game.objects.movables;
 
 /**
  * Enum listing all available directions for a movable object.
  */
 public enum Direction
 {
+    // The names are self explanatory so Javadoc is not needed, warnings ignored.
     DOWN(0, 1), UP(0, -1), RIGHT(1, 0), LEFT(-1, 0);
 
     public final int deltaX;

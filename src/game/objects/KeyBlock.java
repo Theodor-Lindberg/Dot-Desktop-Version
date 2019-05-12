@@ -1,10 +1,10 @@
-package game.GameObjects;
+package game.objects;
 
-import game.GameObjects.MovingObjects.Direction;
+import game.objects.movables.Direction;
 import game.Game;
 import game.Game.GameKey;
 import game.Interactable;
-import game.GameObjects.MovingObjects.Movable;
+import game.objects.movables.Movable;
 
 import java.awt.Point;
 import java.util.LinkedList;
@@ -47,7 +47,7 @@ public class KeyBlock extends Block implements Interactable
      * @param x Starting x-position.
      * @param y Starting y-position.
      */
-    private void borrowedcode_removeTargetBlocks(final int x, final int y) {
+    private void borrowedcode_removeTargetBlocks(final int x, final int y) {  // The warning is ignored because it's named according to instructions.
         final boolean[][] visited = new boolean[game.getHeight()][game.getWidth()];
 
 	LinkedList<Point> blocksToVisit = new LinkedList<>();
@@ -76,7 +76,7 @@ public class KeyBlock extends Block implements Interactable
      *
      * @return 		True if a block was removed.
      */
-    private boolean borrowedcode_removeBlock(final boolean[][] visited, final int x, final int y) {
+    private boolean borrowedcode_removeBlock(final boolean[][] visited, final int x, final int y) {  // The warning is ignored because it's named according to instructions.
         if (y < 0 || x < 0 || y > game.getHeight() - 1 || x > game.getWidth() - 1) {
             return false;
 	}

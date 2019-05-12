@@ -1,11 +1,11 @@
-package game.GameObjects.MovingObjects;
+package game.objects.movables;
 
-import game.AIMovement.BasicAI;
+import game.ai.BasicAI;
 import game.Game;
-import game.GameObjects.MovingObjects.Movable.Speed;
+import game.objects.movables.Movable.Speed;
 import util.Point2D;
 
-import static game.AIMovement.BasicAI.*;
+import static game.ai.BasicAI.*;
 
 /**
  * Factory for creating enemies.
@@ -16,8 +16,19 @@ public class EnemyFactory
      * All available types of ai.
      */
     public enum EnemyAI
-    {
-	BASIC_TURN_LEFT, BASIC_TURN_RIGHT, BASIC_TURN_BACK
+    {	// For some reason IntelliJ doesn't remove the warnings about javadoc on the enums, so these warnings are ignored.
+        /**
+	 * Maps to BasicAI with always turn left configuration.
+	 */
+	BASIC_TURN_LEFT
+	/**
+	* Maps to BasicAI with always turn right configuration.
+	*/
+	, BASIC_TURN_RIGHT,
+	/**
+	 * Maps to BasicAI with always turn back configuration.
+	 */
+	BASIC_TURN_BACK
     }
 
     private final Game game;

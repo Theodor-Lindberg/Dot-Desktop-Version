@@ -3,11 +3,11 @@ package util;
 import borrowedcode.RuntimeTypeAdapterFactory;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import game.GameObjects.Block;
-import game.GameObjects.EndBlock;
-import game.GameObjects.MovingObjects.Enemy;
-import game.GameObjects.KeyBlock;
-import game.GameObjects.MovingObjects.Player;
+import game.objects.Block;
+import game.objects.EndBlock;
+import game.objects.movables.Enemy;
+import game.objects.KeyBlock;
+import game.objects.movables.Player;
 import gui.LevelChooser;
 
 import java.io.BufferedReader;
@@ -24,8 +24,10 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.Objects;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
+import java.util.logging.Level;
 import java.util.stream.Collectors;
 
 import static borrowedcode.InterfaceTypeAdapterFactory.getInterfaceTypeAdapterFactory;
@@ -96,10 +98,16 @@ public final class FileHandler
 
         // borrowcode
 	final ClassLoader classLoader = ClassLoader.getSystemClassLoader();
-	final InputStream inputStream = classLoader.getResourceAsStream(fileName);
-	if (inputStream != null) {
-	    final BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-	    return interpretJsonData(reader.lines().collect(Collectors.joining(System.lineSeparator())));
+	try {
+	    try (InputStream inputStream = classLoader.getResourceAsStream(fileName)) {
+		if (inputStream != null) {
+		    try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
+			return interpretJsonData(reader.lines().collect(Collectors.joining(System.lineSeparator())));
+		    }
+		}
+	    }
+	} catch (IOException e) {
+	   Logger.log(Level.SEVERE, FileHandler.class.getName(), "Could not read file from resources", e);
 	}
 	return null;
     }
@@ -152,25 +160,26 @@ public final class FileHandler
      * @throws IOException
      * @throws URISyntaxException
      */
-    private static List<String> borrowcode_getLevelsFromResources() throws IOException, URISyntaxException {
+    private static List<String> borrowcode_getLevelsFromResources() throws IOException, URISyntaxException { // The warning is ignored because it's named according to instructions.
 	final List<String> levelsFound = new ArrayList<>();
 
 	final File jarFile = new File(FileHandler.class.getProtectionDomain().getCodeSource().getLocation().getPath());
 	if (jarFile.isFile()) {  // Run with JAR file
-	    final JarFile jar = new JarFile(jarFile);
-	    final Enumeration<JarEntry> entries = jar.entries(); //gives ALL entries in jar
-	    while (entries.hasMoreElements()) {
-		final String name = entries.nextElement().getRealName();
-		if (name.contains(RESOURCE_DIRECTORY) && !name.equals(RESOURCE_DIRECTORY)) { //filter according to the path
-		    levelsFound.add(LevelChooser.removeFileExtension(name.replace(RESOURCE_DIRECTORY, "")));
+	    try (JarFile jar = new JarFile(jarFile)) {
+		final Enumeration<JarEntry> entries = jar.entries(); //gives ALL entries in jar
+		while (entries.hasMoreElements()) {
+		    final String name = entries.nextElement().getRealName();
+		    if (name.contains(RESOURCE_DIRECTORY) && !name.equals(RESOURCE_DIRECTORY)) { //filter according to the path
+			levelsFound.add(LevelChooser.removeFileExtension(name.replace(RESOURCE_DIRECTORY, "")));
+		    }
 		}
+		jar.close();
 	    }
-	    jar.close();
 	} else { // Run with IDE
 	    final URL url = FileHandler.class.getResource("/" + RESOURCE_DIRECTORY);
 	    if (url != null) {
 		final File levels = new File(url.toURI());
-		for (File level : levels.listFiles()) {
+		for (File level : Objects.requireNonNull(levels.listFiles())) {
 		    levelsFound.add(LevelChooser.removeFileExtension(level.getName()));
 		}
 	    }

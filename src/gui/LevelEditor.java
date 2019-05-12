@@ -1,15 +1,15 @@
 package gui;
 
-import game.GameObjects.Block;
-import game.GameObjects.BlockType;
-import game.GameObjects.MovingObjects.Direction;
-import game.GameObjects.MovingObjects.Enemy;
-import game.GameObjects.MovingObjects.EnemyFactory;
-import game.GameObjects.MovingObjects.EnemyFactory.EnemyAI;
+import game.objects.Block;
+import game.objects.BlockType;
+import game.objects.movables.Direction;
+import game.objects.movables.Enemy;
+import game.objects.movables.EnemyFactory;
+import game.objects.movables.EnemyFactory.EnemyAI;
 import game.Game;
-import game.GameObjects.KeyBlock;
+import game.objects.KeyBlock;
 import game.Level;
-import game.GameObjects.MovingObjects.Player;
+import game.objects.movables.Player;
 import util.Point2D;
 import util.Logger;
 
@@ -21,8 +21,8 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static game.GameObjects.BlockType.*;
-import static game.GameObjects.MovingObjects.Movable.*;
+import static game.objects.BlockType.*;
+import static game.objects.movables.Movable.*;
 
 /**
  * This is a component which lets the user edit a level with a graphical user interface.
@@ -119,9 +119,6 @@ public class LevelEditor extends JPanel
 		Logger.log(java.util.logging.Level.SEVERE, this.getClass().getName(),
 			   "Could not save level because the file was not found", e);
 		JOptionPane.showMessageDialog(this, "Could not find file.", "Level save error", JOptionPane.ERROR_MESSAGE);
-	    } catch (Exception e) {
-		Logger.log(java.util.logging.Level.SEVERE, this.getClass().getName(), "Could not save level", e);
-		JOptionPane.showMessageDialog(this, "Could not save level.", "Level save error", JOptionPane.ERROR_MESSAGE);
 	    }
 	}
     }
@@ -135,7 +132,7 @@ public class LevelEditor extends JPanel
      */
     private List<BlockType> findUniqueBlocksPlaced(final Level level) {
         final List<BlockType> uniqueBlocksPlaced = new ArrayList<>();
-	for (BlockType blockType : BlockType.values()) {
+	for (BlockType blockType : values()) {
 	    if (Game.isBlockTypeUnique(blockType) && isBlockTypePlaced(level, blockType)) {
 		uniqueBlocksPlaced.add(blockType);
 	    }

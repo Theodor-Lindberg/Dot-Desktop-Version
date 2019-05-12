@@ -1,14 +1,14 @@
-package game.AIMovement;
+package game.ai;
 
-import game.GameObjects.MovingObjects.Direction;
-import game.GameObjects.MovingObjects.Movable;
+import game.objects.movables.Direction;
+import game.objects.movables.Movable;
 
 /**
  * Contains logic for basic ai movement, i.e turn right, left or back on collision.
  */
 public class BasicAI implements AIMovement
 {
-    public enum TurnDirection {
+    public enum TurnDirection { // The names are self explanatory so Javadoc is not needed, warnings ignored.
         LEFT, RIGHT, BACK
     }
 

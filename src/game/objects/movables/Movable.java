@@ -1,8 +1,8 @@
-package game.GameObjects.MovingObjects;
+package game.objects.movables;
 
 import game.Game;
-import game.GameObjects.Block;
-import game.GameObjects.BlockType;
+import game.objects.Block;
+import game.objects.BlockType;
 import game.Interactable;
 import game.Tickable;
 import util.Point2D;
@@ -13,6 +13,7 @@ import util.Point2D;
 public abstract class Movable extends Block implements Tickable, Interactable
 {
     public enum Speed {
+	// The names are self explanatory so Javadoc is not needed, warnings ignored.
         SLOW(0.09f), NORMAL(0.15f), FAST(0.2f);
 
         public final float value;

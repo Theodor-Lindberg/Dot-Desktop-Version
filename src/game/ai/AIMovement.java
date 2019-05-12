@@ -1,6 +1,6 @@
-package game.AIMovement;
+package game.ai;
 
-import game.GameObjects.MovingObjects.Movable;
+import game.objects.movables.Movable;
 
 /**
  * All classes that classes handles the movement and collisions of another object implements this interface.

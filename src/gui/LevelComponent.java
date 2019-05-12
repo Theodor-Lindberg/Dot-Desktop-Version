@@ -1,8 +1,8 @@
 package gui;
 
-import game.GameObjects.Block;
-import game.GameObjects.BlockType;
-import game.GameObjects.KeyBlock;
+import game.objects.Block;
+import game.objects.BlockType;
+import game.objects.KeyBlock;
 import game.LevelGrid;
 import util.Observer;
 
@@ -18,6 +18,9 @@ public class LevelComponent extends JComponent implements Observer
     private LevelGrid levelGrid;
     protected final EnumMap<BlockType, Color> blockColorTable;
     protected final Color backgroundColor;
+    /**
+     * The size of a block in pixels when rendering.
+     */
     public final static int BLOCK_SIZE;
     protected final static int PADDING;
 

@@ -1,19 +1,18 @@
 package game;
 
-import game.GameObjects.Block;
-import game.GameObjects.BlockType;
-import game.GameObjects.EndBlock;
-import game.GameObjects.KeyBlock;
-import game.GameObjects.MovingObjects.Direction;
-import game.GameObjects.MovingObjects.Enemy;
-import game.GameObjects.MovingObjects.EnemyFactory;
-import game.GameObjects.MovingObjects.Movable;
-import game.GameObjects.MovingObjects.Player;
-import util.Point2D;
+import game.objects.Block;
+import game.objects.BlockType;
+import game.objects.EndBlock;
+import game.objects.KeyBlock;
+import game.objects.movables.Direction;
+import game.objects.movables.Enemy;
+import game.objects.movables.EnemyFactory;
+import game.objects.movables.Movable;
+import game.objects.movables.Player;
 import util.Observable;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -22,19 +21,19 @@ import java.util.List;
  */
 public class Game extends Observable implements Tickable, LevelGrid
 {
-    private Block[][] blocks;
+    private Block[][] blocks = null;
     private final Level level;
     private Player player = null;
     private final GameKey gameKey;
-    private List<Tickable> tickables;
-    private List<Movable> movingObjects;
-    private static final List<BlockType> uniqueBlockTypes;
+    private List<Tickable> tickables = null;
+    private List<Movable> movingObjects = null;
+    private static final List<BlockType> UNIQUE_BLOCK_TYPES;
     private boolean paused;
     private boolean levelCompleted;
     private boolean levelRestarted;
 
     static {
-	uniqueBlockTypes = new ArrayList<>(Arrays.asList(BlockType.PLAYER));
+	UNIQUE_BLOCK_TYPES = new ArrayList<>(Collections.singletonList(BlockType.PLAYER));
     }
 
     // Works a proxy to grant access to certain methods, the warning is ignored.
@@ -83,7 +82,7 @@ public class Game extends Observable implements Tickable, LevelGrid
 	}
 
 	tickables = new ArrayList<>();
-	tickables.addAll(movingObjects); // tickables and movingObjects currently contains the same elements but tickables is used for better scalability
+	tickables.addAll(movingObjects); // tickables and movables currently contains the same elements but tickables is used for better scalability
     }
 
     @Override public void tick() {
@@ -214,6 +213,6 @@ public class Game extends Observable implements Tickable, LevelGrid
      * @return		True if the block type is unique.
      */
     public static boolean isBlockTypeUnique(final BlockType blockType) {
-        return uniqueBlockTypes.contains(blockType);
+        return UNIQUE_BLOCK_TYPES.contains(blockType);
     }
 }

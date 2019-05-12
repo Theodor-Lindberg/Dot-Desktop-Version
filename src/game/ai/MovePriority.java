@@ -1,6 +1,6 @@
-package game.AIMovement;
+package game.ai;
 
-import game.GameObjects.MovingObjects.Direction;
+import game.objects.movables.Direction;
 
 import java.util.Stack;
 
