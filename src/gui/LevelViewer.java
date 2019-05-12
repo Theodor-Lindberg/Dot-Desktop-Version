@@ -49,6 +49,9 @@ public class LevelViewer
 	BLOCK_COLOR_TABLE.put(BlockType.ENEMY, new Color(242, 0, 70, 255));
     }
 
+    /**
+     * @param level The level to show when starting.
+     */
     public LevelViewer(final Level level) {
 	this.level = level;
 	game = new Game(level);
@@ -78,6 +81,9 @@ public class LevelViewer
 	initializeGameLoop();
     }
 
+    /**
+     * Initialize the menu bar.
+     */
     private void initializeMenuBar() {
 	final JMenuBar menuBar = new JMenuBar();
 
@@ -92,7 +98,7 @@ public class LevelViewer
 	try {
 	    for (String defaultFile : FileHandler.getLevelsFromResources()) {
 		final JMenuItem defLevelItem = new JMenuItem(defaultFile);
-		defLevelItem.addActionListener(ev -> loadGame(defaultFile));
+		defLevelItem.addActionListener(ev -> showGame(defaultFile));
 		loadIncludedLevelItem.add(defLevelItem);
 	    }
 	}
@@ -100,7 +106,7 @@ public class LevelViewer
 	    Logger.log(java.util.logging.Level.SEVERE, getClass().getName(), "Could not list resource files.", e);
 	}
 
-	loadCustomLevelItem.addActionListener(ev -> loadGame(LevelChooser.chooseLevel()));
+	loadCustomLevelItem.addActionListener(ev -> showGame(LevelChooser.chooseLevel()));
 	editorItem.addActionListener(ev -> showLevelEditor());
 	exitItem.addActionListener(ev -> exit());
 
@@ -114,6 +120,9 @@ public class LevelViewer
 	frame.setJMenuBar(menuBar);
     }
 
+    /**
+     * Hook up keyboard events for controlling the game.
+     */
     private void addKeyboardEvents() {
 	JComponent pane = frame.getRootPane();
 
@@ -134,10 +143,20 @@ public class LevelViewer
 
 	in.put(KeyStroke.getKeyStroke("P"), "TogglePause");
 	act.put("TogglePause", new ToggleGamePause());
-	in.put(KeyStroke.getKeyStroke("R"), "RestartLevel");
-	act.put("RestartLevel", new RestartLevel());
+	in.put(KeyStroke.getKeyStroke("R"), "RestartGame");
+	act.put("RestartGame", new RestartGame());
     }
 
+    /**
+     * Hook up a keyboard event to move the player in the game.
+     *
+     * @param in 		The input map to put into.
+     * @param act		The action map to put into.
+     * @param key		The number of the key on the keyboard.
+     * @param onKeyRelease	True if the event should listens to key release.
+     * @param name		The name of the action in the input map.
+     * @param direction		The direction to move the player.
+     */
     private void addMotionEvent(final InputMap in, final ActionMap act, final int key, final boolean onKeyRelease, final String name, final Direction direction) {
 	in.put(KeyStroke.getKeyStroke(key, 0, onKeyRelease), name);
 	act.put(name, new MotionAction(name, direction, onKeyRelease));
@@ -172,12 +191,15 @@ public class LevelViewer
 	}
     }
 
-    private class RestartLevel extends AbstractAction {
+    private class RestartGame extends AbstractAction {
 	@Override public void actionPerformed(final ActionEvent e) {
-	    game.restartLevel();
+	    game.restart();
 	}
     }
 
+    /**
+     * Show the level editor and hook up mouse listeners for placing blocks.
+     */
     private void showLevelEditor() {
         game.setPaused(true);
 	levelEditor = new LevelEditor(level);
@@ -192,22 +214,28 @@ public class LevelViewer
 	frame.pack();
     }
 
-    private void loadGame(final String fileName) {
+    /**
+     * Start a new game and remove the level editor.
+     *
+     * @param fileName The name of the level to show.
+     */
+    private void showGame(final String fileName) {
 	if (fileName != null) {
 	    try {
 		level = new Level(fileName);
 		game = new Game(level);
+
 		frame.remove(levelComponent);
 		levelComponent = new GameComponent(game, BLOCK_COLOR_TABLE, BACKGROUND_COLOR);
 		game.addObserver(levelComponent);
 		frame.add(levelComponent);
-
 		try {
 		    frame.remove(levelEditor);
 		} catch (RuntimeException e) {
 		    Logger.log(java.util.logging.Level.FINE, this.getClass().getName(), "Tried to remove level editor component.", e);
 		}
 		frame.pack();
+
 	    } catch (Exception e) {
 		Logger.log(java.util.logging.Level.SEVERE, this.getClass().getName(), "Could not load level", e);
 		JOptionPane.showMessageDialog(frame, "Could not load level.", "Level load error", JOptionPane.ERROR_MESSAGE);
@@ -215,6 +243,9 @@ public class LevelViewer
 	}
     }
 
+    /**
+     * Ask if the user wants to exit the application, if yes exit.
+     */
     private void exit() {
 	if (JOptionPane.showConfirmDialog(frame, "Are you sure you want to close this window?", "Close Window?",
 					  JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
@@ -222,6 +253,9 @@ public class LevelViewer
 	}
     }
 
+    /**
+     * Initialize and start the game loop.
+     */
     private void initializeGameLoop() {
 	final Action gameTick = new AbstractAction()
 	{

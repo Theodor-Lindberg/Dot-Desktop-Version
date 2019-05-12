@@ -10,6 +10,9 @@ public enum BlockType
 
     public final boolean isSolid;
 
+    /**
+     * @param isSolid Set to True if these types of blocks should be solid, set to False otherwise.
+     */
     BlockType(final boolean isSolid) {
 	this.isSolid = isSolid;
     }

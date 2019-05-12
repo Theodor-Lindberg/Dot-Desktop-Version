@@ -5,5 +5,8 @@ package game;
  */
 public interface Tickable
 {
+    /**
+     * Update object.
+     */
     void tick();
 }

@@ -26,6 +26,11 @@ public class LevelComponent extends JComponent implements Observer
 	PADDING = 4;
     }
 
+    /**
+     * @param levelGrid 	The LevelGrid to draw.
+     * @param blockColorTable	The color scheme for the different block types.
+     * @param backgroundColor 	The background color of the level.
+     */
     public LevelComponent(final LevelGrid levelGrid, final EnumMap<BlockType, Color> blockColorTable, final Color backgroundColor) {
 	this.levelGrid = levelGrid;
 	this.blockColorTable = blockColorTable;
@@ -52,12 +57,28 @@ public class LevelComponent extends JComponent implements Observer
 	    }
     }
 
+    /**
+     * Draw a block with padded background.
+     *
+     * @param g2d 	The graphics object to draw with.
+     * @param blockType The type of block.
+     * @param x 	The x coordinate of the block.
+     * @param y 	The y coordinate of the block.
+     */
     protected void drawBackWithPadding(final Graphics2D g2d, final BlockType blockType, final int x, final int y) {
 	g2d.setColor(backgroundColor);
 	g2d.fillRect(x * BLOCK_SIZE, y * BLOCK_SIZE, BLOCK_SIZE + PADDING, BLOCK_SIZE + PADDING);
 	drawBlock(g2d, blockColorTable.get(blockType), x, y);
     }
 
+    /**
+     * Draw a block.
+     *
+     * @param g2d 	The graphics object to draw with.
+     * @param color 	The color to draw,
+     * @param x 	The x coordinate of the block.
+     * @param y 	The y coordinate of the block.
+     */
     protected void drawBlock(final Graphics2D g2d, final Color color, final float x, final float y) {
 	g2d.setColor(color);
 	g2d.fillRect((int)(x * BLOCK_SIZE) + PADDING, (int)(y * BLOCK_SIZE + PADDING), BLOCK_SIZE - PADDING, BLOCK_SIZE - PADDING);

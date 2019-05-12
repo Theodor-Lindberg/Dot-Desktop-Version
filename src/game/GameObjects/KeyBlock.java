@@ -15,9 +15,14 @@ import java.util.LinkedList;
 public class KeyBlock extends Block implements Interactable
 {
     private final BlockType targetBlock;
-    private Game game;
+    private final Game game;
     private final GameKey gameKey;
 
+    /**
+     * @param targetBlock 	The type of blocks to remove.
+     * @param game 		The reference to the Game.
+     * @param gameKey 		The reference to the GameKey of the game.
+     */
     public KeyBlock(final BlockType targetBlock, final Game game, final GameKey gameKey) {
 	super(BlockType.KEY);
 	this.targetBlock = targetBlock;
@@ -36,7 +41,12 @@ public class KeyBlock extends Block implements Interactable
 	}
     }
 
-    // The algorithm was remade from Stackoverflow answer nr 2 https://stackoverflow.com/questions/2783204/flood-fill-using-a-stack/2783341#2783341
+    /**
+     * Remove all reachable target blocks.
+     *
+     * @param x Starting x-position.
+     * @param y Starting y-position.
+     */
     private void borrowedcode_removeTargetBlocks(final int x, final int y) {
         final boolean[][] visited = new boolean[game.getHeight()][game.getWidth()];
 
@@ -57,7 +67,16 @@ public class KeyBlock extends Block implements Interactable
         }
     }
 
-    private boolean borrowedcode_removeBlock(boolean[][] visited, final int x, final int y) {
+    /**
+     * Try to remove a block from the level.
+     *
+     * @param visited 	All visited position.
+     * @param x 	Current x-position.
+     * @param y 	Current y-position.
+     *
+     * @return 		True if a block was removed.
+     */
+    private boolean borrowedcode_removeBlock(final boolean[][] visited, final int x, final int y) {
         if (y < 0 || x < 0 || y > game.getHeight() - 1 || x > game.getWidth() - 1) {
             return false;
 	}

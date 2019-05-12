@@ -48,18 +48,49 @@ public final class FileHandler
     private FileHandler() {
     }
 
+    /**
+     * Read a level from a file or resource folder. If the file name exists in the resource folder and the file system,
+     * the level in the resource folder will be prioritized.
+     *
+     * @param fileName 	The name of the file to read.
+     *
+     * @return 		An 2D array of the blocks read from the file.
+     * @throws IOException
+     */
     public static Block[][] readLevel(final String fileName) throws IOException {
         return (isResourceLevel(fileName)) ? readLevelFromResources(fileName) : readLevelFromFile(fileName);
     }
 
+    /**
+     * Read a level from a file on the local file system of the computer.
+     *
+     * @param fileName 	The name of the file to read.
+     *
+     * @return 		An 2D array of the blocks read from the file.
+     * @throws IOException
+     */
     private static Block[][] readLevelFromFile(final String fileName) throws IOException {
 	return interpretJsonData(Files.readString(Paths.get(fileName)));
     }
 
+    /**
+     * Check if a file exists in the resource folder.
+     *
+     * @param fileName 	The name of the file to check.
+     *
+     * @return 		True if the file is found in the resource folder.
+     */
     private static boolean isResourceLevel(final String fileName) {
 	return ClassLoader.getSystemClassLoader().getResource(RESOURCE_DIRECTORY + LevelChooser.addFileExtension(fileName)) != null;
     }
 
+    /**
+     * Read a level from a resource file.
+     *
+     * @param fileName 	The name of the file to read from.
+     *
+     * @return 		An 2D array of the blocks read from the file.
+     */
     private static Block[][] readLevelFromResources(String fileName) {
         fileName = RESOURCE_DIRECTORY + LevelChooser.addFileExtension(fileName);
 
@@ -73,12 +104,27 @@ public final class FileHandler
 	return null;
     }
 
-    private static Block[][] interpretJsonData(final String content) {
+    /**
+     * Convert JSON data to a 2D array of blocks.
+     *
+     * @param jsonData 	The JSON data to interpret.
+     *
+     * @return 		An 2D array of the blocks.
+     */
+    private static Block[][] interpretJsonData(final String jsonData) {
 	final Gson gson = new GsonBuilder().registerTypeAdapterFactory(
 		TYPE_FACTORY).registerTypeAdapterFactory(getInterfaceTypeAdapterFactory()).setPrettyPrinting().create();
-	return gson.fromJson(content, Block[][].class);
+	return gson.fromJson(jsonData, Block[][].class);
     }
 
+    /**
+     * Save a 2D array of blocks to a file in JSON format.
+     *
+     * @param fileName 	The name of the file to save to.
+     * @param blocks 	The 2D array of blocks to save.
+     *
+     * @throws FileNotFoundException
+     */
     public static void saveLevel(final String fileName, final Block[][] blocks) throws FileNotFoundException {
 	final Gson gson = new GsonBuilder().registerTypeAdapterFactory(
 		TYPE_FACTORY).registerTypeAdapterFactory(getInterfaceTypeAdapterFactory()).create();
@@ -88,10 +134,24 @@ public final class FileHandler
 	}
     }
 
+    /**
+     * Get a list of all the names of the levels in the resource folder.
+     *
+     * @return A list of level names.
+     * @throws IOException
+     * @throws URISyntaxException
+     */
     public static List<String> getLevelsFromResources() throws IOException, URISyntaxException {
         return borrowcode_getLevelsFromResources();
     }
 
+    /**
+     * Get a list of all the names of the levels in the resource folder.
+     *
+     * @return A list of level names.
+     * @throws IOException
+     * @throws URISyntaxException
+     */
     private static List<String> borrowcode_getLevelsFromResources() throws IOException, URISyntaxException {
 	final List<String> levelsFound = new ArrayList<>();
 

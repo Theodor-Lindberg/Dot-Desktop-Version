@@ -1,7 +1,6 @@
 package game.GameObjects.MovingObjects;
 
 import game.Game;
-import game.Game.GameKey;
 import game.GameObjects.BlockType;
 import game.AIMovement.MovePriority;
 import util.Point2D;
@@ -12,26 +11,50 @@ import util.Point2D;
 public class Player extends Movable
 {
     private final MovePriority movePriority;
-    private final GameKey gameKey;
 
-    public Player(final Point2D position, final Speed speed, final Game game, final GameKey gameKey) {
+    /**
+     * @param position The start position of the player.
+     * @param speed The movement speed.
+     * @param game The reference to the Game.
+     */
+    public Player(final Point2D position, final Speed speed, final Game game) {
 	super(BlockType.PLAYER, position, speed, null, game);
-	this.gameKey = gameKey;
 	movePriority = new MovePriority();
     }
 
+    /**
+     * Construct a new Player object based on another one but with a new reference to Game.
+     *
+     * @param clone 	The Player object to clone.
+     * @param game	The reference to the Game.
+     */
+    public Player(final Player clone, final Game game) {
+        super(clone.getBlockType(), new Point2D(clone.getX(), clone.getY()), clone.getSpeed(), null, game);
+	movePriority = new MovePriority();
+    }
+
+    /**
+     * Prepare the Player to move on the next tick.
+     *
+     * @param direction The direction to move.
+     */
     public void move(final Direction direction) {
         movePriority.addDirection(direction);
         setMoving(true);
-        if (getDirection() == null) {
-            setDirection(direction);
-	}
     }
 
+    /**
+     * Remove a direction from being evaluated when choosing prioritized direction.
+     *
+     * @param direction The direction to release.
+     */
     public void releaseDirection(final Direction direction) {
         movePriority.releaseDirection(direction);
     }
 
+    /**
+     * Set the direction to move.
+     */
     private void setDirection() {
         if (isBlockReached()) {
 	    final Direction old = getDirection();
@@ -42,8 +65,7 @@ public class Player extends Movable
 	    if (getDirection() == null) {
 	        setDirection(old);
 	    }
-	    addXTargetPosition(getDirection().deltaX);
-	    addYTargetPosition(getDirection().deltaY);
+	    updateTargetPosition(getDirection());
 	}
     }
 
@@ -65,7 +87,7 @@ public class Player extends Movable
     @Override public void interact(final Movable movingObject) {
         if (!getGame().isLevelCompleted()) {
 	    if (movingObject.getBlockType() == BlockType.ENEMY) {
-		getGame().playerDied(gameKey);
+		getGame().restart();
 	    }
 	}
     }

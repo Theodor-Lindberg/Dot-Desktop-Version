@@ -22,10 +22,23 @@ public class EnemyFactory
 
     private final Game game;
 
+    /**
+     * @param game The reference to the Game object for Enemies to have when created or copied.
+     */
     public EnemyFactory(final Game game) {
         this.game = game;
     }
 
+    /**
+     * Create an Enemy.
+     *
+     * @param position 		The start position.
+     * @param startDirection 	The direction to face when starting.
+     * @param speed 		The movement speed.
+     * @param ai 		The type of AI.
+     *
+     * @return An Enemy object
+     */
     public Enemy createEnemy(final Point2D position, final Direction startDirection, final Speed speed, final EnemyAI ai) {
 	switch (ai) {
 	    case BASIC_TURN_LEFT:
@@ -37,5 +50,15 @@ public class EnemyFactory
 	    default:
 		return null;
 	}
+    }
+
+    /**
+     * Create a copy of an enemy object with a new reference to the Game object.
+     * @param enemy The enemy to copy.
+     *
+     * @return A copy of the enemy.
+     */
+    public Enemy copyEnemy(final Enemy enemy) {
+        return new Enemy(enemy, game);
     }
 }

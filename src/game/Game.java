@@ -6,6 +6,7 @@ import game.GameObjects.EndBlock;
 import game.GameObjects.KeyBlock;
 import game.GameObjects.MovingObjects.Direction;
 import game.GameObjects.MovingObjects.Enemy;
+import game.GameObjects.MovingObjects.EnemyFactory;
 import game.GameObjects.MovingObjects.Movable;
 import game.GameObjects.MovingObjects.Player;
 import util.Point2D;
@@ -41,28 +42,35 @@ public class Game extends Observable implements Tickable, LevelGrid
     {
     }
 
+    /**
+     * @param level The level to play.
+     */
     public Game(final Level level) {
         super();
         this.level = level;
 	gameKey = new GameKey();
-	restartLevel();
+	restart();
     }
 
-    public void restartLevel() {
+    /**
+     * Restarts the game and resets the level.
+     */
+    public void restart() {
 	levelRestarted = true;
 	levelCompleted = false;
 	blocks = new Block[level.getHeight()][level.getHeight()];
 	movingObjects = new ArrayList<>();
+	final EnemyFactory enemyFactory = new EnemyFactory(this);
 
 	for (int y = 0; y < level.getHeight(); y++) {
 	    for (int x = 0; x < level.getWidth(); x++) {
 		final Block block = level.getBlockAt(x, y);
 		if (block.getBlockType() == BlockType.PLAYER) {
-		    player = new Player(new Point2D(x, y), ((Player) block).getSpeed(), this, gameKey);
+		    player = new Player((Player)block, this);
 		    movingObjects.add(player);
 		    insertBlockAt(x, y, new Block(BlockType.EMPTY));
 		} else if (block.getBlockType() == BlockType.ENEMY) {
-		    movingObjects.add(new Enemy((Enemy) block, this));
+		    movingObjects.add(enemyFactory.copyEnemy((Enemy)block));
 		    insertBlockAt(x, y, new Block(BlockType.EMPTY));
 		} else if (block.getBlockType() == BlockType.KEY) {
 		    insertBlockAt(x, y, new KeyBlock(((KeyBlock) block).getTargetBlock(), this, gameKey));
@@ -114,11 +122,25 @@ public class Game extends Observable implements Tickable, LevelGrid
 	this.paused = paused;
     }
 
+    /**
+     * Get the iterator for all moving objects in the game.
+     *
+     * @return	Iterator moving objects.
+     */
     public Iterator<Movable> getMovingObjectsIterator() {
         return movingObjects.iterator();
     }
 
-    public Block getCollidingEntity(final Block block, final float x, final float y) {
+    /**
+     * Check which entity the moving object collides with.
+     *
+     * @param block 	The moving object.
+     * @param 		x The x coordinate of the collision.
+     * @param		y TThe y coordinate of the collision.
+     *
+     * @return 		The block that it collides with.
+     */
+    public Block getCollidingEntity(final Movable block, final float x, final float y) {
 	for (Movable movingObject : movingObjects) {
 	    if (block != movingObject && Math.abs(movingObject.getX() - x) < 1 && Math.abs(movingObject.getY() - y) < 1) { // Ignore the warning since reference comparison is intended.
 	        return movingObject;
@@ -128,13 +150,25 @@ public class Game extends Observable implements Tickable, LevelGrid
         return getBlockAt((int)x, (int)y);
     }
 
+    /**
+     * Replace a block at a coordinate with an empty block.
+     *
+     * @param gameKey	The reference to the GameKey of the game.
+     * @param x 	The x coordinate.
+     * @param y 	The y coordinate.
+     */
     public void removeBlockAt(final GameKey gameKey, final int x, final int y) {
         if (gameKey == this.gameKey) { // Only accept the instance that the level itself created, warning is ignored.
 	    insertBlockAt(x, y, new Block(BlockType.EMPTY));
 	}
     }
 
-    public void completeLevel(final GameKey gameKey) {
+    /**
+     * Set the level to complete.
+     *
+     * @param gameKey	he reference to the GameKey of the game.
+     */
+    public void setLevelCompleted(final GameKey gameKey) {
         if (gameKey == this.gameKey) { // Only accept the instance that the level itself created, warning is ignored.
 	    levelCompleted = true;
 	}
@@ -144,22 +178,41 @@ public class Game extends Observable implements Tickable, LevelGrid
         return levelCompleted;
     }
 
+    /**
+     * Insert a block on a coordinate.
+     *
+     * @param x		Coordinate on the x-axis
+     * @param y		Coordinate on the y-axis
+     * @param block	The block to insert
+     */
     private void insertBlockAt(final int x, final int y, final Block block) {
 	blocks[y][x] = block;
     }
 
-    public void playerDied(final GameKey gameKey) {
-        if (gameKey == this.gameKey) { // Only accept the instance that the level itself created, warning is ignored.
-	    restartLevel();
-	}
-    }
-
+    /**
+     * Prepare the Player to move on the next tick.
+     *
+     * @param direction	The direction to move.
+     */
     public void movePlayer(final Direction direction) {
         player.move(direction);
     }
 
+
+    /**
+     * Remove a direction from being evaluated when moving the player.
+     *
+     * @param direction	The direction to release.
+     */
     public void removeDirection(final Direction direction) { player.releaseDirection(direction); }
 
+    /**
+     * Check if a block type is unique in the game.
+     *
+     * @param blockType	The block type to check.
+     *
+     * @return		True if the block type is unique.
+     */
     public static boolean isBlockTypeUnique(final BlockType blockType) {
         return uniqueBlockTypes.contains(blockType);
     }

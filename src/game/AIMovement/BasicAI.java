@@ -14,6 +14,11 @@ public class BasicAI implements AIMovement
 
     private TurnDirection turnDirection;
 
+    /**
+     * Constructs a BasicAI object.
+     *
+     * @param turnDirection The direction to turn when colliding.
+     */
     public BasicAI(final TurnDirection turnDirection) {
 	this.turnDirection = turnDirection;
     }
@@ -33,8 +38,7 @@ public class BasicAI implements AIMovement
 	    movingObject.setDirection(Direction.turn(movingObject.getDirection(), turnDirection == TurnDirection.LEFT));
 	}
 
-	movingObject.addXTargetPosition(movingObject.getDirection().deltaX);
-	movingObject.addYTargetPosition(movingObject.getDirection().deltaY);
+	movingObject.updateTargetPosition(movingObject.getDirection());
 
 	if (movingObject.willCollide()) {
 	    movingObject.setMoving(false);

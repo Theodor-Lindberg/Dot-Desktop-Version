@@ -5,5 +5,8 @@ package util;
  */
 public interface Observer
 {
+    /**
+     * Update because the observable has notified.
+     */
     void observableUpdated();
 }

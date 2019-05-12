@@ -14,6 +14,11 @@ public class Level extends Observable implements LevelGrid
 {
     private Block[][] blocks;
 
+    /**
+     * @param fileName 		The name of the file to read from.
+     *
+     * @throws IOException 	Throws if the file could not be read.
+     */
     public Level(final String fileName) throws IOException {
 	blocks = FileHandler.readLevel(fileName);
     }
@@ -26,6 +31,13 @@ public class Level extends Observable implements LevelGrid
 	return blocks.length;
     }
 
+    /**
+     * Insert a block on a coordinate.
+     *
+     * @param x 	Coordinate on the x-axis
+     * @param y 	Coordinate on the y-axis
+     * @param block 	The block to insert
+     */
     public void insertBlockAt(final int x, final int y, final Block block) {
 	blocks[y][x] = block;
 	notifyObservers();
@@ -36,9 +48,11 @@ public class Level extends Observable implements LevelGrid
     }
 
     /**
-     * @param fileName The name of the file to save to.
+     * Save level information to a file.
      *
-     * @throws FileNotFoundException
+     * @param fileName 			The name of the file to save to.
+     *
+     * @throws FileNotFoundException 	Throws if the file name is not found.
      */
     public void saveToFile(final String fileName) throws FileNotFoundException {
 	FileHandler.saveLevel(fileName, blocks);

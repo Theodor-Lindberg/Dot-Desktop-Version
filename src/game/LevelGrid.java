@@ -7,6 +7,14 @@ import game.GameObjects.Block;
  */
 public interface LevelGrid
 {
+    /**
+     * Get the block at a coordinate.
+     *
+     * @param x The x coordinate.
+     * @param y The y coordinate.
+     *
+     * @return  The block on that coordinate.
+     */
     Block getBlockAt(final int x, final int y);
 
     int getWidth();

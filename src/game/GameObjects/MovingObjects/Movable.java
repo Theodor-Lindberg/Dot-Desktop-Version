@@ -30,6 +30,13 @@ public abstract class Movable extends Block implements Tickable, Interactable
     private Point2D targetPosition;
     private final Game game;
 
+    /**
+     * @param blockType 	The type of Block to create.
+     * @param position 		The start position of the object.
+     * @param speed 		The movement speed.
+     * @param startDirection 	The direction to face when starting.
+     * @param game 		The reference to the Game object.
+     */
     protected Movable(final BlockType blockType, final Point2D position, final Speed speed, final Direction startDirection, final Game game) {
 	super(blockType);
 	this.position = position;
@@ -85,14 +92,21 @@ public abstract class Movable extends Block implements Tickable, Interactable
 	return targetPosition.getY();
     }
 
-    public void addXTargetPosition(final float dx) {
-	targetPosition.addX(dx);
+    /**
+     * Update the target position to a new position.
+     *
+     * @param direction The facing direction.
+     */
+    public void updateTargetPosition(final Direction direction) {
+	targetPosition.addX(direction.deltaX);
+	targetPosition.addY(direction.deltaY);
     }
 
-    public void addYTargetPosition(final float dy) {
-	targetPosition.addY(dy);
-    }
-
+    /**
+     * Check if the next movement results in a collision.
+     *
+     * @return True if there will be a collision.
+     */
     public boolean willCollide() {
         if (direction == null){
 	    return true;
@@ -103,6 +117,9 @@ public abstract class Movable extends Block implements Tickable, Interactable
         return game.getCollidingEntity(this, x, y).isSolid();
     }
 
+    /**
+     * Reset the position to a integer value and reset the target position.
+     */
     public void resetPositionAndTarget() {
 	position.setX((int)position.getX());
 	position.setY((int)position.getY());
@@ -110,6 +127,11 @@ public abstract class Movable extends Block implements Tickable, Interactable
         targetPosition.setY(position.getY());
     }
 
+    /**
+     * Calculate if the target block has been reached.
+     *
+     * @return True if the block is reached.
+     */
     private boolean hasReachedBlock() {
 	if (direction == Direction.RIGHT) if (position.getX() > targetPosition.getX()) return true;
 	if (direction == Direction.DOWN) if (position.getY() > targetPosition.getY()) return true;
@@ -118,6 +140,9 @@ public abstract class Movable extends Block implements Tickable, Interactable
 	return false;
     }
 
+    /**
+     * Try to move one step forward.
+     */
     public void move() {
 	if (willCollide()) {
 	    handleCollision();
@@ -127,8 +152,8 @@ public abstract class Movable extends Block implements Tickable, Interactable
 	    position.setX(position.getX() + direction.deltaX * speed.value);
 	    position.setY(position.getY() + direction.deltaY * speed.value);
 
-	    if (hasReachedBlock()) {
-		blockReached = true;
+	    blockReached = hasReachedBlock();
+	    if (blockReached) {
 
 		if (direction == Direction.RIGHT || direction == Direction.DOWN) {
 		    position.setX((int) position.getX());
@@ -138,17 +163,17 @@ public abstract class Movable extends Block implements Tickable, Interactable
 		    position.setY((int) targetPosition.getY());
 		}
 
-	    } else {
-		blockReached = false;
 	    }
 
 		final Block block = game.getCollidingEntity(this, position.getX(), position.getY());
 		if (block instanceof Interactable) {
 		    ((Interactable) block).interact(this);
 		}
-
 	}
     }
 
+    /**
+     * Handle an upcoming collision.
+     */
     protected abstract void handleCollision();
 }

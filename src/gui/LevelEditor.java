@@ -37,6 +37,9 @@ public class LevelEditor extends JPanel
     private final FittedComboBox<Direction> directionBox;
     private final List<BlockType> uniqueBlocksPlaced;
 
+    /**
+     * @param level The level to edit.
+     */
     public LevelEditor(final Level level) {
 	this.level = level;
 	uniqueBlocksPlaced = findUniqueBlocksPlaced(level);
@@ -53,6 +56,9 @@ public class LevelEditor extends JPanel
 	setMaximumSize( this.getPreferredSize() );
     }
 
+    /**
+     * Set up the clear and save button.
+     */
     private void setupButtons() {
 	final JButton clearButton = new JButton("Clear level");
 	clearButton.addActionListener(e -> clearLevel());
@@ -63,6 +69,9 @@ public class LevelEditor extends JPanel
 	addComponent(saveButton);
     }
 
+    /**
+     * Set the combo boxes for choosing blocks and labels with helping descriptions.
+     */
     private void addComboBoxes() {
         addComponent(new JLabel("Block Type:"));
 	addComponent(blockTypeBox);
@@ -76,11 +85,19 @@ public class LevelEditor extends JPanel
 	addComponent(directionBox);
     }
 
+    /**
+     * Add a child component with left alignment to the LevelEditor.
+     *
+     * @param component The component to add.
+     */
     private void addComponent(final JComponent component) {
         component.setAlignmentX(Component.LEFT_ALIGNMENT);
         this.add(component);
     }
 
+    /**
+     * Fill the entire level with empty blocks.
+     */
     private void clearLevel() {
 	for (int x = 0; x < level.getWidth(); x++) {
 	    for (int y = 0; y < level.getHeight(); y++) {
@@ -90,6 +107,9 @@ public class LevelEditor extends JPanel
 	uniqueBlocksPlaced.clear();
     }
 
+    /**
+     * Let user save the level to a file which they choose.
+     */
     private void saveLevel() {
 	final String fileName = LevelChooser.saveLevelTo();
 	if (fileName != null) {
@@ -106,6 +126,13 @@ public class LevelEditor extends JPanel
 	}
     }
 
+    /**
+     * Find all the unique blocks exists in the level.
+     *
+     * @param level 	The level search in.
+     *
+     * @return 		A list of all the unique blocks that exists in the level.
+     */
     private List<BlockType> findUniqueBlocksPlaced(final Level level) {
         final List<BlockType> uniqueBlocksPlaced = new ArrayList<>();
 	for (BlockType blockType : BlockType.values()) {
@@ -116,6 +143,14 @@ public class LevelEditor extends JPanel
 	return uniqueBlocksPlaced;
     }
 
+    /**
+     * Check if a certain block type exists in the level.
+     *
+     * @param level 	The level to search in.
+     * @param blockType The type of block to search for.
+     *
+     * @return 		True if the block type exists in the level.
+     */
     private boolean isBlockTypePlaced(final Level level, final BlockType blockType) {
 	for (int y = 0; y < level.getHeight(); y++) {
 	    for (int x = 0; x < level.getHeight(); x++) {
@@ -127,50 +162,72 @@ public class LevelEditor extends JPanel
 	return false;
     }
 
+    /**
+     * Calculate the coordinate of the block that was clicked on.
+     *
+     * @param mouseX 	The x coordinate of the mouse press.
+     * @param mouseY 	The y coordinate of the mouse press.
+     *
+     * @return 		The coordinate of the block which was clicked on.
+     */
     private Point convertToBlockPosition(final int mouseX, final int mouseY) {
         return new Point(mouseX / LevelComponent.BLOCK_SIZE, mouseY / LevelComponent.BLOCK_SIZE);
     }
 
-    private void placeBlock(final int x, final int y, final Boolean remove) {
+    /**
+     * Place a block in the level.
+     *
+     * @param x 	The x coordinate of the mouse press relative to the component.
+     * @param y 	The y coordinate of the mouse press relative to the component.
+     * @param blockType The block type to place.
+     */
+    private void placeBlock(final int x, final int y, final BlockType blockType) {
 	final Point blockPosition = convertToBlockPosition(x, y);
 	if (blockPosition.x >= 0 && blockPosition.x < level.getWidth() && blockPosition.y >= 0 && blockPosition.y < level.getHeight()) {
-	    if (remove) {
-		uniqueBlocksPlaced.remove(level.getBlockAt(blockPosition.x, blockPosition.y).getBlockType());
-		level.insertBlockAt(blockPosition.x, blockPosition.y, new Block(EMPTY));
-	    } else {
-		final BlockType blockType = (BlockType) blockTypeBox.getSelectedItem();
-		if (!uniqueBlocksPlaced.contains(blockType)) {
-		    if (Game.isBlockTypeUnique(blockType)) {
-		        uniqueBlocksPlaced.add(blockType);
-		    }
+	    if (!uniqueBlocksPlaced.contains(blockType)) {
+		if (Game.isBlockTypeUnique(blockType)) {
+		    uniqueBlocksPlaced.add(blockType);
+		}
 
-		    if (blockType == KEY) {
-			final KeyBlock block = new KeyBlock((BlockType) keyTargetTypeBox.getSelectedItem(), null, null);
-			level.insertBlockAt(blockPosition.x, blockPosition.y, block);
-		    } else if (blockType == ENEMY) {
-			final EnemyFactory enemyFactory = new EnemyFactory(null);
-			final Enemy enemy = enemyFactory.createEnemy(new Point2D(blockPosition.x, blockPosition.y), (Direction) directionBox.getSelectedItem(),
-								     (Speed) speedBox.getSelectedItem(), (EnemyAI) aiBox.getSelectedItem());
-			level.insertBlockAt(blockPosition.x, blockPosition.y, enemy);
-		    } else if (blockType == PLAYER) {
-			final Player player = new Player(new Point2D(blockPosition.x, blockPosition.y), (Speed) speedBox.getSelectedItem(),
-							 null, null);
-			level.insertBlockAt(blockPosition.x, blockPosition.y, player);
-		    } else {
-			level.insertBlockAt(blockPosition.x, blockPosition.y, new Block((BlockType) blockTypeBox.getSelectedItem()));
-		    }
+		if (blockType == KEY) {
+		    final KeyBlock block = new KeyBlock((BlockType) keyTargetTypeBox.getSelectedItem(), null, null);
+		    level.insertBlockAt(blockPosition.x, blockPosition.y, block);
+		} else if (blockType == ENEMY) {
+		    final EnemyFactory enemyFactory = new EnemyFactory(null);
+		    final Enemy enemy = enemyFactory.createEnemy(new Point2D(blockPosition.x, blockPosition.y), (Direction) directionBox.getSelectedItem(),
+								 (Speed) speedBox.getSelectedItem(), (EnemyAI) aiBox.getSelectedItem());
+		    level.insertBlockAt(blockPosition.x, blockPosition.y, enemy);
+		} else if (blockType == PLAYER) {
+		    final Player player =
+			    new Player(new Point2D(blockPosition.x, blockPosition.y), (Speed) speedBox.getSelectedItem(), null);
+		    level.insertBlockAt(blockPosition.x, blockPosition.y, player);
+		} else {
+		    level.insertBlockAt(blockPosition.x, blockPosition.y, new Block(blockType));
 		}
 	    }
 	}
     }
 
+    /**
+     * Listens for mouse events.
+     */
     public class BlockPlacer extends MouseAdapter {
 	@Override public void mouseClicked(final MouseEvent e) {
-	    placeBlock(e.getX(), e.getY(), Boolean.valueOf(SwingUtilities.isRightMouseButton(e)));
+	    if (Boolean.valueOf(SwingUtilities.isRightMouseButton(e))) {
+		placeBlock(e.getX(), e.getY(), EMPTY);
+	    }
+	    else {
+		placeBlock(e.getX(), e.getY(), (BlockType) blockTypeBox.getSelectedItem());
+	    }
 	}
 
 	@Override public void mouseDragged(final MouseEvent e) {
-	    placeBlock(e.getX(), e.getY(), Boolean.valueOf(SwingUtilities.isRightMouseButton(e)));
+	    if (Boolean.valueOf(SwingUtilities.isRightMouseButton(e))) {
+		placeBlock(e.getX(), e.getY(), EMPTY);
+	    }
+	    else {
+		placeBlock(e.getX(), e.getY(), (BlockType) blockTypeBox.getSelectedItem());
+	    }
 	}
     }
 }

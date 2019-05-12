@@ -10,6 +10,11 @@ import java.awt.Dimension;
  */
 public class FittedComboBox<E> extends JComboBox<E>
 {
+    /**
+     * Constructs a FittedComboBox that contains the elements specified.
+     *
+     * @param items An array of the items to insert.
+     */
     public FittedComboBox(final E[] items) {
 	super(items);
     }

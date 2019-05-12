@@ -7,5 +7,10 @@ import game.GameObjects.MovingObjects.Movable;
  */
 public interface Interactable
 {
+    /**
+     * Interact with a moving object.
+     *
+     * @param movingObject The moving object to interact with.
+     */
     void interact(final Movable movingObject);
 }

@@ -15,10 +15,25 @@ public enum Direction
         this.deltaY = deltaY;
     }
 
+    /**
+     * Get the opposite direction of another direction.
+     *
+     * @param direction The direction to get opposite of.
+     *
+     * @return          The opposite direction.
+     */
     public static Direction getOppositeDirection(final Direction direction) {
         return toDirection(direction.deltaX * -1, direction.deltaY * -1);
     }
 
+    /**
+     * Calculate the new direction after either turning left or right.
+     *
+     * @param facingDirection   The facing direction of the object.
+     * @param turnLeft          If set to true a left turn is made otherwise a right turn is made.
+     *
+     * @return                  The new direction after turning.
+     */
     public static Direction turn(final Direction facingDirection, final boolean turnLeft) {
         Direction newDirection = null;
 
@@ -42,7 +57,15 @@ public enum Direction
         return newDirection;
     }
 
-    public static Direction toDirection(final int deltaX, final int deltaY) {
+    /**
+     * Convert a direction on the x and y axis to the corresponding direction.
+     *
+     * @param deltaX   The direction on the x-axis.
+     * @param deltaY   The direction on the y-axis.
+     *
+     * @return         The corresponding direction.
+     */
+    private static Direction toDirection(final int deltaX, final int deltaY) {
         if (deltaX == Direction.DOWN.deltaX && deltaY == Direction.DOWN.deltaY) {
             return Direction.DOWN;
         } else if (deltaX == Direction.UP.deltaX && deltaY == Direction.UP.deltaY) {

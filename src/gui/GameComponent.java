@@ -14,7 +14,7 @@ import java.util.Iterator;
  */
 public class GameComponent extends LevelComponent
 {
-    private Game game;
+    private final Game game;
 
     private final static String VICTORY_TEXT;
     private final static Font VICTORY_TEXT_FONT;
@@ -26,6 +26,11 @@ public class GameComponent extends LevelComponent
 	VICTORY_TEXT_FONT = new Font(Font.SANS_SERIF, Font.BOLD, 70);
     }
 
+    /**
+     * @param game 		The Game to draw.
+     * @param blockColorTable 	The color scheme for the blocks.
+     * @param backgroundColor 	The background color of the game.
+     */
     public GameComponent(final Game game, final EnumMap<BlockType, Color> blockColorTable, final Color backgroundColor)
     {
 	super(game, blockColorTable, backgroundColor);
@@ -57,6 +62,11 @@ public class GameComponent extends LevelComponent
 	drawBlock(g2d, color, x, y);
     }
 
+    /**
+     * Show the victory text on the screen.
+     *
+     * @param g2d The graphics object to draw with.
+     */
     private void showVictoryText(final Graphics2D g2d) {
 	g2d.setColor(Color.white);
 	g2d.setFont(VICTORY_TEXT_FONT);
